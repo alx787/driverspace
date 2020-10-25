@@ -1,0 +1,13 @@
+CREATE DATABASE drvspacedb CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+GRANT ALL PRIVILEGES ON drvspacedb.* TO 'drvuser'@'localhost' IDENTIFIED BY 'drvpass';
+
+
+CREATE TABLE drvspacedb.users (
+	id INT (10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	tabnomer INT(4) DEFAULT 0 NOT NULL,
+	name VARCHAR (100) DEFAULT '' NOT NULL,
+	token VARCHAR (64) DEFAULT '' NOT NULL,
+	comment VARCHAR (100) DEFAULT '' NOT NULL,
+	PRIMARY KEY (id)
+)  ENGINE = INNODB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci
