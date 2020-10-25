@@ -12,6 +12,9 @@ public class User {
     private String token;
     private String comment;
 
+    public User() {
+    }
+
     public User(int id, String tabnomer, String name, String token, String comment) {
         this.id = id;
         this.tabnomer = tabnomer;
@@ -19,6 +22,14 @@ public class User {
         this.token = token;
         this.comment = comment;
     }
+
+    public User(String tabnomer, String name, String token, String comment) {
+        this.tabnomer = tabnomer;
+        this.name = name;
+        this.token = token;
+        this.comment = comment;
+    }
+
 
     @Id
     @Column(name = "id", nullable = false)
