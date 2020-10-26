@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface UserDao {
     List<User> findAll();
-    void create(User user);
-//    User findById(int id);
-//    User save(User user);
+    User create(User user);
+    User findById(int id);
+    User findByTabnom(String tabnomer);
+    void update(User user);
 //    void delete(User user);
 }

@@ -21,4 +21,11 @@ public class UserService {
         userDao.create(user);
     }
 
+    public User findByTabnom(String tabnomer) {
+        return userDao.findByTabnom(tabnomer);
+    }
+
+    public void update(User user) {
+        userDao.update(user);
+    }
 }

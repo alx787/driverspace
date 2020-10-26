@@ -5,7 +5,7 @@ GRANT ALL PRIVILEGES ON drvspacedb.* TO 'drvuser'@'localhost' IDENTIFIED BY 'drv
 
 CREATE TABLE drvspacedb.users (
 	id INT (10) UNSIGNED NOT NULL AUTO_INCREMENT,
-	tabnomer INT(4) DEFAULT 0 NOT NULL,
+	tabnomer VARCHAR(4) DEFAULT '' NOT NULL,
 	name VARCHAR (100) DEFAULT '' NOT NULL,
 	token VARCHAR (64) DEFAULT '' NOT NULL,
 	comment VARCHAR (100) DEFAULT '' NOT NULL,
