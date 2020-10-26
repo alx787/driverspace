@@ -1,5 +1,6 @@
 package ru.ath.alx.driverspace.dao;
 
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -36,9 +37,12 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User create(User user) {
         Session session = sessionFactory.openSession();
+//        Transaction tx = session.beginTransaction();
         session.beginTransaction();
         session.save(user);
+//        tx.commit();
         session.getTransaction().commit();
+        session.close();
         return user;
     }
 
@@ -71,6 +75,7 @@ public class UserDaoImpl implements UserDao {
         session.beginTransaction();
         session.update(user);
         session.getTransaction().commit();
+        session.close();
     }
 //
 //    @Override

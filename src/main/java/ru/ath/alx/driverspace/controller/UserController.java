@@ -68,7 +68,9 @@ public class UserController {
         String data = "{\"tabnomer\": \"" + authRequest.getTabnomer() + "\",\"password\": \"" + authRequest.getPassword() + "\"}";
 
         // ответ от автотранспорта
-        String atAnswer = WebRequestUtil.sendRequest(url, "post", data);
+//        String atAnswer = WebRequestUtil.sendRequest(url, "post", data);
+        String atAnswer = "{\"status\": \"ok\", \"fio\": \"Сайфутдинов Расим Рашидович\"}";
+
 
         // ответ клиенту
 
@@ -119,7 +121,8 @@ public class UserController {
             // шаблон форматирования
             SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd - HH:mm:ss");
             // настроим шаблон чтобы он не донастроил формат с учетом временных зон
-            format.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+//            format.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+            format.setTimeZone(java.util.TimeZone.getDefault());
             // строковое представление
 
             user.setComment("регистрация " + format.format(dTime));
