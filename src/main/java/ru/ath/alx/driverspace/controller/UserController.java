@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.ath.alx.driverspace.model.User;
+import ru.ath.alx.driverspace.params.Params;
 import ru.ath.alx.driverspace.restdata.AuthAnswer;
 import ru.ath.alx.driverspace.restdata.AuthRequest;
 import ru.ath.alx.driverspace.service.UserService;
@@ -26,6 +27,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private Params params;
+
 
     @RequestMapping(value = "/getall", method = RequestMethod.GET)
     public @ResponseBody
@@ -128,6 +133,9 @@ public class UserController {
             user.setComment("регистрация " + format.format(dTime));
 
             userService.update(user);
+
+            log.warn(params.getAtUrl());
+
 
             return new AuthAnswer("ok", String.valueOf(user.getId()), user.getToken(), "");
 
