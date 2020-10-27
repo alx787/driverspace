@@ -46,7 +46,7 @@ public class UserController {
 //        log.warn(jsonText);
 //    }
 
-    // авторизация,
+    // авторизация
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
     public @ResponseBody
     AuthAnswer authorization(@RequestBody AuthRequest authRequest) {
@@ -73,8 +73,8 @@ public class UserController {
         String data = "{\"tabnomer\": \"" + authRequest.getTabnomer() + "\",\"password\": \"" + authRequest.getPassword() + "\"}";
 
         // ответ от автотранспорта
-//        String atAnswer = WebRequestUtil.sendRequest(url, "post", data);
-        String atAnswer = "{\"status\": \"ok\", \"fio\": \"Сайфутдинов Расим Рашидович\"}";
+        String atAnswer = WebRequestUtil.sendRequest(url, "post", data);
+//        String atAnswer = "{\"status\": \"ok\", \"fio\": \"Сайфутдинов Расим Рашидович\"}";
 
 
         // ответ клиенту
@@ -114,7 +114,7 @@ public class UserController {
             User user = userService.findByTabnom(authRequest.getTabnomer());
             if (user == null) {
                 // создаем новый если не нашли
-                user = new User(authRequest.getTabnomer(), jsonNode.get("fio").asText(), "", "");
+                user = new User(authRequest.getTabnomer(), jsonNode.get("fio").asText(), jsonNode.get("uid").asText(), "", "");
                 userService.create(user);
             }
 

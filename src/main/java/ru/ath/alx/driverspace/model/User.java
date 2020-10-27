@@ -9,23 +9,26 @@ public class User {
     private int id;
     private String tabnomer;
     private String name;
+    private String uid;
     private String token;
     private String comment;
 
     public User() {
     }
 
-    public User(int id, String tabnomer, String name, String token, String comment) {
+    public User(int id, String tabnomer, String name, String uid, String token, String comment) {
         this.id = id;
         this.tabnomer = tabnomer;
         this.name = name;
+        this.uid = uid;
         this.token = token;
         this.comment = comment;
     }
 
-    public User(String tabnomer, String name, String token, String comment) {
+    public User(String tabnomer, String name, String uid, String token, String comment) {
         this.tabnomer = tabnomer;
         this.name = name;
+        this.uid = uid;
         this.token = token;
         this.comment = comment;
     }
@@ -60,6 +63,16 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "uid", nullable = false, length = 36)
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     @Basic
