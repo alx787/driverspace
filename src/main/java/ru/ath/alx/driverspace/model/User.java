@@ -105,6 +105,7 @@ public class User {
         if (id != that.id) return false;
         if (tabnomer != null ? !tabnomer.equals(that.tabnomer) : that.tabnomer != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (uid != null ? !uid.equals(that.uid) : that.uid != null) return false;
         if (token != null ? !token.equals(that.token) : that.token != null) return false;
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
 
@@ -116,6 +117,7 @@ public class User {
         int result = id;
         result = 31 * result + (tabnomer != null ? tabnomer.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (uid != null ? uid.hashCode() : 0);
         result = 31 * result + (token != null ? token.hashCode() : 0);
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         return result;

@@ -8,6 +8,7 @@ public interface UserDao {
     List<User> findAll();
     User create(User user);
     User findById(int id);
+    User findByIdAndToken(int id, String token);
     User findByTabnom(String tabnomer);
     void update(User user);
 //    void delete(User user);

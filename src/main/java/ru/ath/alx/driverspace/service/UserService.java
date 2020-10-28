@@ -21,6 +21,10 @@ public class UserService {
         userDao.create(user);
     }
 
+    public User findByIdAndToken(int id, String token) {
+        return userDao.findByIdAndToken(id, token);
+    }
+
     public User findByTabnom(String tabnomer) {
         return userDao.findByTabnom(tabnomer);
     }

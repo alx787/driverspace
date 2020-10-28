@@ -55,6 +55,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User findByIdAndToken(int id, String token) {
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM User T WHERE T.id = :paramid AND T.token = :paramtoken");
+        query.setParameter("paramid", id);
+        query.setParameter("paramtoken", token);
+        List<User> users = query.list();
+        session.close();
+
+        if (users.size() == 1) {
+            return users.get(0);
+        }
+
+        return null;
+    }
+
+    @Override
     public User findByTabnom(String tabnomer) {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("FROM User T WHERE T.tabnomer = :paramtabnom");

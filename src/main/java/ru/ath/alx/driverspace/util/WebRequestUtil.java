@@ -13,7 +13,7 @@ public class WebRequestUtil {
 
     private static final Logger log = Logger.getLogger(WebRequestUtil.class);
 
-    public static String sendRequest(String url, String reqmethod, String data) {
+    public static String sendRequest(String url, String httpuser, String httppass, String reqmethod, String data) {
 
 //        HttpsURLConnection connection = null;
         HttpURLConnection connection = null;
@@ -29,11 +29,18 @@ public class WebRequestUtil {
 
             // авторизация
             //String auth = user + ":" + password;
-            String authString = "wsuser:111";
-            byte[] authByte = authString.getBytes(StandardCharsets.UTF_8);
-            String authEncoded = Base64.getEncoder().encodeToString(authByte);
+            if (httpuser != null && httppass != null) {
+                if (!httpuser.equals("") || !httppass.equals("")) {
 
-            connection.setRequestProperty("Authorization", "Basic "+ authEncoded);
+//                    String authString = "wsuser:111";
+                    String authString = httpuser + ":" + httppass;
+                    byte[] authByte = authString.getBytes(StandardCharsets.UTF_8);
+                    String authEncoded = Base64.getEncoder().encodeToString(authByte);
+
+                    connection.setRequestProperty("Authorization", "Basic " + authEncoded);
+
+                }
+            }
 
 
             if (reqmethod.equals("post")) {
@@ -43,11 +50,11 @@ public class WebRequestUtil {
 
                 connection.setDoOutput(true);
 
-                //String jsonInputString = "{\"tabnomer\": \"447\", \"password\": \"1234\"}";
-
-                OutputStream os = connection.getOutputStream();
-                byte[] input = data.getBytes("utf-8");
-                os.write(input, 0, input.length);
+                if (data != null) {
+                    OutputStream os = connection.getOutputStream();
+                    byte[] input = data.getBytes("utf-8");
+                    os.write(input, 0, input.length);
+                }
 
             }
 

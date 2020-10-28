@@ -69,11 +69,12 @@ public class UserController {
 
 
         // 2 - посылаем запрос в 1с, получаем оттуда ответ есть ли такой сотрудник-пользователь
-        String url = "http://192.168.100.203/avto_test/hs/serv/auth";
+//        String url = "http://192.168.100.203/avto_test/hs/serv/auth";
+//        String url = params.getAtUrl();
         String data = "{\"tabnomer\": \"" + authRequest.getTabnomer() + "\",\"password\": \"" + authRequest.getPassword() + "\"}";
 
         // ответ от автотранспорта
-        String atAnswer = WebRequestUtil.sendRequest(url, "post", data);
+        String atAnswer = WebRequestUtil.sendRequest(params.getAtUrl(), params.getAtHttpUser(), params.getAtHttpPass(), "post",  data);
 //        String atAnswer = "{\"status\": \"ok\", \"fio\": \"Сайфутдинов Расим Рашидович\"}";
 
 
@@ -108,7 +109,7 @@ public class UserController {
         //
         if (status.equals("ok")) {
             // 3 если ответ положительный то генерируем токен и записываем все в базу, посылаем ответ с ид и токеном
-            // {"status": "ok","fio": "Сайфутдинов Расим Рашидович"}
+            // {"status": "ok","fio": "Сайфутдинов Расим Рашидович", "uid": "16715896-1abb-11da-b885-000d6191187a"}
 
             // сначала ищем по таб номеру
             User user = userService.findByTabnom(authRequest.getTabnomer());
@@ -116,6 +117,11 @@ public class UserController {
                 // создаем новый если не нашли
                 user = new User(authRequest.getTabnomer(), jsonNode.get("fio").asText(), jsonNode.get("uid").asText(), "", "");
                 userService.create(user);
+            } else {
+                // если нашли обновим поля
+                user.setName(jsonNode.get("fio").asText());
+                user.setUid(jsonNode.get("uid").asText());
+                userService.update(user);
             }
 
             // генерим токен

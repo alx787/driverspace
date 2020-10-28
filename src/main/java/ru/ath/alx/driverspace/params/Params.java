@@ -17,6 +17,8 @@ public class Params {
     private static final Logger log = Logger.getLogger(Params.class);
 
     private String atUrl;
+    private String atHttpUser;
+    private String atHttpPass;
 
     public String getAtUrl() {
         return atUrl;
@@ -24,6 +26,22 @@ public class Params {
 
     public void setAtUrl(String aturl) {
         this.atUrl = aturl;
+    }
+
+    public String getAtHttpUser() {
+        return atHttpUser;
+    }
+
+    public void setAtHttpUser(String atHttpUser) {
+        this.atHttpUser = atHttpUser;
+    }
+
+    public String getAtHttpPass() {
+        return atHttpPass;
+    }
+
+    public void setAtHttpPass(String atHttpPass) {
+        this.atHttpPass = atHttpPass;
     }
 
     @PostConstruct
@@ -40,7 +58,9 @@ public class Params {
             if (inputStream != null) {
                 prop.load(inputStream);
 
-                atUrl = prop.getProperty("aturl");
+                this.atUrl = prop.getProperty("aturl");
+                this.atHttpUser = prop.getProperty("atuser");
+                this.atHttpPass = prop.getProperty("atpassword");
 
             } else {
                 log.warn("файл настроек config.properties не найден");
@@ -55,7 +75,5 @@ public class Params {
             }
         }
 
-//        log.warn(" ======== init ======== ");
-//        log.warn(atUrl);
     }
 }
