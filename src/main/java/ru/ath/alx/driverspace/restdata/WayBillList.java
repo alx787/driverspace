@@ -9,17 +9,17 @@ public class WayBillList {
     private int totalpages;
     private int currentpage;
 
-    private List<WayBill> wayBillList;
+    private List<WayBill> lists;
 
     public WayBillList() {
     }
 
-    public WayBillList(String fio, int totalrecs, int totalpages, int currentpage, List<WayBill> wayBillList) {
+    public WayBillList(String fio, int totalrecs, int totalpages, int currentpage, List<WayBill> lists) {
         this.fio = fio;
         this.totalrecs = totalrecs;
         this.totalpages = totalpages;
         this.currentpage = currentpage;
-        this.wayBillList = wayBillList;
+        this.lists = lists;
     }
 
     public String getFio() {
@@ -54,11 +54,22 @@ public class WayBillList {
         this.currentpage = currentpage;
     }
 
-    public List<WayBill> getWayBillList() {
-        return wayBillList;
+    public List<WayBill> getLists() {
+        return lists;
     }
 
-    public void setWayBillList(List<WayBill> wayBillList) {
-        this.wayBillList = wayBillList;
+    public void setLists(List<WayBill> lists) {
+        this.lists = lists;
+    }
+
+    @Override
+    public String toString() {
+        return "WayBillList{" +
+                "fio='" + fio + '\'' +
+                ", totalrecs=" + totalrecs +
+                ", totalpages=" + totalpages +
+                ", currentpage=" + currentpage +
+                ", lists=" + lists +
+                '}';
     }
 }

@@ -1,5 +1,16 @@
 package ru.ath.alx.driverspace.restdata;
 
+// класс прототип запроса от клиента списка путевых листов
+//
+//{
+//    "userid":"1",
+//    "token":"1",
+//    "datebeg":"2020-01-01",
+//    "dateend":"2020-01-08",
+//    "onlyopen":"0",
+//    "page":"1"
+//}
+
 public class WayBillListRequest {
 
     private String userid;

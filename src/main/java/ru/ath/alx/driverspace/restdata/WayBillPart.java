@@ -37,4 +37,13 @@ public class WayBillPart {
     public void setBreaktime(String breaktime) {
         this.breaktime = breaktime;
     }
+
+    @Override
+    public String toString() {
+        return "WayBillPart{" +
+                "datebegin='" + datebegin + '\'' +
+                ", dateend='" + dateend + '\'' +
+                ", breaktime='" + breaktime + '\'' +
+                '}';
+    }
 }

@@ -74,7 +74,7 @@ public class UserController {
         String data = "{\"tabnomer\": \"" + authRequest.getTabnomer() + "\",\"password\": \"" + authRequest.getPassword() + "\"}";
 
         // ответ от автотранспорта
-        String atAnswer = WebRequestUtil.sendRequest(params.getAtUrl(), params.getAtHttpUser(), params.getAtHttpPass(), "post",  data);
+        String atAnswer = WebRequestUtil.sendRequest(params.getAtUrl() + "/auth", params.getAtHttpUser(), params.getAtHttpPass(), "post",  data);
 //        String atAnswer = "{\"status\": \"ok\", \"fio\": \"Сайфутдинов Расим Рашидович\"}";
 
 
@@ -103,7 +103,8 @@ public class UserController {
 
         String status = jsonNode.get("status").asText();
         if (status.equals("error")) {
-            return new AuthAnswer("error", "", "", jsonNode.get("content").asText());
+//            return new AuthAnswer("error", "", "", jsonNode.get("content").asText());
+            return new AuthAnswer("error", "", "", jsonNode.get("message").asText());
         }
 
         //
@@ -146,8 +147,6 @@ public class UserController {
             return new AuthAnswer("ok", String.valueOf(user.getId()), user.getToken(), "");
 
         }
-
-
 
 //        log.warn("====atAnswer");
 //        log.warn(atAnswer);

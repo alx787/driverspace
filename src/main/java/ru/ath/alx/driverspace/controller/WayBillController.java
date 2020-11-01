@@ -53,50 +53,52 @@ public class WayBillController {
         // 1 - получаем запрос, проводим авторизацию
 
         User user = null;
+        String errmsg = "";
 
         try {
             user = userService.findByIdAndToken(Integer.valueOf(wayBillListRequest.getUserid()), wayBillListRequest.getToken());
         } catch (Exception e) {
-            answer.setStatus("error");
-            answer.setMessage("ошибка авторизации при запросе списка путевых листов, неверный идентификатор пользователья или токен авторизации");
-            return answer;
+            errmsg = errmsg + "ошибка авторизации при запросе списка путевых листов, неверный идентификатор пользователья или токен авторизации\n";
         }
 
         if (user == null) {
-            answer.setStatus("error");
-            answer.setMessage("ошибка авторизации, пользователь не найден");
-            return answer;
+            errmsg = errmsg + "ошибка авторизации, пользователь не найден\n";
         }
 
         // 2 - проверяем заполнено ли все
         if (wayBillListRequest.getDatebeg() == null || wayBillListRequest.getDatebeg().equals("")) {
-            answer.setStatus("error");
-            answer.setMessage("не заполнена дата начала");
-            return answer;
+            errmsg = errmsg + "не заполнена дата начала\n";
         }
 
         if (wayBillListRequest.getDateend() == null || wayBillListRequest.getDateend().equals("")) {
-            answer.setStatus("error");
-            answer.setMessage("не заполнена дата окончания");
-            return answer;
+            errmsg = errmsg + "не заполнена дата начала\n";
         }
 
         if (wayBillListRequest.getOnlyopen() == null || wayBillListRequest.getOnlyopen().equals("")) {
-            answer.setStatus("error");
-            answer.setMessage("не заполнен признак открытого/закрытого путевого листа");
-            return answer;
+            errmsg = errmsg + "не заполнен признак открытого/закрытого путевого листа\n";
         }
 
         if (wayBillListRequest.getPage() == 0) {
+            errmsg = errmsg + "не заполнен номер страницы\n";
+        }
+
+
+        // если ошибка на входе
+        if (!errmsg.equals("")) {
+            log.warn("======================");
+            log.warn(errmsg);
+            log.warn(wayBillListRequest.toString());
+            log.warn("======================");
+
             answer.setStatus("error");
-            answer.setMessage("не заполнен номер страницы");
+            answer.setMessage(errmsg);
+
             return answer;
         }
 
 
-
         // 3 - отправляем запрос в ат
-        String urlParams = "/getpl/"
+        String urlParams = "/getlistpl/"
                             + user.getTabnomer()
                             + "/" + wayBillListRequest.getDatebeg()
                             + "/" + wayBillListRequest.getDateend()
@@ -107,52 +109,57 @@ public class WayBillController {
         String atAnswer = WebRequestUtil.sendRequest(params.getAtUrl() + urlParams, params.getAtHttpUser(), params.getAtHttpPass(), "get",  null);
 
 
-
-
-
-        log.warn(params.getAtUrl());
-        log.warn(params.getAtHttpUser());
-        log.warn(params.getAtHttpPass());
+//        log.warn(params.getAtUrl());
+//        log.warn(params.getAtHttpUser());
+//        log.warn(params.getAtHttpPass());
         log.warn(atAnswer);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = null;
-
         try {
-            jsonNode = objectMapper.readTree(atAnswer);
+            answer = objectMapper.readValue(atAnswer, WayBillListAnswer.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+
             answer.setStatus("error");
-            answer.setMessage("ошибка, некорректный ответ сервера");
+            answer.setMessage("ошибка получения ответа при преобразовании");
+
+            log.warn("======================");
+            log.warn("ошибка получения ответа при преобразовании");
+            log.warn(atAnswer);
+            log.warn("======================");
+
+            return answer;
+
+        }
+
+
+        if (answer.getStatus().equals("ok")) {
             return answer;
         }
 
-        if (jsonNode == null) {
-            answer.setStatus("error");
-            answer.setMessage("ошибка, пустой ответ от сервера");
-            return answer;
-        }
 
-        String status = jsonNode.get("status").asText();
-        if (status.equals("error")) {
-            answer.setStatus("error");
-            answer.setMessage(jsonNode.get("content").asText());
-            return answer;
-        }
+        answer.setStatus("error");
+        answer.setMessage("непонятная ошибка");
+
+        log.warn("======================");
+        log.warn("непонятная ошибка");
+        log.warn(answer.toString());
+        log.warn("======================");
+
+        return answer;
 
 
+//        JsonNode jsonNode = null;
+//
+//        try {
+//            jsonNode = objectMapper.readTree(atAnswer);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//            answer.setStatus("error");
+//            answer.setMessage("ошибка, некорректный ответ сервера");
+//            return answer;
+//        }
 
-        if (status.equals("ok")) {
-            try {
-                return objectMapper.readValue(atAnswer, WayBillListAnswer.class);
-            } catch (JsonProcessingException e) {
-                answer.setStatus("error");
-                answer.setMessage("ошибка получения ответа при преобразовании");
-                return answer;
-            }
-        }
-
-        return null;
     }
 
 

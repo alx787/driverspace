@@ -37,4 +37,13 @@ public class WayBillListAnswer {
     public void setContent(WayBillList content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "WayBillListAnswer{" +
+                "status='" + status + '\'' +
+                ", message='" + message + '\'' +
+                ", content=" + content +
+                '}';
+    }
 }

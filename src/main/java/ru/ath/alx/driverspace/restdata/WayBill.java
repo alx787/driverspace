@@ -1,5 +1,7 @@
 package ru.ath.alx.driverspace.restdata;
 
+import java.util.List;
+
 public class WayBill {
 
     private String rownum;
@@ -10,18 +12,18 @@ public class WayBill {
     private String vehicle;
     private String datebegin;
     private String dateend;
-    private String breaktime;
+    private String breaklen;
     private String speedometerbegin;
     private String speedometerend;
     private String refuel;
     private String closed;
 
-    private WayBillPart wayBillPart;
+    private List<WayBillPart> parts;
 
     public WayBill() {
     }
 
-    public WayBill(String rownum, String uid, String number, String date, String route, String vehicle, String datebegin, String dateend, String breaktime, String speedometerbegin, String speedometerend, String refuel, String closed, WayBillPart wayBillPart) {
+    public WayBill(String rownum, String uid, String number, String date, String route, String vehicle, String datebegin, String dateend, String breaklen, String speedometerbegin, String speedometerend, String refuel, String closed, List<WayBillPart> parts) {
         this.rownum = rownum;
         this.uid = uid;
         this.number = number;
@@ -30,12 +32,12 @@ public class WayBill {
         this.vehicle = vehicle;
         this.datebegin = datebegin;
         this.dateend = dateend;
-        this.breaktime = breaktime;
+        this.breaklen = breaklen;
         this.speedometerbegin = speedometerbegin;
         this.speedometerend = speedometerend;
         this.refuel = refuel;
         this.closed = closed;
-        this.wayBillPart = wayBillPart;
+        this.parts = parts;
     }
 
     public String getRownum() {
@@ -102,12 +104,12 @@ public class WayBill {
         this.dateend = dateend;
     }
 
-    public String getBreaktime() {
-        return breaktime;
+    public String getBreaklen() {
+        return breaklen;
     }
 
-    public void setBreaktime(String breaktime) {
-        this.breaktime = breaktime;
+    public void setBreaklen(String breaklen) {
+        this.breaklen = breaklen;
     }
 
     public String getSpeedometerbegin() {
@@ -142,11 +144,31 @@ public class WayBill {
         this.closed = closed;
     }
 
-    public WayBillPart getWayBillPart() {
-        return wayBillPart;
+    public List<WayBillPart> getParts() {
+        return parts;
     }
 
-    public void setWayBillPart(WayBillPart wayBillPart) {
-        this.wayBillPart = wayBillPart;
+    public void setParts(List<WayBillPart> parts) {
+        this.parts = parts;
+    }
+
+    @Override
+    public String toString() {
+        return "WayBill{" +
+                "rownum='" + rownum + '\'' +
+                ", uid='" + uid + '\'' +
+                ", number='" + number + '\'' +
+                ", date='" + date + '\'' +
+                ", route='" + route + '\'' +
+                ", vehicle='" + vehicle + '\'' +
+                ", datebegin='" + datebegin + '\'' +
+                ", dateend='" + dateend + '\'' +
+                ", breaklen='" + breaklen + '\'' +
+                ", speedometerbegin='" + speedometerbegin + '\'' +
+                ", speedometerend='" + speedometerend + '\'' +
+                ", refuel='" + refuel + '\'' +
+                ", closed='" + closed + '\'' +
+                ", parts=" + parts +
+                '}';
     }
 }
