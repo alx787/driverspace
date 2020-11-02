@@ -1,5 +1,8 @@
 package ru.ath.alx.driverspace.util;
 
+import ru.ath.alx.driverspace.model.User;
+import ru.ath.alx.driverspace.service.UserService;
+
 import java.security.SecureRandom;
 
 public class AuthUtil {
@@ -21,5 +24,33 @@ public class AuthUtil {
         }
 
         return randomString;
+    }
+
+
+    public static boolean checkUserIdToken(UserService userService, String userid, String token) {
+
+        if (userid == null || userid.equals("")) {
+            return false;
+        }
+
+        if (token == null || token.equals("")) {
+            return false;
+        }
+
+
+        User user = null;
+
+        try {
+            user = userService.findByIdAndToken(Integer.valueOf(userid), token);
+        } catch (Exception e) {
+            return false;
+        }
+
+        if (user == null) {
+            return false;
+        }
+
+        return true;
+
     }
 }

@@ -3,15 +3,15 @@ package ru.ath.alx.driverspace.restdata;
 public class WayBillPart {
     private String datebegin;
     private String dateend;
-    private String breaktime;
+    private String breaklen;
 
     public WayBillPart() {
     }
 
-    public WayBillPart(String datebegin, String dateend, String breaktime) {
+    public WayBillPart(String datebegin, String dateend, String breaklen) {
         this.datebegin = datebegin;
         this.dateend = dateend;
-        this.breaktime = breaktime;
+        this.breaklen = breaklen;
     }
 
     public String getDatebegin() {
@@ -30,12 +30,12 @@ public class WayBillPart {
         this.dateend = dateend;
     }
 
-    public String getBreaktime() {
-        return breaktime;
+    public String getBreaklen() {
+        return breaklen;
     }
 
-    public void setBreaktime(String breaktime) {
-        this.breaktime = breaktime;
+    public void setBreaklen(String breaklen) {
+        this.breaklen = breaklen;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class WayBillPart {
         return "WayBillPart{" +
                 "datebegin='" + datebegin + '\'' +
                 ", dateend='" + dateend + '\'' +
-                ", breaktime='" + breaktime + '\'' +
+                ", breaklen='" + breaklen + '\'' +
                 '}';
     }
 }
