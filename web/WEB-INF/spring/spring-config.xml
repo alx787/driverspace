@@ -49,16 +49,34 @@
     </bean>
 
 
-
-
     <!--<mvc:view-controller path="/" view-name="users_page"/>-->
     <!--<mvc:view-controller path="/test/" view-name="test"/>-->
 
 
 
-    <bean id="resolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/"/>
-        <property name="suffix" value=".jsp"/>
+    <!--<bean id="resolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="prefix" value="/WEB-INF/"/>-->
+        <!--<property name="suffix" value=".jsp"/>-->
+    <!--</bean>-->
+
+
+    <!-- freemarker config -->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <!--<property name="templateLoaderPath" value="/WEB-INF/ftl/"/>-->
+        <property name="templateLoaderPath" value="/ftl/"/>
     </bean>
+
+    <!--
+      View resolvers can also be configured with ResourceBundles or XML files. If you need
+      different view resolving based on Locale, you have to use the resource bundle resolver.
+    -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="true"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/>
+    </bean>
+
+
+    <mvc:resources mapping="/pages/**" location="/pages/" />
 
 </beans>
