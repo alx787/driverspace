@@ -1,62 +1,92 @@
-<html>
-<head>
-    <title> FreeMarker Spring MVC Hello World</title>
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>Signin Template · Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="pages/css/bootstrap/bootstrap.min.css"/ >
+
 
     <style>
-        body, input {
-            font-family: Calibri, Arial;
-            margin: 0px;
-            padding: 0px;
-        }
-        #header h2 {
-            color: white;
-            background-color: #3275A8;
-            height: 50px;
-            padding: 5px 0 0 5px;
-            font-size: 20px;
-        }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
 
-        .datatable {margin-bottom:5px;border:1px solid #eee;border-collapse:collapse;width:400px;max-width:100%;font-family:Calibri}
-        .datatable th {padding:3px;border:1px solid #888;height:30px;background-color:#B2D487;text-align:center;vertical-align:middle;color:#444444}
-        .datatable tr {border:1px solid #888}
-        .datatable tr.odd {background-color:#eee}
-        .datatable td {padding:2px;border:1px solid #888}
-        #content { padding 5px; margin: 5px; text-align: center}
-
-        fieldset { width: 300px; padding: 5px; margin-bottom: 0px; }
-        legend { font-weight: bold; }
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
     </style>
 
-<body>
-<div id="header">
-    <H2>
-        FreeMarker Spring MVC Hello World
-    </H2>
-</div>
 
-<div id="content">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="pages/css/site/signin.css" >
 
-    <fieldset>
-        <legend>Add Car</legend>
-        <form name="car" action="add" method="post">
-            Make : <input type="text" name="make" />	<br/>
-            Model: <input type="text" name="model" />	<br/>
-            <input type="submit" value="   Save   " />
-        </form>
-    </fieldset>
 
-    <br/>
-    <table class="datatable">
-        <tr>
-            <th>Make</th>  <th>Model</th>
-        </tr>
-        <#list model["userList"] as user>
-            <tr>
-                <td>${user.tabnomer}</td> <td>${user.name}</td>
-            </tr>
-        </#list>
-    </table>
+    <script type="text/javascript" src="pages/js/jq/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="pages/js/bootstrap/bootstrap.min.js"></script>
 
-</div>
-</body>
+    <script type="text/javascript" src="pages/js/site/signin.js"></script>
+
+    <script type="text/javascript" >
+      $(document).ready(function() {
+          console.log( "document loaded" );
+
+          // прицепим событие на кнопку вход
+          $("#submitbtn").on("click", function () {
+              console.log("========= dljfdkljf ===========");
+          })
+
+      });
+
+
+
+    </script>
+
+  </head>
+  <body class="text-center">
+
+
+  <div class="alert alert-danger" role="alert">
+      A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+  </div>
+
+
+    <form class="form-signin">
+        <!--
+        <img class="mb-4" src="img/logo.svg" alt="" width="72" height="72">
+        -->
+        <img class="mb-4" style="margin-left: 23px;" src="pages/img/logo.png" alt="">
+        <h3 class="h3 mb-3 font-weight-normal">Личный кабинет водителя</h3>
+        <h3 class="h5 mb-3 font-weight-normal">Авторизация</h3>
+
+        <label for="inputUser" class="sr-only">Имя пользователя</label>
+        <input type="text" id="inputUser" class="form-control" placeholder="Имя пользователя" required autofocus>
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
+
+        <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Запомнить
+            </label>
+        </div>
+
+        <button id="submitbtn" class="btn btn-lg btn-primary btn-block" type="button">Вход</button>
+        <p class="mt-5 mb-3 text-muted">АО Автотранспортное хозяйство</p>
+    </form>
+  </body>
 </html>
