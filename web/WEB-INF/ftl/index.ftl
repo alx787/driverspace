@@ -47,8 +47,8 @@
 
           // прицепим событие на кнопку вход
           $("#submitbtn").on("click", function () {
-              console.log("========= dljfdkljf ===========");
-          })
+              signin.module.checkLoginPassword();
+          });
 
       });
 
@@ -60,12 +60,14 @@
   <body class="text-center">
 
 
-  <div class="alert alert-danger" role="alert">
-      A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
-  </div>
-
 
     <form class="form-signin">
+
+        <div id="alertPopup" class="alert alert-danger" style="display: none; position:absolute; width: 300px" role="alert">
+            Неправильное имя пользователя или пароль
+        </div>
+
+
         <!--
         <img class="mb-4" src="img/logo.svg" alt="" width="72" height="72">
         -->
@@ -74,14 +76,14 @@
         <h3 class="h5 mb-3 font-weight-normal">Авторизация</h3>
 
         <label for="inputUser" class="sr-only">Имя пользователя</label>
-        <input type="text" id="inputUser" class="form-control" placeholder="Имя пользователя" required autofocus>
+        <input type="text" id="inputUser" class="form-control" style="text-align: center" placeholder="Имя пользователя" required autofocus>
 
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
+        <input type="password" id="inputPassword" class="form-control" style="text-align: center" placeholder="Пароль" required>
 
         <div class="checkbox mb-3">
             <label>
-              <input type="checkbox" value="remember-me"> Запомнить
+              <input id="remember" type="checkbox" value="remember-me"> Запомнить
             </label>
         </div>
 

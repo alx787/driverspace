@@ -16,10 +16,13 @@ signin.module = (function () {
     {
         var cookie = name + "=" + encodeURIComponent(value);
 
-        if (typeof daysToLive === "number")
-            cookie += "; max-age=" + (daysToLive*60*60*24);
-        else
+        if (typeof daysToLive === "number") {
+            if (daysToLive >= 0) {
+                cookie += "; max-age=" + (daysToLive*60*60*24);
+            }
+        } else {
             throw new Error('Параметр daysToLive должен быть числом.');
+        }
 
         document.cookie = cookie;
     }
@@ -77,20 +80,91 @@ signin.module = (function () {
     // 3. если кук нет или они не проходят проверку то удаляем куки если они есть и отправляем на страницу регистрации
 
 
+    var getContextUrl = function () {
+        var pathArr = window.location.pathname.split("/");
+
+        if (pathArr.length > 1) {
+            return pathArr[1];
+        }
+
+        return "";
+    }
+
+    var hideAlertPopup = function (message) {
+        $("#alertPopup").fadeOut("fast");
+    }
+
+
+    var showAlertPopup = function (message) {
+        $("#alertPopup").text(message);
+        $("#alertPopup").fadeIn("slow", function () {
+            // setTimeout(hideAlertPopup(), 8000);
+        });
+    }
+
+
     var checkLoginPassword = function () {
 
-        // var login = $("#inputUser").val();
-        // var password = $("#inputPassword").val();
-        //
-        // login = login.trim();
-        // password = password.trim();
+        var login = $("#inputUser").val();
+        var password = $("#inputPassword").val();
+
+        login = login.trim();
+        password = password.trim();
+
+        if ((login == "") || (password == "")) {
+            showAlertPopup("не заполнено имя пользователя или пароль");
+        }
+
+        var jsonData = {};
+        jsonData.tabnomer = login;
+        jsonData.password = password;
+
+        $.ajax({
+            url: "users/auth",
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify(jsonData),
+            contentType: "application/json; charset=utf-8",
+            success: function(data) {
+
+                console.log(data);
+
+                if (data.status == "error") {
+
+                    // затираем куки
+                    setCookie("userid", data.userid, 0);
+                    setCookie("token", data.token, 3);
+                    showAlertPopup(data.message);
+                }
+
+                if (data.status == "ok") {
+                    // устанавливаем куки
+                    if($("#remember").is(':checked')) {
+                        setCookie("userid", data.userid, 30);
+                        setCookie("token", data.token, 30);
+                    } else {
+                        setCookie("userid", data.userid, 0);
+                        setCookie("token", data.token, 0);
+                    }
+                }
+
+            },
+            error: function(data) {
+                // затираем куки
+                setCookie("userid", data.userid, 0);
+                setCookie("token", data.token, 3);
+                showAlertPopup("Ошибка при обращении к серверу");
+            },
+
+        });
 
 
     }
 
 
     return {
-        echo:echo
+        echo:echo,
+        checkLoginPassword:checkLoginPassword
     }
 
 }());
