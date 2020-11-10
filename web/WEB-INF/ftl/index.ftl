@@ -39,10 +39,20 @@
     <script type="text/javascript" src="pages/js/jq/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="pages/js/bootstrap/bootstrap.min.js"></script>
 
+    <script type="text/javascript" src="pages/js/site/utils.js"></script>
     <script type="text/javascript" src="pages/js/site/signin.js"></script>
+    <script type="text/javascript" src="pages/js/site/checkauth.js"></script>
 
     <script type="text/javascript" >
+
+      // если авторизован то сразу переходим на главную страницу
+      if (checkauth.module.checkAuth()) {
+          window.location.assign("/" + getContextUrl() + "/mainpage");
+      }
+
+
       $(document).ready(function() {
+
           console.log( "document loaded" );
 
           // прицепим событие на кнопку вход
@@ -51,8 +61,6 @@
           });
 
       });
-
-
 
     </script>
 

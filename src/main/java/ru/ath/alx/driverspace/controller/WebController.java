@@ -38,4 +38,10 @@ public class WebController {
 
         return "index";
     }
+
+    @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
+    public String mainpage(@ModelAttribute("model") ModelMap model, HttpServletRequest request) {
+        return "mainpage";
+    }
+
 }

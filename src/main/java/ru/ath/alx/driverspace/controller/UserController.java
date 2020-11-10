@@ -156,6 +156,21 @@ public class UserController {
     }
 
 
+
+    // проверка авторизованности пользователя
+    @RequestMapping(value = "/check", method = RequestMethod.POST)
+    public @ResponseBody
+    AuthAnswer checkauth(@RequestBody AuthRequest authRequest) {
+
+        if (!AuthUtil.checkUserIdToken(userService, authRequest.getTabnomer(), authRequest.getPassword())) {
+            return new AuthAnswer("error", "", "","ошибка авторизации, пользователь не найден");
+        }
+
+        return new AuthAnswer("ok", "", "","");
+    }
+
+
+
     // тестовый метод, потом надо будет убрать
 //    @RequestMapping(value = "/create/{tabnomer}/{name}", method = RequestMethod.GET)
 //    public @ResponseBody
