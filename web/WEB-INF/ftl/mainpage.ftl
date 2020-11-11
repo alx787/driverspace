@@ -58,6 +58,7 @@
 
         // заполним инфо
         mainpage.module.getDriverInfo();
+        mainpage.module.getDateInfo();
 
 
 
@@ -147,25 +148,25 @@
 
 
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-          <h3>Информация за период с 01.09.2020 по 10.09.2020</h3>
+          <h3>Информация за период с <span id="datebeg">01.09.2020</span> по <span id="dateend">10.09.2020</span></h3>
         </div>
 
 
         <div class="card-deck mb-3 text-center">
 
-          <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Открытые путевые листы</h4>
-            </div>
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title">2</h1>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary">Просмотр</button>
-            </div>
-          </div>
+          <#--<div class="card mb-4 shadow-sm">-->
+            <#--<div class="card-header">-->
+              <#--<h4 class="my-0 font-weight-normal">Открытые путевые листы</h4>-->
+            <#--</div>-->
+            <#--<div class="card-body">-->
+              <#--<h1 class="card-title pricing-card-title">2</h1>-->
+              <#--<button type="button" class="btn btn-lg btn-block btn-outline-primary">Просмотр</button>-->
+            <#--</div>-->
+          <#--</div>-->
 
           <div class="card mb-4 shadow-sm">
             <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Закрытые путевые листы</h4>
+              <h4 class="my-0 font-weight-normal">Путевые листы</h4>
             </div>
             <div class="card-body">
               <h1 class="card-title pricing-card-title">2</h1>
