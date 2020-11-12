@@ -5,12 +5,36 @@ mainpage.module = (function () {
     var datebeg = new Date();
     var dateend = new Date();
 
+
+    // форматирование даты из типа Date в вид ГГГГ.ММ.ДД
+    // date - дата типа Date
+    // delimeter - разделитель
+    var formatDate = function(date, delimeter) {
+
+        var dd = date.getDate();
+
+        if (dd < 10) dd = '0' + dd;
+
+        var mm = date.getMonth() + 1;
+        if (mm < 10) mm = '0' + mm;
+
+        // var yy = date.getFullYear() % 100;
+        var yy = date.getFullYear();
+        // if (yy < 10) yy = '0' + yy;
+
+        // return dd + '.' + mm + '.' + yy;
+        return yy + delimeter + mm + delimeter + dd;
+    }
+
+    // получаем инфо по водителю и сразу устанавливаем все на странице
     var getDriverInfo = function() {
         var cookies = checkauth.module.getCookies();
 
         var jsonData = {};
-        jsonData.tabnomer = cookies.userid;
-        jsonData.password = cookies.token;
+        jsonData.userid = cookies.userid;
+        jsonData.token = cookies.token;
+        jsonData.datebeg = formatDate(datebeg, "-");
+        jsonData.dateend = formatDate(dateend, "-");
 
         $.ajax({
             url: "info/getdriver",
@@ -46,6 +70,10 @@ mainpage.module = (function () {
                         $("#vehicles").append(rows);
                     }
 
+                    // путевые листы
+                    $("#plcnt").text(data.plcnt);
+
+
                 }
 
                 console.log(data);
@@ -58,11 +86,16 @@ mainpage.module = (function () {
         });
     }
 
+    // устанавливаем даты по умолчанию
     var getDateInfo = function() {
+
+        // глубина периода
+        var period = 10;
+
         var localDatebeg = new Date();
         var localDateend = new Date();
 
-        localDatebeg.setDate(localDatebeg.getDate() - 10);
+        localDatebeg.setDate(localDatebeg.getDate() - period);
 
         datebeg = localDatebeg;
         dateend = localDateend;

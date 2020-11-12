@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.ath.alx.driverspace.model.User;
 import ru.ath.alx.driverspace.params.Params;
-import ru.ath.alx.driverspace.restdata.AuthRequest;
-import ru.ath.alx.driverspace.restdata.InfoDriver;
+import ru.ath.alx.driverspace.restdata.InfoDriverAnswer;
+import ru.ath.alx.driverspace.restdata.InfoDriverRequest;
 import ru.ath.alx.driverspace.service.UserService;
-import ru.ath.alx.driverspace.util.AuthUtil;
 import ru.ath.alx.driverspace.util.WebRequestUtil;
 
 @Controller
@@ -30,29 +29,29 @@ public class InfoController {
 
     @RequestMapping(value = "/getdriver", method = RequestMethod.POST)
     public @ResponseBody
-    InfoDriver infoDriver(@RequestBody AuthRequest authRequest) {
+    InfoDriverAnswer infoDriver(@RequestBody InfoDriverRequest infoDriverRequest) {
 
         int id = 0;
         String token = "";
 
-        if (authRequest.getTabnomer() == null || authRequest.getTabnomer().equals("") || authRequest.getPassword() == null || authRequest.getPassword().equals("")) {
-            return new InfoDriver("error", "не заполнены обязательные поля", "", null);
+        if (infoDriverRequest.getUserid() == null || infoDriverRequest.getUserid().equals("") || infoDriverRequest.getToken() == null || infoDriverRequest.getToken().equals("")) {
+            return new InfoDriverAnswer("error", "не заполнены обязательные поля", "", "", "", "", "",null);
         }
 
         try {
-            id = Integer.valueOf(authRequest.getTabnomer());
+            id = Integer.valueOf(infoDriverRequest.getUserid());
         } catch (NumberFormatException e) {
 //            e.printStackTrace();
-            return new InfoDriver("error", "неправильный id", "", null);
+            return new InfoDriverAnswer("error", "неправильный id", "",  "", "", "", "",null);
         }
 
-        User user = userService.findByIdAndToken(id, authRequest.getPassword());
+        User user = userService.findByIdAndToken(id, infoDriverRequest.getToken());
 
         if (user == null) {
-            return new InfoDriver("error", "пользователь не найден", "", null);
+            return new InfoDriverAnswer("error", "пользователь не найден", "", "", "", "", "", null);
         }
 
-        String urlParams = "/getdriver/" + user.getTabnomer();
+        String urlParams = "/getdriver/" + user.getTabnomer() + "/" + infoDriverRequest.getDatebeg() + "/" + infoDriverRequest.getDateend();
 
         // ответ от автотранспорта
         String atAnswer = WebRequestUtil.sendRequest(params.getAtUrl() + urlParams, params.getAtHttpUser(), params.getAtHttpPass(), "get",  null);
@@ -60,17 +59,17 @@ public class InfoController {
         log.warn(atAnswer);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        InfoDriver infoDriver = null;
+        InfoDriverAnswer infoDriverAnswer = null;
         try {
-            infoDriver = objectMapper.readValue(atAnswer, InfoDriver.class);
+            infoDriverAnswer = objectMapper.readValue(atAnswer, InfoDriverAnswer.class);
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
 
-            return new InfoDriver("error", "ошибка ответа сервера", "", null);
+            return new InfoDriverAnswer("error", "ошибка ответа сервера", "", "", "", "", "", null);
         }
 
-        return infoDriver;
+        return infoDriverAnswer;
 
 
     }

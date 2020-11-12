@@ -17,12 +17,19 @@
 
     <script type="text/javascript" src="pages/js/jq/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="pages/js/bootstrap/bootstrap.min.js"></script>
+
+
+
     <script type="text/javascript" src="pages/js/popper/umd/popper.min.js"></script>
     <script type="text/javascript" src="pages/js/icons/all.js"></script>
 
     <script type="text/javascript" src="pages/js/site/utils.js"></script>
     <script type="text/javascript" src="pages/js/site/checkauth.js"></script>
     <script type="text/javascript" src="pages/js/site/mainpage.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="pages/css/site/jumbotron.css">
+
 
     <style>
       .bd-placeholder-img {
@@ -40,8 +47,6 @@
         }
       }
     </style>
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="pages/css/site/jumbotron.css">
 
 
     <script type="text/javascript" >
@@ -53,12 +58,12 @@
 
       $(document).ready(function() {
 
-        console.log("document loaded");
+        console.log("document loaded 1");
 
 
         // заполним инфо
-        mainpage.module.getDriverInfo();
         mainpage.module.getDateInfo();
+        mainpage.module.getDriverInfo();
 
 
 
@@ -74,6 +79,12 @@
 
       });
 
+
+      $(document).ready(function() {
+        console.log("document loaded 2");
+      });
+
+
     </script>
 
 
@@ -82,35 +93,7 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-      <div class="container-fluid">
-        <a href="#" class="navbar-brad"><img src="pages/img/logo.png" style="height: 40px"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a href="#" class="nav-link">Информация</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Путевые листы</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Нарушения скоростного режима</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Штрафы</a>
-            </li>
-            <li class="nav-item">
-              <a id="navexit" href="#" class="nav-link">Выход</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
+    <#include "/common/navbar.ftl" parse=false>
 
     <main role="main">
 
@@ -169,7 +152,7 @@
               <h4 class="my-0 font-weight-normal">Путевые листы</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">2</h1>
+              <h1 id="plcnt" class="card-title pricing-card-title">2</h1>
               <button type="button" class="btn btn-lg btn-block btn-outline-primary">Просмотр</button>
             </div>
           </div>
