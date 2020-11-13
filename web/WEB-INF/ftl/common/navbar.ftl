@@ -9,10 +9,10 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a href="#" class="nav-link">Информация</a>
+                    <a href="mainpage" class="nav-link">Информация</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Путевые листы</a>
+                    <a href="pllist" class="nav-link">Путевые листы</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">Нарушения скоростного режима</a>
@@ -21,7 +21,7 @@
                     <a href="#" class="nav-link">Штрафы</a>
                 </li>
                 <li class="nav-item">
-                    <a id="navexit" href="#" class="nav-link">Выход</a>
+                    <a href="exit" class="nav-link">Выход</a>
                 </li>
             </ul>
         </div>

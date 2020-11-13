@@ -1,34 +1,13 @@
 <!doctype html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.0.1">
-    <title>Jumbotron Template · Bootstrap</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/jumbotron/">
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="pages/css/bootstrap/bootstrap.min.css"/ >
-    <link rel="stylesheet" type="text/css" href="pages/css/site/fonts.css"/ >
-    <link rel="stylesheet" type="text/css" href="pages/css/site/style.css"/ >
-
-    <script type="text/javascript" src="pages/js/jq/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="pages/js/bootstrap/bootstrap.min.js"></script>
+    <#-- теги head, общие стили и скрипты js -->
+    <#include "/common/head.ftl" parse=false>
 
 
-
-    <script type="text/javascript" src="pages/js/popper/umd/popper.min.js"></script>
-    <script type="text/javascript" src="pages/js/icons/all.js"></script>
-
-    <script type="text/javascript" src="pages/js/site/utils.js"></script>
-    <script type="text/javascript" src="pages/js/site/checkauth.js"></script>
     <script type="text/javascript" src="pages/js/site/mainpage.js"></script>
 
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="pages/css/site/jumbotron.css">
 
 
     <style>
@@ -49,25 +28,22 @@
     </style>
 
 
+    <#-- проверка авторизации + события для кнопок навбара -->
+    <#include "/common/navbar_js.ftl" parse=false>
+
+
     <script type="text/javascript" >
 
-      // если не авторизован то сразу переходим на страницу авторизации
-      if (!checkauth.module.checkAuth()) {
-        window.location.assign("/" + getContextUrl() + "/index");
-      }
-
       $(document).ready(function() {
-
-        console.log("document loaded 1");
-
 
         // заполним инфо
         mainpage.module.getDateInfo();
         mainpage.module.getDriverInfo();
 
-
-
-        // прицепим событие на кнопки
+        // события кнопок
+        $("#gotoPllistBtn").on("click", function () {
+          mainpage.module.gotoPllist();
+        })
 
         // выход
         $("#navexit").on("click", function () {
@@ -78,21 +54,14 @@
 
 
       });
-
-
-      $(document).ready(function() {
-        console.log("document loaded 2");
-      });
-
-
     </script>
-
 
 
   </head>
 
   <body>
 
+    <#-- разметка навбара -->
     <#include "/common/navbar.ftl" parse=false>
 
     <main role="main">
@@ -137,23 +106,13 @@
 
         <div class="card-deck mb-3 text-center">
 
-          <#--<div class="card mb-4 shadow-sm">-->
-            <#--<div class="card-header">-->
-              <#--<h4 class="my-0 font-weight-normal">Открытые путевые листы</h4>-->
-            <#--</div>-->
-            <#--<div class="card-body">-->
-              <#--<h1 class="card-title pricing-card-title">2</h1>-->
-              <#--<button type="button" class="btn btn-lg btn-block btn-outline-primary">Просмотр</button>-->
-            <#--</div>-->
-          <#--</div>-->
-
           <div class="card mb-4 shadow-sm">
             <div class="card-header">
               <h4 class="my-0 font-weight-normal">Путевые листы</h4>
             </div>
             <div class="card-body">
               <h1 id="plcnt" class="card-title pricing-card-title">2</h1>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary">Просмотр</button>
+              <button id="gotoPllistBtn" type="button" class="btn btn-lg btn-block btn-outline-primary">Просмотр</button>
             </div>
           </div>
 
@@ -198,8 +157,8 @@
 
     </main>
 
-    <footer class="container">
-      <p>АО Автотранспортное хозяйство</p>
-    </footer>
+    <#-- разметка футера -->
+    <#include "/common/navbar.ftl" parse=false>
+
   </body>
 </html>

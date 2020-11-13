@@ -104,6 +104,12 @@ mainpage.module = (function () {
         $("#dateend").text(formatDate(localDateend, "."));
     }
 
+
+    // перенаправляем на главную страницу
+    var gotoPllist = function() {
+        window.location.assign("/" + getContextUrl() + "/pllist");
+    }
+
     var getDatebeg = function() {
         return datebeg;
     }
@@ -115,6 +121,7 @@ mainpage.module = (function () {
     return {
         getDriverInfo:getDriverInfo,
         getDateInfo:getDateInfo,
+        gotoPllist:gotoPllist,
         getDatebeg:getDatebeg,
         getDateend:getDateend
     }

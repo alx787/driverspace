@@ -39,10 +39,18 @@ public class WebController {
         return "index";
     }
 
+    @RequestMapping(value = "/exit", method = RequestMethod.GET)
+    public String exit(@ModelAttribute("model") ModelMap model, HttpServletRequest request) {
+        return "exit";
+    }
+
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
     public String mainpage(@ModelAttribute("model") ModelMap model, HttpServletRequest request) {
-
         return "mainpage";
     }
 
+    @RequestMapping(value = "/pllist", method = RequestMethod.GET)
+    public String v(@ModelAttribute("model") ModelMap model, HttpServletRequest request) {
+        return "pllist";
+    }
 }

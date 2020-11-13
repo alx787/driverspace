@@ -1,85 +1,47 @@
 <!doctype html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.0.1">
-    <title>Jumbotron Template · Bootstrap</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/jumbotron/">
+    <#-- теги head, общие стили и скрипты js -->
+    <#include "/common/head.ftl" parse=false>
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="pages/css/bootstrap/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="pages/css/site/fonts.css"/>
-    <link rel="stylesheet" type="text/css" href="pages/css/site/style.css"/>
 
-    <link rel="stylesheet" type="text/css" href="pages/css/bootstrap/tempusdominus-bootstrap-4.min.css"/>
-
-    <script type="text/javascript" src="pages/js/jq/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="pages/js/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript" src="pages/js/popper/umd/popper.min.js"></script>
-    <script type="text/javascript" src="pages/js/icons/all.js"></script>
     <script type="text/javascript" src="pages/js/bootstrap/moment.js"></script>
     <script type="text/javascript" src="pages/js/bootstrap/tempusdominus-bootstrap-4.min.js"></script>
     <script type="text/javascript" src="pages/js/bootstrap/ru.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="pages/css/site/jumbotron.css">
+    <link rel="stylesheet" type="text/css" href="pages/css/bootstrap/tempusdominus-bootstrap-4.min.css"/>
+
+
+    <#-- проверка авторизации + события для кнопок навбара -->
+    <#include "/common/navbar_js.ftl" parse=false>
 
 
     <script type="text/javascript" >
 	    $(document).ready(function() {
-	        console.log( "document loaded" );
 
+            // дата начала периода
 			$('#datetimepickerBegin').datetimepicker({
                     locale: "ru",
                     format: "L"
                 });
 
+          // дата окончания периода
 			$('#datetimepickerEnd').datetimepicker({
                     locale: "ru",
                     format: "L"
                 });
 
-
 	    });
 	 
     </script>
 
-	</head>
+  </head>
 
 <body>
 
+  <#include "/common/navbar.ftl" parse=false>
 
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-      <div class="container-fluid">
-        <a href="#" class="navbar-brad"><img src="img/logo.png" style="height: 40px"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a href="#" class="nav-link">Информация</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Путевые листы</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Нарушения скоростного режима</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Штрафы</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Выход</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
 
 <main role="main">
 
@@ -257,9 +219,7 @@
 
     </main>
 
-    <footer class="container">
-      <p>АО Автотранспортное хозяйство</p>
-    </footer>
+  <#include "/common/navbar.ftl" parse=false>
   </body>
 
 
