@@ -9,7 +9,8 @@ mainpage.module = (function () {
     // форматирование даты из типа Date в вид ГГГГ.ММ.ДД
     // date - дата типа Date
     // delimeter - разделитель
-    var formatDate = function(date, delimeter) {
+    // direction - направление ymd - ГГГГ.ММ.ДД, dmy - ДД.ММ.ГГГГ
+    var formatDate = function(date, delimeter, direction) {
 
         var dd = date.getDate();
 
@@ -23,7 +24,11 @@ mainpage.module = (function () {
         // if (yy < 10) yy = '0' + yy;
 
         // return dd + '.' + mm + '.' + yy;
-        return yy + delimeter + mm + delimeter + dd;
+        if (direction == "ymd") {
+            return yy + delimeter + mm + delimeter + dd;
+        }
+
+        return dd + delimeter + mm + delimeter + yy;
     }
 
     // получаем инфо по водителю и сразу устанавливаем все на странице
@@ -33,8 +38,8 @@ mainpage.module = (function () {
         var jsonData = {};
         jsonData.userid = cookies.userid;
         jsonData.token = cookies.token;
-        jsonData.datebeg = formatDate(datebeg, "-");
-        jsonData.dateend = formatDate(dateend, "-");
+        jsonData.datebeg = formatDate(datebeg, "-", "ymd");
+        jsonData.dateend = formatDate(dateend, "-", "ymd");
 
         $.ajax({
             url: "info/getdriver",
@@ -100,8 +105,8 @@ mainpage.module = (function () {
         datebeg = localDatebeg;
         dateend = localDateend;
 
-        $("#datebeg").text(formatDate(localDatebeg, "."));
-        $("#dateend").text(formatDate(localDateend, "."));
+        $("#datebeg").text(formatDate(localDatebeg, ".", "dmy"));
+        $("#dateend").text(formatDate(localDateend, ".", "dmy"));
     }
 
 

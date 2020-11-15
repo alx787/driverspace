@@ -29,12 +29,19 @@
                     format: "L"
                 });
 
-          // дата окончания периода
+            // дата окончания периода
 			$('#datetimepickerEnd').datetimepicker({
                     locale: "ru",
                     format: "L"
                 });
 
+            // дата окончания периода
+            $("#pllistrefresh").on("click", function () {
+                pllist.module.getPllist();
+            });
+
+			// установим значения периода
+            pllist.module.getPllistPeriod();
 	    });
 	 
     </script>
@@ -84,14 +91,14 @@
 
 		<div class="checkbox col-sm-2">
     		<label>
-      			<input type="checkbox" value="opened"> только открытые</input>
+      			<input id="onlyopen" type="checkbox" value="opened" checked> только открытые</input>
     		</label>
 		</div>           
 
     </div>
 
     <div class="form-group row justify-content-center">
-        <button type="submit" class="btn btn-primary" sty>Обновить</button>
+        <button id="pllistrefresh" type="button" class="btn btn-primary" sty>Обновить</button>
     </div>
 
 
@@ -127,7 +134,7 @@
  <div class="row">
 
 
- <table class="table table-hover">
+ <table id="pltable" class="table table-hover">
   <thead>
     <tr>
       <th scope="col">№ / Дата</th>
