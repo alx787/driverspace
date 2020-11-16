@@ -36,6 +36,7 @@ public class WebRequestUtil {
                     String authString = httpuser + ":" + httppass;
                     byte[] authByte = authString.getBytes(StandardCharsets.UTF_8);
                     String authEncoded = Base64.getEncoder().encodeToString(authByte);
+//                    byte[] authEncoded = Base64.getEncoder().encode(authByte);
 
                     connection.setRequestProperty("Authorization", "Basic " + authEncoded);
 
