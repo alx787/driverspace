@@ -65,13 +65,17 @@ pllist.module = (function () {
         datebeg = localDatebeg;
         dateend = localDateend;
 
-        $('#beginDate').val(formatDate(localDatebeg, ".", "dmy"))
-        $('#endDate').val(formatDate(localDateend, ".", "dmy"))
+        $('#beginDate').val(formatDate(localDatebeg, ".", "dmy"));
+        $('#endDate').val(formatDate(localDateend, ".", "dmy"));
 
     }
 
     var renderRow = function() {
-        // var rowTemplate =
+        var rowTemplate = '<tr>'
+                            + '<td><span>__number__</span><span style="display: none">__uid__</span> от<br/>__date__</td>'
+                            + '<td>__klient__</td>'
+                            + '<td>__route__</td>'
+                        + '</tr>';
     }
 
     // устанавливаем даты по умолчанию
