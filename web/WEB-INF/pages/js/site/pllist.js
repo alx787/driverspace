@@ -160,12 +160,15 @@ pllist.module = (function () {
                         return false;
                     }
 
+                    // отрисовываем строки
                     var oneRow = "";
                     for (var i = 0; i < plmas.length; i++) {
                         oneRow = renderRow(plmas[i].number, plmas[i].uid, plmas[i].date, plmas[i].klient, plmas[i].route);
                         tableObj.append(oneRow);
                     }
 
+                    // настраиваем пагинатор
+                    setupPaginators();
                 }
 
                 console.log(data);
@@ -179,6 +182,105 @@ pllist.module = (function () {
 
     }
 
+    // пагинаторы
+    var setupPaginators = function() {
+        fillPaginator($("#pager-top li.page-item"), $("#pager-top a.page-link"));
+        fillPaginator($("#pager-bottom li.page-item"), $("#pager-bottom a.page-link"));
+    }
+
+
+    // заполнение пагинаторов
+    var fillPaginator = function(pageItems, pageLinks) {
+        // всего в пагинаторе 5 кнопок
+        // 0 - назад
+        // 1
+        // 2
+        // 3
+        // 4 - вперед
+
+        // ссылки
+        //$("#pager-top a.page-link")
+        // элементы списка
+        //$("#pager-top li.page-item")
+
+        // var pageItems = $("#pager-top li.page-item");
+        // var pageLinks = $("#pager-top a.page-link");
+
+
+        // ставим видимость
+        if (totalPages == 0 || totalPages == 1) {
+            pageItems.eq(0).css("display", "none");
+            pageItems.eq(1).css("display", "none");
+            pageItems.eq(2).css("display", "none");
+            pageItems.eq(3).css("display", "none");
+            pageItems.eq(4).css("display", "none");
+        }
+
+        if (totalPages == 2) {
+            pageItems.eq(0).css("display", "block");
+            pageItems.eq(1).css("display", "block");
+            pageItems.eq(2).css("display", "block");
+            pageItems.eq(3).css("display", "none");
+            pageItems.eq(4).css("display", "block");
+        }
+
+        if (totalPages >= 3) {
+            pageItems.eq(0).css("display", "block");
+            pageItems.eq(1).css("display", "block");
+            pageItems.eq(2).css("display", "block");
+            pageItems.eq(3).css("display", "block");
+            pageItems.eq(4).css("display", "block");
+        }
+
+        // сначала убираем везде активность
+        if (pageItems.eq(1).hasClass("active")) {
+            pageItems.eq(1).removeClass("active");
+        }
+
+        if (pageItems.eq(2).hasClass("active")) {
+            pageItems.eq(2).removeClass("active");
+        }
+
+        if (pageItems.eq(3).hasClass("active")) {
+            pageItems.eq(3).removeClass("active");
+        }
+
+        // определяем активную страницу и расставляем номера
+        if (currentPage == 1) {
+            pageItems.eq(1).addClass("active");
+
+            pageLinks.eq(1).text("1");
+            pageLinks.eq(2).text("2");
+            pageLinks.eq(3).text("3");
+
+        // } else if (currentPage == 2 && totalPages == 2) {
+        } else if (currentPage == 2) {
+            pageItems.eq(2).addClass("active");
+
+            pageLinks.eq(1).text("1");
+            pageLinks.eq(2).text("2");
+            pageLinks.eq(3).text("3");
+
+        } else if (currentPage > 2 && currentPage == totalPages) {
+            pageItems.eq(3).addClass("active");
+
+            pageLinks.eq(1).text(currentPage - 2);
+            pageLinks.eq(2).text(currentPage - 1);
+            pageLinks.eq(3).text(currentPage);
+
+        } else {
+            pageItems.eq(2).addClass("active");
+
+            pageLinks.eq(1).text(currentPage - 1);
+            pageLinks.eq(2).text(currentPage);
+            pageLinks.eq(3).text(currentPage + 1);
+
+        }
+
+
+
+
+    }
 
     return {
         getPllistPeriod:getPllistPeriod,
