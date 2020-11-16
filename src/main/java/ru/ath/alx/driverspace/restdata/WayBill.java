@@ -9,6 +9,7 @@ public class WayBill {
     private String number;
     private String date;
     private String route;
+    private String klient;
     private String vehicle;
     private String datebegin;
     private String dateend;
@@ -23,12 +24,13 @@ public class WayBill {
     public WayBill() {
     }
 
-    public WayBill(String rownum, String uid, String number, String date, String route, String vehicle, String datebegin, String dateend, String breaklen, String speedometerbegin, String speedometerend, String refuel, String closed, List<WayBillPart> parts) {
+    public WayBill(String rownum, String uid, String number, String date, String route, String klient, String vehicle, String datebegin, String dateend, String breaklen, String speedometerbegin, String speedometerend, String refuel, String closed, List<WayBillPart> parts) {
         this.rownum = rownum;
         this.uid = uid;
         this.number = number;
         this.date = date;
         this.route = route;
+        this.klient = klient;
         this.vehicle = vehicle;
         this.datebegin = datebegin;
         this.dateend = dateend;
@@ -78,6 +80,14 @@ public class WayBill {
 
     public void setRoute(String route) {
         this.route = route;
+    }
+
+    public String getKlient() {
+        return klient;
+    }
+
+    public void setKlient(String klient) {
+        this.klient = klient;
     }
 
     public String getVehicle() {
@@ -160,6 +170,7 @@ public class WayBill {
                 ", number='" + number + '\'' +
                 ", date='" + date + '\'' +
                 ", route='" + route + '\'' +
+                ", klient='" + klient + '\'' +
                 ", vehicle='" + vehicle + '\'' +
                 ", datebegin='" + datebegin + '\'' +
                 ", dateend='" + dateend + '\'' +

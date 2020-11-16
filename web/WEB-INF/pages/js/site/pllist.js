@@ -2,12 +2,16 @@ var pllist = {};
 
 pllist.module = (function () {
 
-    var page = 1;
+    var currentPage = 1;
+    var totalPages = 0;
 
-    var setPage = function(newPage) {
-        page = newPage;
+    var setCurrentPage = function(newCurrentPage) {
+        currentPage = newCurrentPage;
     }
 
+    var setTotalPages = function(newTotalPages) {
+        totalPages = newTotalPages;
+    }
 
 
     // форматирование даты из типа Date в вид ГГГГ.ММ.ДД
@@ -47,8 +51,22 @@ pllist.module = (function () {
         }
 
         return list[2] + "-" + list[1] + "-" + list[0];
+    }
+
+    var convertRestToDate = function (datestr, delimeter, direction) {
+        var list = datestr.split("-");
+        if (list.length != 3) {
+            return "";
+        }
+
+        if (direction == "ymd") {
+            return list[0] + delimeter + list[1] + delimeter + list[2];
+        }
+
+        return list[2] + delimeter + list[1] + delimeter + list[0];
 
     }
+
 
 
     // устанавливаем даты по умолчанию
@@ -70,12 +88,22 @@ pllist.module = (function () {
 
     }
 
-    var renderRow = function() {
+    var renderRow = function(number, uid, date, klient, route) {
         var rowTemplate = '<tr>'
                             + '<td><span>__number__</span><span style="display: none">__uid__</span> от<br/>__date__</td>'
                             + '<td>__klient__</td>'
                             + '<td>__route__</td>'
                         + '</tr>';
+
+        var rowStr = rowTemplate;
+
+        rowStr = rowStr.replace("__number__", number);
+        rowStr = rowStr.replace("__uid__", uid);
+        rowStr = rowStr.replace("__date__", convertRestToDate(date, ".", "dmy"));
+        rowStr = rowStr.replace("__klient__", klient);
+        rowStr = rowStr.replace("__route__", route);
+
+        return rowStr;
     }
 
     // устанавливаем даты по умолчанию
@@ -96,7 +124,7 @@ pllist.module = (function () {
         else
             jsonData.onlyopen = 0;
 
-        jsonData.page = page;
+        jsonData.page = currentPage;
 
 
         $.ajax({
@@ -108,11 +136,35 @@ pllist.module = (function () {
             success: function(data) {
 
                 if (data.status == "ok") {
+
+                    // переменные модуля
+                    // текущая страница
+                    currentPage = data.content.currentpage;
+                    // количество страниц
+                    totalPages = data.content.totalpages;
+
+                    // таблица объект
+                    var tableObj = $("#pltable");
+
+                    // очистим таблицу
                     $("#pltable tbody tr").remove();
 
-                    // установим данные по водителю
-                    // фио
+                    // заполним таблицу
+                    var plmas = data.content.lists;
 
+                    if (plmas == null) {
+                        return false;
+                    }
+
+                    if (plmas.length == 0) {
+                        return false;
+                    }
+
+                    var oneRow = "";
+                    for (var i = 0; i < plmas.length; i++) {
+                        oneRow = renderRow(plmas[i].number, plmas[i].uid, plmas[i].date, plmas[i].klient, plmas[i].route);
+                        tableObj.append(oneRow);
+                    }
 
                 }
 
@@ -131,7 +183,8 @@ pllist.module = (function () {
     return {
         getPllistPeriod:getPllistPeriod,
         getPllist:getPllist,
-        setPage:setPage
+        setCurrentPage:setCurrentPage,
+        setTotalPages:setTotalPages
     };
 
 }());

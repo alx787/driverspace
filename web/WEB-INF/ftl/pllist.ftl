@@ -42,6 +42,14 @@
 
 			// установим значения периода
             pllist.module.getPllistPeriod();
+            
+            // пагинатор
+            $("#pager-top a.page-link").on("click", function (e) {
+                e.preventDefault();
+                console.log( this );
+                console.log( $( this ) );
+                console.log( $( this ).text() );
+            })
 	    });
 	 
     </script>
@@ -110,25 +118,28 @@
 
 
 <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
+  <ul id="pager-top" class="pagination justify-content-center">
+
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
         <span class="sr-only">Previous</span>
       </a>
     </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
+
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
     <li class="page-item"><a class="page-link" href="#">2</a></li>
     <li class="page-item"><a class="page-link" href="#">3</a></li>
+
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
       </a>
     </li>
+
   </ul>
 </nav>
-
 
 
  <div class="row">
@@ -137,61 +148,46 @@
  <table id="pltable" class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">№ / Дата</th>
-      <th scope="col">Контрагент</th>
+      <th scope="col" style="width: 120px;">№ / Дата</th>
+      <th scope="col" style="width: 560px;">Контрагент</th>
       <th scope="col">Маршрут</th>
     </tr>
   </thead>
   <tbody>
 
 
-    <tr>
-        <td><span>744400</span><span style="display: none">иденитификатор</span> от<br/>10.09.2020</td>
-      <td>ККС Мазут</td>
-      <td>д.Б.Сколотни Слободской р-н</td>
-    </tr>
-    <tr>
-      <td>744401 от <br/>11.09.2020</td>
-      <td>ЗАО "Кристалл"</td>
-      <td>Киров - Кирс - Киров</td>
-    </tr>
-    <tr>
-      <td>744402 от <br/>12.09.2020</td>
-      <td>Филиал КировЭнерго ....</td>
-      <td>по маршруту (ТЭЦ-4)</td>
-    </tr>
+    <#--<tr>-->
+        <#--<td><span>744400</span><span style="display: none">иденитификатор</span> от<br/>10.09.2020</td>-->
+      <#--<td>ККС Мазут</td>-->
+      <#--<td>д.Б.Сколотни Слободской р-н</td>-->
+    <#--</tr>-->
+    <#--<tr>-->
+      <#--<td>744401 от <br/>11.09.2020</td>-->
+      <#--<td>ЗАО "Кристалл"</td>-->
+      <#--<td>Киров - Кирс - Киров</td>-->
+    <#--</tr>-->
+    <#--<tr>-->
+      <#--<td>744402 от <br/>12.09.2020</td>-->
+      <#--<td>Филиал КировЭнерго ....</td>-->
+      <#--<td>по маршруту (ТЭЦ-4)</td>-->
+    <#--</tr>-->
 
-    <tr>
-      <td>744400 от<br/>10.09.2020</td>
-      <td>ККС Мазут</td>
-      <td>д.Б.Сколотни Слободской р-н</td>
-    </tr>
-    <tr>
-      <td>744401 от <br/>11.09.2020</td>
-      <td>ЗАО "Кристалл"</td>
-      <td>Киров - Кирс - Киров</td>
-    </tr>
-    <tr>
-      <td>744402 от <br/>12.09.2020</td>
-      <td>Филиал КировЭнерго ....</td>
-      <td>по маршруту (ТЭЦ-4)</td>
-    </tr>
+    <#--<tr>-->
+      <#--<td>744400 от<br/>10.09.2020</td>-->
+      <#--<td>ККС Мазут</td>-->
+      <#--<td>д.Б.Сколотни Слободской р-н</td>-->
+    <#--</tr>-->
+    <#--<tr>-->
+      <#--<td>744401 от <br/>11.09.2020</td>-->
+      <#--<td>ЗАО "Кристалл"</td>-->
+      <#--<td>Киров - Кирс - Киров</td>-->
+    <#--</tr>-->
+    <#--<tr>-->
+      <#--<td>744402 от <br/>12.09.2020</td>-->
+      <#--<td>Филиал КировЭнерго ....</td>-->
+      <#--<td>по маршруту (ТЭЦ-4)</td>-->
+    <#--</tr>-->
 
-    <tr>
-      <td>744400 от<br/>10.09.2020</td>
-      <td>ККС Мазут</td>
-      <td>д.Б.Сколотни Слободской р-н</td>
-    </tr>
-    <tr>
-      <td>744401 от <br/>11.09.2020</td>
-      <td>ЗАО "Кристалл"</td>
-      <td>Киров - Кирс - Киров</td>
-    </tr>
-    <tr>
-      <td>744402 от <br/>12.09.2020</td>
-      <td>Филиал КировЭнерго ....</td>
-      <td>по маршруту (ТЭЦ-4)</td>
-    </tr>
 
   </tbody>
 </table>
@@ -202,7 +198,7 @@
 
 
 <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
+  <ul id="pager-bottom" class="pagination justify-content-center">
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
