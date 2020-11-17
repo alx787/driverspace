@@ -7,6 +7,7 @@
 
 
     <link rel="stylesheet" type="text/css" href="pages/css/bootstrap/tempusdominus-bootstrap-4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="pages/css/site/pledit.css"/>
 
     <script type="text/javascript" src="pages/js/bootstrap/moment.js"></script>
     <script type="text/javascript" src="pages/js/bootstrap/tempusdominus-bootstrap-4.min.js"></script>
@@ -80,14 +81,14 @@
     <div class="form-group row">
       <label class="col-sm-2 col-form-label" for="tsName">Транспортное средство:</label>
       <div class="col-sm-10 input-group" data-target-input="nearest">
-        <input type="text" class="form-control" id="tsName" placeholder="" value="">
+        <input type="text" class="form-control" id="tsName" placeholder="" value="" readonly>
       </div>
     </div>
 
     <div class="form-group row">
       <label class="col-sm-2 col-form-label" for="route">Маршрут:</label>
       <div class="col-sm-10 input-group" data-target-input="nearest">
-        <input type="text" class="form-control" id="route" placeholder="" value="">
+        <input type="text" class="form-control" id="route" placeholder="" value="" readonly>
       </div>
     </div>
 
@@ -187,8 +188,9 @@
     </div>
 
 
-    <div class="form-group row justify-content-center">
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+    <div class="form-group row justify-content-center group-marg">
+        <button type="button" class="btn btn-primary button-marg">Сохранить</button>
+        <button type="button" class="btn btn-danger">Отправить диспетчеру</button>
     </div>
 
 

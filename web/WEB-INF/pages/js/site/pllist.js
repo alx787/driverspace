@@ -102,8 +102,14 @@ pllist.module = (function () {
         }
 
         var pagenum = $("#pagenumber").text();
-        // if pagenum.trim() 1
+        if (pagenum.trim() != "") {
 
+            currentPage = parseInt(pagenum);
+
+            if (isNaN(currentPage)) {
+                currentPage = 1;
+            }
+        }
 
     }
 
@@ -214,13 +220,30 @@ pllist.module = (function () {
                     // назначим события на нажатие каждой строки
                     var tableRowsObj = $("#pltable tbody tr");
                     var tableSize = tableRowsObj.length;
+
+
+                    var onlyopen = 0;
+                    if ($('#onlyopen').is(':checked')) {
+                        onlyopen = 1;
+                    }
+
+                    var url = "/" + getContextUrl() + "/pledit?datebeg=" + $("#beginDate").val()
+                                                    + "&dateend=" + $("#endDate").val()
+                                                    + "&onlyopen=" + onlyopen
+                                                    + "&page=" + currentPage
+
+
                     for (var i = 0; i < tableSize; i++) {
                         tableRowsObj.eq(i).on("click", function () {
                             // console.log(this);
                             // console.log($(this));
                             // console.log($(this).text());
 
-                            window.location.assign("/" + getContextUrl() + "/pledit?numpl=" + $(this).find("span.plnumber").text());
+                            // чтобы восстановить состояние списка после возврата из путевки
+                            // передаем в параметрах дату начала и дату окончания периода, только открытые и номер текущей страницы
+                            // pledit?numpl=ххх&datebeg=xx.xx.xxxx&dateend=xx.xx.xxxx&onlyopen=1&page=x
+
+                            window.location.assign(url + "&numpl=" + $(this).find("span.plnumber").text());
 
                         })
                     }

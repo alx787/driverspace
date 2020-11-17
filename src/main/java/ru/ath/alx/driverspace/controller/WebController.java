@@ -86,8 +86,17 @@ public class WebController {
 
     // pledit?numpl=100
     @RequestMapping(value = "/pledit", method = RequestMethod.GET)
-    public String pledit(@RequestParam("numpl") String numpl, Model model, HttpServletRequest request) {
+    public String pledit(@RequestParam("numpl") String numpl,
+                         @RequestParam("datebeg") String datebeg,
+                         @RequestParam("dateend") String dateend,
+                         @RequestParam("onlyopen") String onlyopen,
+                         @RequestParam("page") String page,
+                         Model model, HttpServletRequest request) {
         model.addAttribute("numpl", numpl);
+        model.addAttribute("datebeg", datebeg);
+        model.addAttribute("dateend", dateend);
+        model.addAttribute("onlyopen", onlyopen);
+        model.addAttribute("page", page);
         return "pledit";
     }
 }
