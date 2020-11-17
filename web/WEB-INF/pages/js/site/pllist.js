@@ -13,6 +13,15 @@ pllist.module = (function () {
         totalPages = newTotalPages;
     }
 
+    var getCurrentPage = function() {
+        return currentPage;
+    }
+
+    var getTotalPages = function() {
+        return totalPages;
+    }
+
+
 
     // форматирование даты из типа Date в вид ГГГГ.ММ.ДД
     // date - дата типа Date
@@ -72,6 +81,7 @@ pllist.module = (function () {
     // устанавливаем даты по умолчанию
     var getPllistPeriod = function() {
 
+
         // глубина периода
         var period = 10;
 
@@ -83,17 +93,36 @@ pllist.module = (function () {
         datebeg = localDatebeg;
         dateend = localDateend;
 
-        $('#beginDate').val(formatDate(localDatebeg, ".", "dmy"));
-        $('#endDate').val(formatDate(localDateend, ".", "dmy"));
+        if (document.getElementById("beginDate").value.trim() == "") {
+            $('#beginDate').val(formatDate(localDatebeg, ".", "dmy"));
+        }
+
+        if (document.getElementById("endDate").value.trim() == "") {
+            $('#endDate').val(formatDate(localDateend, ".", "dmy"));
+        }
+
+        var pagenum = $("#pagenumber").text();
+        // if pagenum.trim() 1
+
 
     }
 
-    var renderRow = function(number, uid, date, klient, route) {
-        var rowTemplate = '<tr>'
-                            + '<td><span>__number__</span><span style="display: none">__uid__</span> от<br/>__date__</td>'
+    // обработчик нажатия кнопки обновить
+    var refreshBtnHandler = function() {
+        currentPage = 1;
+        totalPages = 0;
+        getPllist();
+    }
+
+    // отрисовка строки таблицы
+    var renderRow = function(number, uid, date, klient, route, closed) {
+        var rowTemplate = '<tr __closed__>'
+                            + '<td><span class="plnumber">__number__</span><span class="pluid">__uid__</span> от<br/>__date__</td>'
                             + '<td>__klient__</td>'
                             + '<td>__route__</td>'
                         + '</tr>';
+
+        var closedStyle = 'class="plclosed"';
 
         var rowStr = rowTemplate;
 
@@ -102,6 +131,12 @@ pllist.module = (function () {
         rowStr = rowStr.replace("__date__", convertRestToDate(date, ".", "dmy"));
         rowStr = rowStr.replace("__klient__", klient);
         rowStr = rowStr.replace("__route__", route);
+
+        if (closed == "true") {
+            rowStr = rowStr.replace("__closed__", closedStyle);
+        } else {
+            rowStr = rowStr.replace("__closed__", "");
+        }
 
         return rowStr;
     }
@@ -139,9 +174,9 @@ pllist.module = (function () {
 
                     // переменные модуля
                     // текущая страница
-                    currentPage = data.content.currentpage;
+                    currentPage = 1;
                     // количество страниц
-                    totalPages = data.content.totalpages;
+                    totalPages = 0;
 
                     // таблица объект
                     var tableObj = $("#pltable");
@@ -156,6 +191,15 @@ pllist.module = (function () {
                         return false;
                     }
 
+                    // переменные модуля
+                    // текущая страница
+                    currentPage = data.content.currentpage;
+                    // количество страниц
+                    totalPages = data.content.totalpages;
+
+                    // настраиваем пагинатор
+                    setupPaginators();
+
                     if (plmas.length == 0) {
                         return false;
                     }
@@ -163,12 +207,25 @@ pllist.module = (function () {
                     // отрисовываем строки
                     var oneRow = "";
                     for (var i = 0; i < plmas.length; i++) {
-                        oneRow = renderRow(plmas[i].number, plmas[i].uid, plmas[i].date, plmas[i].klient, plmas[i].route);
+                        oneRow = renderRow(plmas[i].number, plmas[i].uid, plmas[i].date, plmas[i].klient, plmas[i].route, plmas[i].closed);
                         tableObj.append(oneRow);
                     }
 
-                    // настраиваем пагинатор
-                    setupPaginators();
+                    // назначим события на нажатие каждой строки
+                    var tableRowsObj = $("#pltable tbody tr");
+                    var tableSize = tableRowsObj.length;
+                    for (var i = 0; i < tableSize; i++) {
+                        tableRowsObj.eq(i).on("click", function () {
+                            // console.log(this);
+                            // console.log($(this));
+                            // console.log($(this).text());
+
+                            window.location.assign("/" + getContextUrl() + "/pledit?numpl=" + $(this).find("span.plnumber").text());
+
+                        })
+                    }
+
+
                 }
 
                 console.log(data);
@@ -274,19 +331,66 @@ pllist.module = (function () {
             pageLinks.eq(1).text(currentPage - 1);
             pageLinks.eq(2).text(currentPage);
             pageLinks.eq(3).text(currentPage + 1);
-
         }
 
+    }
 
+    // процедура - обрабатывает нажатия на кнопки пагинотары
+    // currentLinkText - текст нажатой кнопки
+    // pagerLinkObj - объект пагинатора
+    var pageClickHandler = function (currentLinkText, pagerLinkObj) {
+        // назад
+        if (currentLinkText == pagerLinkObj.eq(0).text()) {
+            goPrevPage();
+        }
 
+        // предыдущая страница
+        if (currentLinkText == pagerLinkObj.eq(1).text()) {
+            goToPage(parseInt(pagerLinkObj.eq(1).text()));
+        }
+
+        // текущая страница
+        if (currentLinkText == pagerLinkObj.eq(2).text()) {
+            goToPage(parseInt(pagerLinkObj.eq(2).text()));
+        }
+
+        // следующая страница
+        if (currentLinkText == pagerLinkObj.eq(3).text()) {
+            goToPage(parseInt(pagerLinkObj.eq(3).text()));
+        }
+
+        // вперед
+        if (currentLinkText == pagerLinkObj.eq(4).text()) {
+            goNextPage();
+        }
 
     }
+
+    var goToPage = function (pageNum) {
+        if (pageNum >= 1 && pageNum <= totalPages) {
+            currentPage = pageNum;
+            getPllist();
+        }
+    }
+
+    var goPrevPage = function () {
+        goToPage(currentPage - 1);
+    }
+
+    var goNextPage = function () {
+        goToPage(currentPage + 1);
+    }
+
 
     return {
         getPllistPeriod:getPllistPeriod,
         getPllist:getPllist,
-        setCurrentPage:setCurrentPage,
-        setTotalPages:setTotalPages
+        refreshBtnHandler:refreshBtnHandler,
+        pageClickHandler:pageClickHandler
+        // setCurrentPage:setCurrentPage,
+        // setTotalPages:setTotalPages,
+        // getCurrentPage:getCurrentPage,
+        // getTotalPages:getTotalPages,
     };
 
 }());

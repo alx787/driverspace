@@ -2,10 +2,9 @@ package ru.ath.alx.driverspace.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import ru.ath.alx.driverspace.model.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +29,7 @@ public class WebController {
 //    }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index(@ModelAttribute("model") ModelMap model, HttpServletRequest request) {
+    public String index(Model model, HttpServletRequest request) {
 
 //        // получаем контекст и передаем в шаблон
 //        log.warn(request.getContextPath());
@@ -40,17 +39,55 @@ public class WebController {
     }
 
     @RequestMapping(value = "/exit", method = RequestMethod.GET)
-    public String exit(@ModelAttribute("model") ModelMap model, HttpServletRequest request) {
+    public String exit(Model model, HttpServletRequest request) {
         return "exit";
     }
 
     @RequestMapping(value = "/mainpage", method = RequestMethod.GET)
-    public String mainpage(@ModelAttribute("model") ModelMap model, HttpServletRequest request) {
+    public String mainpage(Model model, HttpServletRequest request) {
         return "mainpage";
     }
 
     @RequestMapping(value = "/pllist", method = RequestMethod.GET)
-    public String v(@ModelAttribute("model") ModelMap model, HttpServletRequest request) {
+    public String pllist(@RequestParam(value = "datebeg", required = false) String datebeg,
+                         @RequestParam(value = "dateend", required = false) String dateend,
+                         @RequestParam(value = "page", required = false) String page,
+                         @RequestParam(value = "onlyopen", required = false) String onlyopen,
+                         Model model,
+                         HttpServletRequest request) {
+//        @ModelAttribute("model") ModelMap model,
+
+        if (datebeg == null) {
+            model.addAttribute("datebeg", "");
+        } else {
+            model.addAttribute("datebeg", datebeg);
+        }
+
+        if (dateend == null) {
+            model.addAttribute("dateend", "");
+        } else {
+            model.addAttribute("dateend", dateend);
+        }
+
+        if (page == null) {
+            model.addAttribute("page", "");
+        } else {
+            model.addAttribute("page", page);
+        }
+
+        if (onlyopen == null) {
+            model.addAttribute("onlyopen", "");
+        } else {
+            model.addAttribute("onlyopen", onlyopen);
+        }
+
         return "pllist";
+    }
+
+    // pledit?numpl=100
+    @RequestMapping(value = "/pledit", method = RequestMethod.GET)
+    public String pledit(@RequestParam("numpl") String numpl, Model model, HttpServletRequest request) {
+        model.addAttribute("numpl", numpl);
+        return "pledit";
     }
 }

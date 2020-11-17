@@ -15,6 +15,8 @@
 
     <link rel="stylesheet" type="text/css" href="pages/css/bootstrap/tempusdominus-bootstrap-4.min.css"/>
 
+    <link rel="stylesheet" type="text/css" href="pages/css/site/pllist.css"/>
+
 
     <#-- проверка авторизации + события для кнопок навбара -->
     <#include "/common/navbar_js.ftl" parse=false>
@@ -37,19 +39,37 @@
 
             // дата окончания периода
             $("#pllistrefresh").on("click", function () {
-                pllist.module.getPllist();
+                pllist.module.refreshBtnHandler();
             });
 
 			// установим значения периода
             pllist.module.getPllistPeriod();
-            
-            // пагинатор
+
+
+            // пагинатор верхний
             $("#pager-top a.page-link").on("click", function (e) {
                 e.preventDefault();
-                console.log( this );
-                console.log( $( this ) );
-                console.log( $( this ).text() );
-            })
+
+                var currentLinkText = $(this).text();
+                var pagerLinkObj = $("#pager-top a.page-link");
+
+                pllist.module.pageClickHandler(currentLinkText, pagerLinkObj);
+            });
+
+            // пагинатор нижний
+            $("#pager-bottom a.page-link").on("click", function (e) {
+                e.preventDefault();
+
+                var currentLinkText = $(this).text();
+                var pagerLinkObj = $("#pager-bottom a.page-link");
+
+                pllist.module.pageClickHandler(currentLinkText, pagerLinkObj);
+            });
+
+
+            // обновить таблицу
+            pllist.module.getPllist();
+
 	    });
 	 
     </script>
@@ -59,6 +79,8 @@
 <body>
 
   <#include "/common/navbar.ftl" parse=false>
+
+  <div id="pagenumber">${page}</div>
 
 
 <main role="main">
@@ -81,7 +103,7 @@
         <label for="beginDate" class="col-sm-2 col-form-label">Начало периода:</label>
 
 		<div class="col-sm-3 input-group date" id="datetimepickerBegin" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker">
+            <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker" value="${datebeg}">
             <div class="input-group-append" data-target="#datetimepickerBegin" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -90,7 +112,7 @@
         <label for="endDate" class="col-sm-2 col-form-label">Окончание периода:</label>
 
         <div class="col-sm-3 input-group date" id="datetimepickerEnd" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" id="endDate" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
+            <input type="text" class="form-control datetimepicker-input" id="endDate" data-target="#datetimepickerEnd" data-toggle="datetimepicker" value="${dateend}">
             <div class="input-group-append" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -99,14 +121,19 @@
 
 		<div class="checkbox col-sm-2">
     		<label>
+                <#assign oopen=onlyopen>
+                <#if oopen == "1">
       			<input id="onlyopen" type="checkbox" value="opened" checked> только открытые</input>
+                <#else>
+                <input id="onlyopen" type="checkbox" value="opened"> только открытые</input>
+                </#if>
     		</label>
 		</div>           
 
     </div>
 
     <div class="form-group row justify-content-center">
-        <button id="pllistrefresh" type="button" class="btn btn-primary" sty>Обновить</button>
+        <button id="pllistrefresh" type="button" class="btn btn-primary" sty>Обновить за период</button>
     </div>
 
 
@@ -225,7 +252,7 @@
 
     </main>
 
-  <#include "/common/navbar.ftl" parse=false>
+  <#include "/common/footer.ftl" parse=false>
   </body>
 
 

@@ -1,0 +1,16 @@
+
+.plclosed {
+    background-color: #ced4da;
+}
+
+#pltable tr {
+    cursor: pointer;
+}
+
+.plnumber {
+    font-weight: bold;
+}
+
+.pluid {
+    display: none;
+}
