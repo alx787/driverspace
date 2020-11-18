@@ -14,12 +14,11 @@
     <script type="text/javascript" src="pages/js/bootstrap/ru.js"></script>
 
     <script type="text/javascript" src="pages/js/site/pledit.js"></script>
+    <script type="text/javascript" src="pages/js/site/pledits.js"></script>
 
 
-
-
-      <#-- проверка авторизации + события для кнопок навбара -->
-      <#include "/common/navbar_js.ftl" parse=false>
+    <#-- проверка авторизации + события для кнопок навбара -->
+    <#include "/common/navbar_js.ftl" parse=false>
 
 
     <script type="text/javascript" >
@@ -38,6 +37,10 @@
 
         // уберем видимость кнопки Удалить у первой записи
         $($("div.col-sm-2.float-right")[0]).css("display", "none");
+
+        /////////////////////////////////////////////////////
+        pledits.module.getPldata();
+
 	    });
 	 
 
@@ -55,26 +58,20 @@
 <main role="main">
 
 
-<div class="container">
-
-
+    <div class="container">
 
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-          <h3>Путевой лист №XXXXX от 01.01.2020</h3>
+          <h3>Путевой лист № <span id="plnum">${numpl}</span> от <span id="pldate">XX.XX.XXXX</span></h3>
         </div>
 
-
-
-
-
-<form>
+    <form>
 
 
 
     <div class="form-group row">
       <label class="col-sm-2 col-form-label" for="driverName">Водитель:</label>
       <div class="col-sm-10 input-group" data-target-input="nearest">
-        <input type="text" class="form-control" id="driverName" placeholder="" value="Иванов Иван Иванович" readonly>
+        <input type="text" class="form-control" id="driverName" placeholder="" value="" readonly>
       </div>
     </div>
 
@@ -98,6 +95,7 @@
 
 
 
+    <!-- ===================================================== -->
     <!-- строка с записью путевого листа -->
     <div class="card" style="margin-bottom: 20px">
 
@@ -113,7 +111,6 @@
           </div>
 
         </div>
-      
 
       </div>
       <div class="card-body">
@@ -152,6 +149,10 @@
 
       </div>
     </div>
+    <!-- ===================================================== -->
+
+
+
 
 
     <!-- кнопка добавления новой записи -->
@@ -169,12 +170,12 @@
 
         <label for="odometerBegin" class="col-sm-2 col-form-label">Спидометр выезда:</label>
         <div class="col-sm-4 input-group" data-target-input="nearest">
-          <input type="text" class="form-control" id="odometerBegin">
+          <input type="text" class="form-control" id="speedometerBegin">
         </div>
 
         <label for="odometerEnd" class="col-sm-2 col-form-label">Спидометр возврата:</label>
         <div class="col-sm-4 input-group" data-target-input="nearest">
-          <input type="text" class="form-control" id="odometerEnd">
+          <input type="text" class="form-control" id="speedometerEnd">
         </div>
 
     </div>
