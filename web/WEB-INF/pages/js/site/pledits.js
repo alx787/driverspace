@@ -112,6 +112,13 @@ pledits.module = (function () {
                     $("#speedometerEnd").val(data.content.speedometerend);
                     $("#refuelCnt").val(data.content.refuel);
 
+                    // отключим кнопки отправки у закрытых пл
+                    if (data.content.closed == "true") {
+                        $("#plclosed").text("закрыт");
+                        $("#exitwithsave").attr("disabled", true);
+                        $("#exitwithsavesend").attr("disabled", true);
+                    }
+
                     // заполняем строки путевого листа
                     var plparts = data.content.parts;
                     if (plparts != null)
@@ -202,32 +209,62 @@ pledits.module = (function () {
 
         var modalModeObj = $("#modalMode");
 
-        if (modalModeObj.val() != "addrow") {
-            $("#modalMode").val("addrow");
-            $("#modalMessage").html('<h4 class="modal-title">Выйти без сохранения ?</h4>');
+        $("#modalMode").val("exitwithoutsave");
+        $("#modalMessage").html('<h4 class="modal-title">Выйти без сохранения ?</h4>');
 
-            $("#modalButton").text("Выйти");
+        $("#modalButton").text("Выйти");
 
-            $("#modalButton").off("click");
-            $("#modalButton").on("click", function() {
-                gotoPllistPage();
-            });
-        };
+        $("#modalButton").off("click");
+        $("#modalButton").on("click", function() {
+            gotoPllistPage();
+        });
 
         $("#tweet-modal").modal();
-
-
     }
 
 
+    var exitWithSave = function() {
+        var modalModeObj = $("#modalMode");
+
+        $("#modalMode").val("exitwithsave");
+        $("#modalMessage").html('<h4 class="modal-title">Сохранить и выйти ?</h4>');
+
+        $("#modalButton").text("Выйти");
+
+        $("#modalButton").off("click");
+        $("#modalButton").on("click", function() {
+            gotoPllistPage();
+        });
+
+        $("#tweet-modal").modal();
+    }
+
+
+    var exitWithSaveSend = function() {
+        var modalModeObj = $("#modalMode");
+
+        $("#modalMode").val("exitwithsave");
+        $("#modalMessage").html('<h4 class="modal-title">Отправить диспетчеру и выйти ?</h4>');
+
+        $("#modalButton").text("Выйти");
+
+        $("#modalButton").off("click");
+        $("#modalButton").on("click", function() {
+            gotoPllistPage();
+        });
+
+        $("#tweet-modal").modal();
+    }
 
     return {
         showMessage:showMessage,
         getPldata:getPldata,
         getSearchParameters:getSearchParameters,
         exitWithoutSave:exitWithoutSave,
+        exitWithSave:exitWithSave,
+        exitWithSaveSend:exitWithSaveSend,
 
-};
+    };
 
 
 

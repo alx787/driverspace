@@ -4,6 +4,9 @@ public class WayBillSetRequest {
     private String userid;
     private String token;
 
+    // закрыть пл
+    // private String withClose;
+
     private WayBill wayBill;
 
     public WayBillSetRequest() {

@@ -53,7 +53,7 @@
             pledits.module.getSearchParameters();
 
             /////////////////////////////////////////////////////
-            pledits.module.getPldata();
+            // pledits.module.getPldata();
 
 	    });
 	 
@@ -76,6 +76,7 @@
 
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
           <h3>Путевой лист № <span id="plnum">${numpl}</span> от <span id="pldate">XX.XX.XXXX</span></h3>
+          <h3 id="plclosed"></h3>
         </div>
 
     <form>
@@ -243,11 +244,11 @@
         </div>
 
         <div class="col-sm-6 col-md-3 button-marg">
-            <button type="button" class="btn btn-primary">Сохранить</button>
+            <button id="exitwithsave" type="button" class="btn btn-primary" onclick="pledits.module.exitWithSave()">Сохранить</button>
         </div>
 
         <div class="col-sm-6 col-md-3 button-marg">
-            <button type="button" class="btn btn-danger">Отправить диспетчеру</button>
+            <button id="exitwithsavesend" type="button" class="btn btn-danger" onclick="pledits.module.exitWithSaveSend()">Отправить диспетчеру</button>
         </div>
 
 
