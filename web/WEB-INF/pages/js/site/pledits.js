@@ -2,6 +2,14 @@ var pledits = {};
 
 pledits.module = (function () {
 
+    // тут будут хранится переменные из вызывающей страницы
+    // все строки
+    var datebeg = "";
+    var dateend = "";
+    var onlyopen = "";
+    var page = "";
+    var numpl = "";
+
     var showMessage = function() {
         console.log("=========== проверка ===========");
         return false;
@@ -95,6 +103,11 @@ pledits.module = (function () {
                     $("#tsName").val(data.content.vehicle);
                     $("#route").val(data.content.route);
 
+                    $("#beginDate").val(convertRestToDate(data.content.datebegin, ".", "dmy"));
+                    $("#endDate").val(convertRestToDate(data.content.dateend, ".", "dmy"));
+                    $("#relaxTime").val(data.content.breaklen);
+
+
                     $("#speedometerBegin").val(data.content.speedometerbegin);
                     $("#speedometerEnd").val(data.content.speedometerend);
                     $("#refuelCnt").val(data.content.refuel);
@@ -127,7 +140,6 @@ pledits.module = (function () {
 
                 console.log(data);
 
-
             },
             error: function(data) {
 
@@ -137,9 +149,83 @@ pledits.module = (function () {
     }
 
 
+    var getSearchParameters = function() {
+        var searchUrl = window.location.search;
+        if (searchUrl.length == 0) {
+            return false;
+        }
+
+        searchUrl = searchUrl.substring(1, searchUrl.length);
+        var paramsArray = searchUrl.split("&");
+        for(var i = 0; i < paramsArray.length; i++) {
+
+            // Для каждого cookie
+            var param = paramsArray[i];
+
+            // Отыскать первый знак =
+            var p = param.indexOf("=");
+
+            // Получить имя параметра
+            var name = param.substring(0, p);
+
+            // Получить значение параметра
+            var value = param.substring(p + 1);
+
+            // присвоим значения параметрам
+            // ?datebeg=04.03.2020&dateend=20.11.2020&onlyopen=0&page=2&numpl=674257
+            if (name == "datebeg") {
+                datebeg = value;
+            }
+            if (name == "dateend") {
+                dateend = value;
+            }
+            if (name == "onlyopen") {
+                onlyopen = value;
+            }
+            if (name == "page") {
+                page = value;
+            }
+            if (name == "numpl") {
+                numpl = value;
+            }
+        }
+
+    };
+
+    var gotoPllistPage = function() {
+        window.location.assign("/" + getContextUrl() + "/pllist?datebeg=" + datebeg + "&dateend=" + dateend + "&onlyopen=" + onlyopen + "&page=" + page + "&numpl=" + numpl);
+    }
+
+
+    // события нажатий на кнопки
+    var exitWithoutSave = function() {
+
+        var modalModeObj = $("#modalMode");
+
+        if (modalModeObj.val() != "addrow") {
+            $("#modalMode").val("addrow");
+            $("#modalMessage").html('<h4 class="modal-title">Выйти без сохранения ?</h4>');
+
+            $("#modalButton").text("Выйти");
+
+            $("#modalButton").off("click");
+            $("#modalButton").on("click", function() {
+                gotoPllistPage();
+            });
+        };
+
+        $("#tweet-modal").modal();
+
+
+    }
+
+
+
     return {
         showMessage:showMessage,
-        getPldata:getPldata
+        getPldata:getPldata,
+        getSearchParameters:getSearchParameters,
+        exitWithoutSave:exitWithoutSave,
 
 };
 

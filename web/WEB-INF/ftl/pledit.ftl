@@ -25,21 +25,35 @@
 	    $(document).ready(function() {
 	        console.log( "document loaded" );
 
+            // дата время в шапке путевого листа
+            $('#datetimepickerBegin').datetimepicker({
+                locale: "ru",
+                //  format: "L"
+            });
+
+            $('#datetimepickerEnd').datetimepicker({
+                locale: "ru",
+                //   format: "L"
+            });
+
+
+            // дата время в строке путевого листа
   			$('#datetimepickerBegin1').datetimepicker({
-            locale: "ru",
-         //  format: "L"
-        });
+                locale: "ru",
+            });
 
   			$('#datetimepickerEnd1').datetimepicker({
-            locale: "ru",
-         //   format: "L"
-        });
+                locale: "ru",
+            });
 
-        // уберем видимость кнопки Удалить у первой записи
-        $($("div.col-sm-2.float-right")[0]).css("display", "none");
+            // уберем видимость кнопки Удалить у первой записи
+            $($("div.col-sm-2.float-right")[0]).css("display", "none");
 
-        /////////////////////////////////////////////////////
-        pledits.module.getPldata();
+            // получим значения из строки url
+            pledits.module.getSearchParameters();
+
+            /////////////////////////////////////////////////////
+            pledits.module.getPldata();
 
 	    });
 	 
@@ -68,6 +82,8 @@
 
 
 
+    <!-- ===================================================== -->
+    <!-- данные шапки документа -->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label" for="driverName">Водитель:</label>
       <div class="col-sm-10 input-group" data-target-input="nearest">
@@ -90,9 +106,60 @@
     </div>
 
 
+    <div class="form-group row">
+        <label for="beginDate" class="col-sm-2 col-form-label">Время выезда:</label>
+
+        <div class="col-sm-4 input-group date" id="datetimepickerBegin" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker" value="${datebeg}">
+            <div class="input-group-append" data-target="#datetimepickerBegin" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+        </div>
+
+        <label for="endDate" class="col-sm-2 col-form-label">Время возврата:</label>
+
+        <div class="col-sm-4 input-group date" id="datetimepickerEnd" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" id="endDate" data-target="#datetimepickerEnd" data-toggle="datetimepicker" value="${dateend}">
+            <div class="input-group-append" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <label for="relaxTime">Обед (время затраченное на отдых)</label>
+            <input type="text" class="form-control" id="relaxTime" placeholder="" value="">
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+
+        <label for="speedometerBegin" class="col-sm-2 col-form-label">Спидометр выезда:</label>
+        <div class="col-sm-4 input-group" data-target-input="nearest">
+            <input type="text" class="form-control" id="speedometerBegin">
+        </div>
+
+        <label for="speedometerEnd" class="col-sm-2 col-form-label">Спидометр возврата:</label>
+        <div class="col-sm-4 input-group" data-target-input="nearest">
+            <input type="text" class="form-control" id="speedometerEnd">
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <label for="refuelCnt">Заправка (литры)</label>
+            <input type="text" class="form-control" id="refuelCnt" placeholder="" value="">
+        </div>
+
+    </div>
 
 
 
+    <!-- ===================================================== -->
 
 
     <!-- ===================================================== -->
@@ -101,7 +168,6 @@
 
       <!-- тут хранится номер строки -->
       <div class="recnumber" style="display: none">1</div>
-
 
       <div class="card-header">
         <div class="row">
@@ -113,8 +179,9 @@
         </div>
 
       </div>
-      <div class="card-body">
 
+
+      <div class="card-body">
 
         <div class="form-group row">
             <label for="beginDate1" class="col-sm-2 col-form-label">Время выезда:</label>
@@ -157,7 +224,7 @@
 
     <!-- кнопка добавления новой записи -->
     <div class="form-group row justify-content-center">
-        <button type="button" class="btn btn-primary" onclick="pledit.module.addRowShowModal()">Добавить строку</button>
+        <button type="button" class="btn btn-primary" onclick="pledit.module.addRowShowModal()">Добавить строку путевого листа</button>
     </div>
 
     <!--
@@ -166,32 +233,24 @@
     </div>
     -->
 
-    <div class="form-group row">
 
-        <label for="odometerBegin" class="col-sm-2 col-form-label">Спидометр выезда:</label>
-        <div class="col-sm-4 input-group" data-target-input="nearest">
-          <input type="text" class="form-control" id="speedometerBegin">
-        </div>
-
-        <label for="odometerEnd" class="col-sm-2 col-form-label">Спидометр возврата:</label>
-        <div class="col-sm-4 input-group" data-target-input="nearest">
-          <input type="text" class="form-control" id="speedometerEnd">
-        </div>
-
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-6">
-            <label for="refuelCnt">Заправка (литры)</label>
-            <input type="text" class="form-control" id="refuelCnt" placeholder="" value="">
-        </div>
-
-    </div>
 
 
     <div class="form-group row justify-content-center group-marg">
-        <button type="button" class="btn btn-primary button-marg">Сохранить</button>
-        <button type="button" class="btn btn-danger">Отправить диспетчеру</button>
+
+        <div class="col-sm-6 col-md-3 button-marg">
+            <button type="button" class="btn btn-secondary" onclick="pledits.module.exitWithoutSave()">Выйти без сохранения</button>
+        </div>
+
+        <div class="col-sm-6 col-md-3 button-marg">
+            <button type="button" class="btn btn-primary">Сохранить</button>
+        </div>
+
+        <div class="col-sm-6 col-md-3 button-marg">
+            <button type="button" class="btn btn-danger">Отправить диспетчеру</button>
+        </div>
+
+
     </div>
 
 
