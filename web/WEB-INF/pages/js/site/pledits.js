@@ -42,6 +42,33 @@ pledits.module = (function () {
     }
 
 
+    var convertDateToRest = function (datestr, delimeter, direction) {
+        // проверим добавлено ли время в конце
+        var datetime = datestr.split(" ");
+
+        if (datetime.length == 0 || datetime.length > 2) {
+            return "";
+        }
+
+        var timestr = "";
+        if (datetime.length == 2) {
+            timestr = " " + datetime[1];
+        }
+
+
+        var list = datestr.split(delimeter);
+        if (list.length != 3) {
+            return "";
+        }
+
+        if (direction == "ymd") {
+            return list[0] + "-" + list[1] + "-" + list[2] + timestr;
+        }
+
+        return list[2] + "-" + list[1] + "-" + list[0] + timestr;
+    }
+
+
     var getPldata = function() {
 
         var cookies = checkauth.module.getCookies();
@@ -204,18 +231,71 @@ pledits.module = (function () {
     }
 
 
+    // сохранить пл
+    // sendToDispacher - передать пл диспетчеру true|false
+    var savePl = function(sendToDispacher) {
+        // userid
+        var cookies = checkauth.module.getCookies();
+
+        var jsonData = {};
+        jsonData.userid = cookies.userid;
+        jsonData.token = cookies.token;
+
+        if (sendToDispacher) {
+            jsonData.withClose = "1";
+        } else {
+            jsonData.withClose = "0";
+        }
+
+        var waybill = {};
+
+        waybill.rownum = "";
+        waybill.uid = "";
+        waybill.number = $("#plnum").text();
+        waybill.date = "";
+        waybill.route = "";
+        waybill.klient = "";
+        waybill.vehicle = "";
+        waybill.datebegin = convertDateToRest($("#beginDate").val(), ".", "ymd");
+        waybill.dateend = convertDateToRest($("#endDate").val(), ".", "ymd");;
+        waybill.breaklen = $("#relaxTime").val();
+        waybill.speedometerbegin = $("#speedometerBegin").val();
+        waybill.speedometerend = $("#speedometerEnd").val();
+        waybill.refuel = $("#refuelCnt").val();
+
+        waybill.closed = 1;
+
+        if ($("#plclosed").text().trim() == "") {
+            waybill.closed = 0;
+        };
+
+        var partsArr = [];
+        partOne = {};
+
+        // получим все строки и обойдем их
+        var plLineArr = $(".recnumber");
+        var arrSize = plLineArr.length;
+        
+        for (var i = 0; i < arrSize; i++) {
+            var recnum = $(".recnumber")[i].innerText;
+        }
+
+    }
+
+
     // события нажатий на кнопки
     var exitWithoutSave = function() {
 
         var modalModeObj = $("#modalMode");
+        var modalButtonObj = $("#modalButton");
 
-        $("#modalMode").val("exitwithoutsave");
+        modalModeObj.val("exitwithoutsave");
         $("#modalMessage").html('<h4 class="modal-title">Выйти без сохранения ?</h4>');
 
-        $("#modalButton").text("Выйти");
+        modalButtonObj.text("Выйти");
 
-        $("#modalButton").off("click");
-        $("#modalButton").on("click", function() {
+        modalButtonObj.off("click");
+        modalButtonObj.on("click", function() {
             gotoPllistPage();
         });
 
@@ -224,15 +304,16 @@ pledits.module = (function () {
 
 
     var exitWithSave = function() {
-        var modalModeObj = $("#modalMode");
+
+        var modalButtonObj = $("#modalButton");
 
         $("#modalMode").val("exitwithsave");
         $("#modalMessage").html('<h4 class="modal-title">Сохранить и выйти ?</h4>');
 
-        $("#modalButton").text("Выйти");
+        modalButtonObj.text("Выйти");
 
-        $("#modalButton").off("click");
-        $("#modalButton").on("click", function() {
+        modalButtonObj.off("click");
+        modalButtonObj.on("click", function() {
             gotoPllistPage();
         });
 
@@ -241,15 +322,15 @@ pledits.module = (function () {
 
 
     var exitWithSaveSend = function() {
-        var modalModeObj = $("#modalMode");
+        var modalButtonObj = $("#modalButton");
 
         $("#modalMode").val("exitwithsave");
         $("#modalMessage").html('<h4 class="modal-title">Отправить диспетчеру и выйти ?</h4>');
 
-        $("#modalButton").text("Выйти");
+        modalButtonObj.text("Выйти");
 
-        $("#modalButton").off("click");
-        $("#modalButton").on("click", function() {
+        modalButtonObj.off("click");
+        modalButtonObj.on("click", function() {
             gotoPllistPage();
         });
 

@@ -80,7 +80,7 @@
 
   <#include "/common/navbar.ftl" parse=false>
 
-  <div id="pagenumber">${page}</div>
+  <div style="display: none" id="pagenumber">${page}</div>
 
 
 <main role="main">
@@ -88,15 +88,9 @@
 
 <div class="container">
 
-
-
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
           <h3>Путевые листы</h3>
         </div>
-
-
-
-
 
 <form>
     <div class="form-group row">
@@ -135,8 +129,6 @@
     <div class="form-group row justify-content-center">
         <button id="pllistrefresh" type="button" class="btn btn-primary" sty>Обновить за период</button>
     </div>
-
-
 
 </form>
 
