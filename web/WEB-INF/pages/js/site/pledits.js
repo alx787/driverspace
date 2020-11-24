@@ -55,17 +55,16 @@ pledits.module = (function () {
             timestr = " " + datetime[1];
         }
 
-
-        var list = datestr.split(delimeter);
+        var list = datetime[0].split(delimeter);
         if (list.length != 3) {
             return "";
         }
 
         if (direction == "ymd") {
-            return list[0] + "-" + list[1] + "-" + list[2] + timestr;
+            return list[2] + "-" + list[1] + "-" + list[0] + timestr;
         }
 
-        return list[2] + "-" + list[1] + "-" + list[0] + timestr;
+        return list[0] + "-" + list[1] + "-" + list[2] + timestr;
     }
 
 
@@ -237,6 +236,9 @@ pledits.module = (function () {
         // userid
         var cookies = checkauth.module.getCookies();
 
+        ///////////////////////////////////////
+        // данные для отправки на сервер
+        ///////////////////////////////////////
         var jsonData = {};
         jsonData.userid = cookies.userid;
         jsonData.token = cookies.token;
@@ -247,6 +249,9 @@ pledits.module = (function () {
             jsonData.withClose = "0";
         }
 
+        ///////////////////////////////////////
+        // пл
+        ///////////////////////////////////////
         var waybill = {};
 
         waybill.rownum = "";
@@ -257,7 +262,7 @@ pledits.module = (function () {
         waybill.klient = "";
         waybill.vehicle = "";
         waybill.datebegin = convertDateToRest($("#beginDate").val(), ".", "ymd");
-        waybill.dateend = convertDateToRest($("#endDate").val(), ".", "ymd");;
+        waybill.dateend = convertDateToRest($("#endDate").val(), ".", "ymd");
         waybill.breaklen = $("#relaxTime").val();
         waybill.speedometerbegin = $("#speedometerBegin").val();
         waybill.speedometerend = $("#speedometerEnd").val();
@@ -269,16 +274,67 @@ pledits.module = (function () {
             waybill.closed = 0;
         };
 
-        var partsArr = [];
-        partOne = {};
+        ///////////////////////////////////////
+        // части многодневного пл
+        ///////////////////////////////////////
+        var partsarr = [];
+        // partone = {};
 
         // получим все строки и обойдем их
         var plLineArr = $(".recnumber");
-        var arrSize = plLineArr.length;
+        var arrsize = plLineArr.length;
         
-        for (var i = 0; i < arrSize; i++) {
+        for (var i = 0; i < arrsize; i++) {
             var recnum = $(".recnumber")[i].innerText;
+
+            ///////////////////////////////////////
+            // одна часть пл
+            ///////////////////////////////////////
+            var partone = {};
+
+            partone.datebegin = convertDateToRest($("#beginDate" + recnum).val(), ".", "ymd");
+            partone.dateend = convertDateToRest($("#endDate" + recnum).val(), ".", "ymd");
+            partone.breaklen = $("#relaxTime" + recnum).val();
+
+            partsarr.push(partone);
         }
+
+
+        waybill.parts = partsarr;
+
+        ///////////////////////////////////////
+        // собираем все
+        ///////////////////////////////////////
+        jsonData.wayBill = waybill;
+
+        // console.log(jsonData);
+
+        // когда все собрали формируем запрос на сервер
+        $.ajax({
+            url: "pl/setpl",
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify(jsonData),
+            contentType: "application/json; charset=utf-8",
+            success: function(data) {
+
+                if (data.status == "ok") {
+                    // все норм
+                    gotoPllistPage();
+
+                }
+
+                console.log(data);
+
+            },
+            error: function(data) {
+
+            },
+        });
+
+
+        // gotoPllistPage();
+
 
     }
 
@@ -310,11 +366,11 @@ pledits.module = (function () {
         $("#modalMode").val("exitwithsave");
         $("#modalMessage").html('<h4 class="modal-title">Сохранить и выйти ?</h4>');
 
-        modalButtonObj.text("Выйти");
+        modalButtonObj.text("ОК");
 
         modalButtonObj.off("click");
         modalButtonObj.on("click", function() {
-            gotoPllistPage();
+            savePl(false);
         });
 
         $("#tweet-modal").modal();
@@ -327,11 +383,11 @@ pledits.module = (function () {
         $("#modalMode").val("exitwithsave");
         $("#modalMessage").html('<h4 class="modal-title">Отправить диспетчеру и выйти ?</h4>');
 
-        modalButtonObj.text("Выйти");
+        modalButtonObj.text("ОК");
 
         modalButtonObj.off("click");
         modalButtonObj.on("click", function() {
-            gotoPllistPage();
+            savePl(true);
         });
 
         $("#tweet-modal").modal();

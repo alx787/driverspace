@@ -28,7 +28,8 @@
             // дата время в шапке путевого листа
             $('#datetimepickerBegin').datetimepicker({
                 locale: "ru",
-                //  format: "L"
+                //  format: "L",
+                ignoreReadonly: true
             });
 
             $('#datetimepickerEnd').datetimepicker({
@@ -53,7 +54,7 @@
             pledits.module.getSearchParameters();
 
             /////////////////////////////////////////////////////
-            // pledits.module.getPldata();
+            pledits.module.getPldata();
 
 	    });
 	 
@@ -111,7 +112,7 @@
         <label for="beginDate" class="col-sm-2 col-form-label">Время выезда:</label>
 
         <div class="col-sm-4 input-group date" id="datetimepickerBegin" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker" value="${datebeg}">
+            <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker" value="${datebeg}" readonly="readonly">
             <div class="input-group-append" data-target="#datetimepickerBegin" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>

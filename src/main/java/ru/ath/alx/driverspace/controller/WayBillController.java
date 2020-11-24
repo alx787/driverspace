@@ -286,6 +286,10 @@ public class WayBillController {
         // 3 - отправляем запрос в ат
         String urlParams = "/setpl";
 
+        if (wayBillSetRequest.getWithClose().equals("1")) {
+            urlParams = "/setplandclose";
+        }
+
         // ответ от автотранспорта
         String atAnswer = WebRequestUtil.sendRequest(params.getAtUrl() + urlParams, params.getAtHttpUser(), params.getAtHttpPass(), "post",  pl);
 

@@ -107,6 +107,7 @@ pledit.module = (function () {
     	cardHtml = cardHtml.replace("datetimepickerEnd" + lastCardObjNumber, "datetimepickerEnd" + newCardObjNumber);
 
     	cardHtml = cardHtml.replace("relaxTime" + lastCardObjNumber, "relaxTime" + newCardObjNumber);
+		cardHtml = cardHtml.replace("relaxTime" + lastCardObjNumber, "relaxTime" + newCardObjNumber);
 
     	cardHtml = '<div class="card" style="margin-bottom: 20px">' + cardHtml + '</div>';
 
