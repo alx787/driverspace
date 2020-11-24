@@ -11,7 +11,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="pages/css/bootstrap/bootstrap.min.css"/ >
+    <link rel="stylesheet" type="text/css" href="pages/bootstrap/bootstrap.min.css"/ >
 
 
     <style>
@@ -33,15 +33,15 @@
 
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="pages/css/site/signin.css" >
+    <link rel="stylesheet" type="text/css" href="pages/css/signin.css" >
 
 
-    <script type="text/javascript" src="pages/js/jq/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="pages/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="pages/jq/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="pages/bootstrap/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="pages/js/site/utils.js"></script>
-    <script type="text/javascript" src="pages/js/site/signin.js"></script>
-    <script type="text/javascript" src="pages/js/site/checkauth.js"></script>
+    <script type="text/javascript" src="pages/js/utils.js"></script>
+    <script type="text/javascript" src="pages/js/signin.js"></script>
+    <script type="text/javascript" src="pages/js/checkauth.js"></script>
 
     <script type="text/javascript" >
 

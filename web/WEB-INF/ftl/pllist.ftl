@@ -6,16 +6,16 @@
     <#include "/common/head.ftl" parse=false>
 
 
-    <script type="text/javascript" src="pages/js/bootstrap/moment.js"></script>
-    <script type="text/javascript" src="pages/js/bootstrap/tempusdominus-bootstrap-4.min.js"></script>
-    <script type="text/javascript" src="pages/js/bootstrap/ru.js"></script>
+    <script type="text/javascript" src="pages/datetimepicker/moment.js"></script>
+    <script type="text/javascript" src="pages/datetimepicker/tempusdominus-bootstrap-4.min.js"></script>
+    <script type="text/javascript" src="pages/datetimepicker/ru.js"></script>
 
-    <script type="text/javascript" src="pages/js/site/pllist.js"></script>
+    <script type="text/javascript" src="pages/js/pllist.js"></script>
 
 
-    <link rel="stylesheet" type="text/css" href="pages/css/bootstrap/tempusdominus-bootstrap-4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="pages/datetimepicker/tempusdominus-bootstrap-4.min.css"/>
 
-    <link rel="stylesheet" type="text/css" href="pages/css/site/pllist.css"/>
+    <link rel="stylesheet" type="text/css" href="pages/css/pllist.css"/>
 
 
     <#-- проверка авторизации + события для кнопок навбара -->

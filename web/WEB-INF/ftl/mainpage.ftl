@@ -6,7 +6,7 @@
     <#include "/common/head.ftl" parse=false>
 
 
-    <script type="text/javascript" src="pages/js/site/mainpage.js"></script>
+    <script type="text/javascript" src="pages/js/mainpage.js"></script>
 
 
 
@@ -121,7 +121,10 @@
               <h4 class="my-0 font-weight-normal">Пробег</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">150 км</h1>
+              <#--<h1 class="card-title pricing-card-title">150 км</h1>-->
+
+              <div class="spinner-border"></div>
+
               <button type="button" class="btn btn-lg btn-block btn-outline-primary">Просмотр</button>
             </div>
           </div>

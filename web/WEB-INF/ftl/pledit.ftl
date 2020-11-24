@@ -6,15 +6,16 @@
     <#include "/common/head.ftl" parse=false>
 
 
-    <link rel="stylesheet" type="text/css" href="pages/css/bootstrap/tempusdominus-bootstrap-4.min.css"/>
-    <link rel="stylesheet" type="text/css" href="pages/css/site/pledit.css"/>
+    <link rel="stylesheet" type="text/css" href="pages/datetimepicker/tempusdominus-bootstrap-4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="pages/css/pledit.css"/>
 
-    <script type="text/javascript" src="pages/js/bootstrap/moment.js"></script>
-    <script type="text/javascript" src="pages/js/bootstrap/tempusdominus-bootstrap-4.min.js"></script>
-    <script type="text/javascript" src="pages/js/bootstrap/ru.js"></script>
+    <script type="text/javascript" src="pages/datetimepicker/moment.js"></script>
+    <script type="text/javascript" src="pages/datetimepicker/tempusdominus-bootstrap-4.min.js"></script>
+    <script type="text/javascript" src="pages/datetimepicker/ru.js"></script>
 
-    <script type="text/javascript" src="pages/js/site/pledit.js"></script>
-    <script type="text/javascript" src="pages/js/site/pledits.js"></script>
+
+    <script type="text/javascript" src="pages/js/pledit.js"></script>
+    <script type="text/javascript" src="pages/js/pledits.js"></script>
 
 
     <#-- проверка авторизации + события для кнопок навбара -->
