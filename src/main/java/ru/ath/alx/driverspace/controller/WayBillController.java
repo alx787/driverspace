@@ -274,13 +274,42 @@ public class WayBillController {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
+        // получим объект WayBillSafe чтобы передать его на сервер
+        WayBillSafe wayBillSafe = new WayBillSafe();
+
+        WayBill wayBill = wayBillSetRequest.getWayBill();
+
+        wayBillSafe.setRownum(wayBill.getRownum());
+        wayBillSafe.setUid(wayBill.getUid());
+        wayBillSafe.setNumber(wayBill.getNumber());
+        wayBillSafe.setDate(wayBill.getDate());
+        wayBillSafe.setRoute(wayBill.getRoute());
+        wayBillSafe.setKlient(wayBill.getKlient());
+        wayBillSafe.setVehicle(wayBill.getVehicle());
+        wayBillSafe.setDatebegin(wayBill.getDatebegin());
+        wayBillSafe.setDateend(wayBill.getDateend());
+        wayBillSafe.setBreaklen(wayBill.getBreaklen());
+        wayBillSafe.setSpeedometerbegin(wayBill.getSpeedometerbegin());
+        wayBillSafe.setSpeedometerend(wayBill.getSpeedometerend());
+        wayBillSafe.setRefuel(wayBill.getRefuel());
+        wayBillSafe.setClosed(wayBill.getClosed());
+
+        User user = userService.findByIdAndToken(Integer.valueOf(wayBillSetRequest.getUserid()), wayBillSetRequest.getToken());
+
+        if (user != null) {
+            wayBillSafe.setTabnomer(user.getTabnomer());
+        } else {
+            wayBillSafe.setTabnomer("0");
+        }
+
+
         String pl = "";
 
         try {
-            pl = objectMapper.writeValueAsString(wayBillSetRequest.getWayBill());
+            pl = objectMapper.writeValueAsString(wayBillSafe);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            errmsg = errmsg + "ошибка при пробразовании путевого листа в json при передаче в автотранспорт\n";
+            errmsg = errmsg + "ошибка при преобразовании путевого листа в json при передаче в автотранспорт\n";
 
             log.warn("======================");
             log.warn(errmsg);
