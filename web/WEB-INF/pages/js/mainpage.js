@@ -50,13 +50,20 @@ mainpage.module = (function () {
             success: function(data) {
 
                 if (data.status == "ok") {
+                    ////////////////////////////////////////////////
                     // установим данные по водителю
-                    // фио
+                    // установим фио
                     $("#drivername").text(data.fio);
+                    // скроем спинер
+                    $("#drivernamespinner").css("display", "none");
+                    // отобразим фио
+                    $("#drivername").removeClass("displaynone");
 
+
+
+                    ////////////////////////////////////////////////
                     // тс
                     $("#vehicles .card-body").remove();
-
 
                     var rows = "";
 
@@ -75,8 +82,15 @@ mainpage.module = (function () {
                         $("#vehicles").append(rows);
                     }
 
-                    // путевые листы
+                    ////////////////////////////////////////////////
+                    // путевые листы - установим количество
                     $("#plcnt").text(data.plcnt);
+                    // скроем спиннер
+                    $("#plcntspinner").css("display", "none");
+                    // отобразим количество и кнопку перехода
+                    $("#plcnt").removeClass("displaynone");
+                    $("#gotoPllistBtn").removeClass("displaynone");
+
 
 
                 }

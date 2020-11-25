@@ -5,6 +5,7 @@
     <#-- теги head, общие стили и скрипты js -->
     <#include "/common/head.ftl" parse=false>
 
+    <link rel="stylesheet" type="text/css" href="pages/css/mainpage.css"/>
 
     <script type="text/javascript" src="pages/js/mainpage.js"></script>
 
@@ -80,7 +81,8 @@
               <h4 class="my-0 font-weight-normal">Водитель</h4>
             </div>
             <div class="card-body">
-              <h1 id="drivername" class="card-title pricing-card-title">Иванов Иван Иванович</h1>
+              <div id="drivernamespinner" class="spinner-border m-5"></div>
+              <h1 id="drivername" class="card-title pricing-card-title displaynone">Иванов Иван Иванович</h1>
             </div>
           </div>
 
@@ -90,7 +92,8 @@
             </div>
 
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">сангйонг</h1>
+              <div class="spinner-border m-5"></div>
+              <#--<h1 class="card-title pricing-card-title">сангйонг</h1>-->
             </div>
 
 
@@ -111,8 +114,9 @@
               <h4 class="my-0 font-weight-normal">Путевые листы</h4>
             </div>
             <div class="card-body">
-              <h1 id="plcnt" class="card-title pricing-card-title">2</h1>
-              <button id="gotoPllistBtn" type="button" class="btn btn-lg btn-block btn-outline-primary">Просмотр</button>
+              <div id="plcntspinner" class="spinner-border m-5"></div>
+              <h1 id="plcnt" class="card-title pricing-card-title displaynone">2</h1>
+              <button id="gotoPllistBtn" type="button" class="btn btn-lg btn-block btn-outline-primary displaynone">Просмотр</button>
             </div>
           </div>
 
@@ -121,11 +125,9 @@
               <h4 class="my-0 font-weight-normal">Пробег</h4>
             </div>
             <div class="card-body">
-              <#--<h1 class="card-title pricing-card-title">150 км</h1>-->
-
-              <div class="spinner-border"></div>
-
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary">Просмотр</button>
+              <div class="spinner-border m-5"></div>
+              <h1 class="card-title pricing-card-title displaynone">150 км</h1>
+              <button type="button" class="btn btn-lg btn-block btn-outline-primary displaynone">Просмотр</button>
             </div>
           </div>
 
@@ -138,8 +140,9 @@
               <h4 class="my-0 font-weight-normal">Расход топлива по нормам</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">850 л</h1>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary">Просмотр</button>
+              <div class="spinner-border m-5"></div>
+              <h1 class="card-title pricing-card-title displaynone">850 л</h1>
+              <button type="button" class="btn btn-lg btn-block btn-outline-primary displaynone">Просмотр</button>
             </div>
           </div>
 
@@ -148,8 +151,9 @@
               <h4 class="my-0 font-weight-normal">Нарушения скоростного режима</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">15</h1>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary">Просмотр</button>
+              <div class="spinner-border m-5"></div>
+              <h1 class="card-title pricing-card-title displaynone">15</h1>
+              <button type="button" class="btn btn-lg btn-block btn-outline-primary displaynone">Просмотр</button>
             </div>
           </div>
 
@@ -161,7 +165,7 @@
     </main>
 
     <#-- разметка футера -->
-    <#include "/common/navbar.ftl" parse=false>
+    <#include "/common/footer.ftl" parse=false>
 
   </body>
 </html>

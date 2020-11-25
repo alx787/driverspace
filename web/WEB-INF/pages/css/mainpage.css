@@ -1,0 +1,11 @@
+.displaynone {
+    display: none;
+}
+
+.displayblock {
+    display: block;
+}
+
+.displayinline {
+    display: inline;
+}

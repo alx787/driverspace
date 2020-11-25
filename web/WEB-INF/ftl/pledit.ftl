@@ -36,16 +36,19 @@
             $('#datetimepickerEnd').datetimepicker({
                 locale: "ru",
                 //   format: "L"
+                ignoreReadonly: true
             });
 
 
             // дата время в строке путевого листа
   			$('#datetimepickerBegin1').datetimepicker({
                 locale: "ru",
+                ignoreReadonly: true
             });
 
   			$('#datetimepickerEnd1').datetimepicker({
                 locale: "ru",
+                ignoreReadonly: true
             });
 
             // уберем видимость кнопки Удалить у первой записи
@@ -113,7 +116,7 @@
         <label for="beginDate" class="col-sm-2 col-form-label">Время выезда:</label>
 
         <div class="col-sm-4 input-group date" id="datetimepickerBegin" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker" value="${datebeg}" readonly="readonly">
+            <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker" value="${datebeg}" readonly="readonly" style="background-color: #FFFFFF;">
             <div class="input-group-append" data-target="#datetimepickerBegin" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -122,7 +125,7 @@
         <label for="endDate" class="col-sm-2 col-form-label">Время возврата:</label>
 
         <div class="col-sm-4 input-group date" id="datetimepickerEnd" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" id="endDate" data-target="#datetimepickerEnd" data-toggle="datetimepicker" value="${dateend}">
+            <input type="text" class="form-control datetimepicker-input" id="endDate" data-target="#datetimepickerEnd" data-toggle="datetimepicker" value="${dateend}" readonly="readonly" style="background-color: #FFFFFF;">
             <div class="input-group-append" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -190,7 +193,7 @@
             <label for="beginDate1" class="col-sm-2 col-form-label">Время выезда:</label>
 
         		<div class="col-sm-4 input-group date" id="datetimepickerBegin1" data-target-input="nearest">
-                <input type="text" class="form-control datetimepicker-input" id="beginDate1" data-target="#datetimepickerBegin1" data-toggle="datetimepicker">
+                <input type="text" class="form-control datetimepicker-input" id="beginDate1" data-target="#datetimepickerBegin1" data-toggle="datetimepicker" readonly="readonly" style="background-color: #FFFFFF;">
                 <div class="input-group-append" data-target="#datetimepickerBegin1" data-toggle="datetimepicker">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                 </div>
@@ -199,7 +202,7 @@
             <label for="endDate1" class="col-sm-2 col-form-label">Время возврата:</label>
 
             <div class="col-sm-4 input-group date" id="datetimepickerEnd1" data-target-input="nearest">
-                <input type="text" class="form-control datetimepicker-input" id="endDate1" data-target="#datetimepickerEnd1" data-toggle="datetimepicker">
+                <input type="text" class="form-control datetimepicker-input" id="endDate1" data-target="#datetimepickerEnd1" data-toggle="datetimepicker" readonly="readonly" style="background-color: #FFFFFF;">
                 <div class="input-group-append" data-target="#datetimepickerEnd1" data-toggle="datetimepicker">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                 </div>
@@ -302,7 +305,7 @@
 
     </main>
 
-    <#-- проверка авторизации + события для кнопок навбара -->
+    <#-- футер -->
     <#include "/common/footer.ftl" parse=false>
 
   </body>

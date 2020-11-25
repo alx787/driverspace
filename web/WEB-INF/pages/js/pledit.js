@@ -122,12 +122,14 @@ pledit.module = (function () {
 
 		// привяжем события
 		$('#datetimepickerBegin' + newCardObjNumber).datetimepicker({
-              locale: "ru",
-          });
+            locale: "ru",
+			ignoreReadonly: true
+		});
 
 		$('#datetimepickerEnd' + newCardObjNumber).datetimepicker({
-              locale: "ru",
-          });
+            locale: "ru",
+            ignoreReadonly: true
+        });
 
 
 

@@ -198,8 +198,16 @@ public class WayBillController {
         }
 
 
+        // вобще тут потенциальная уязвимость в том плане что зарегистрированный пользователь может
+        // запросить в принципе любой пл, если конечно догадается как
+        // проверка авторизации происходит, но нет проверки на то принадлежит ли пользователю пл
+        // здесь можно сделать так /getonepl/{tabnomer}/{numpl} , тогда точно на сервере можно проверить владельца пл
+
+        User user = userService.findByIdAndToken(Integer.valueOf(wayBillRequest.getUserid()), wayBillRequest.getToken());
+
+
         // 3 - отправляем запрос в ат
-        String urlParams = "/getonepl/" + String.valueOf(wayBillRequest.getNumpl());
+        String urlParams = "/getonepl/" + user.getTabnomer() + "/" + String.valueOf(wayBillRequest.getNumpl());
 
         // ответ от автотранспорта
         String atAnswer = WebRequestUtil.sendRequest(params.getAtUrl() + urlParams, params.getAtHttpUser(), params.getAtHttpPass(), "get",  null);
@@ -282,6 +290,10 @@ public class WayBillController {
 
         }
 
+
+        // сдесь тоже небезопасно, авторизованному пользователю можно сохранить любой пл
+        // нужно продумать схему для отправки таб.номера пользователя
+        // например отправлять копию объекта WayBill имеющую поле tabnomer
 
         // 3 - отправляем запрос в ат
         String urlParams = "/setpl";

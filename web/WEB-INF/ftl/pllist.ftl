@@ -27,15 +27,17 @@
 
             // дата начала периода
 			$('#datetimepickerBegin').datetimepicker({
-                    locale: "ru",
-                    format: "L"
-                });
+                locale: "ru",
+                format: "L",
+                ignoreReadonly: true
+            });
 
             // дата окончания периода
 			$('#datetimepickerEnd').datetimepicker({
-                    locale: "ru",
-                    format: "L"
-                });
+                locale: "ru",
+                format: "L",
+                ignoreReadonly: true
+            });
 
             // дата окончания периода
             $("#pllistrefresh").on("click", function () {
@@ -97,7 +99,7 @@
         <label for="beginDate" class="col-sm-2 col-form-label">Начало периода:</label>
 
 		<div class="col-sm-3 input-group date" id="datetimepickerBegin" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker" value="${datebeg}">
+            <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker" value="${datebeg}" readonly="readonly" style="background-color: #FFFFFF;">
             <div class="input-group-append" data-target="#datetimepickerBegin" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -106,7 +108,7 @@
         <label for="endDate" class="col-sm-2 col-form-label">Окончание периода:</label>
 
         <div class="col-sm-3 input-group date" id="datetimepickerEnd" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" id="endDate" data-target="#datetimepickerEnd" data-toggle="datetimepicker" value="${dateend}">
+            <input type="text" class="form-control datetimepicker-input" id="endDate" data-target="#datetimepickerEnd" data-toggle="datetimepicker" value="${dateend}" readonly="readonly" style="background-color: #FFFFFF;">
             <div class="input-group-append" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
