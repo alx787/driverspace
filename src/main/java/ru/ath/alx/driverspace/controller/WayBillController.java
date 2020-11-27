@@ -293,6 +293,7 @@ public class WayBillController {
         wayBillSafe.setSpeedometerend(wayBill.getSpeedometerend());
         wayBillSafe.setRefuel(wayBill.getRefuel());
         wayBillSafe.setClosed(wayBill.getClosed());
+        wayBillSafe.setParts(wayBill.getParts());
 
         User user = userService.findByIdAndToken(Integer.valueOf(wayBillSetRequest.getUserid()), wayBillSetRequest.getToken());
 
