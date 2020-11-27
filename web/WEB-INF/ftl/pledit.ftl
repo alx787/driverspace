@@ -40,29 +40,18 @@
             });
 
 
-            // дата время в строке путевого листа
-  			$('#datetimepickerBegin1').datetimepicker({
-                locale: "ru",
-                ignoreReadonly: true
-            });
-
-  			$('#datetimepickerEnd1').datetimepicker({
-                locale: "ru",
-                ignoreReadonly: true
-            });
-
-            // уберем видимость кнопки Удалить у первой записи
-            $($("div.col-sm-2.float-right")[0]).css("display", "none");
-
             // получим значения из строки url
             pledits.module.getSearchParameters();
 
             /////////////////////////////////////////////////////
             pledits.module.getPldata();
 
-	    });
-	 
+            // приделаем событие нажатия на окно предупреждения
+            $("#alertPopup").on("click", function () {
+                $(this).fadeOut("slow");
+            });
 
+        });
 
     </script>
 
@@ -72,6 +61,9 @@
 
 <#include "/common/navbar.ftl" parse=false>
 
+<div id="alertPopup" class="alert alert-danger" role="alert">
+    Текст предупреждения или ошибки
+</div>
 
 
 <main role="main">
@@ -160,69 +152,70 @@
             <label for="refuelCnt">Заправка (литры)</label>
             <input type="text" class="form-control" id="refuelCnt" placeholder="" value="">
         </div>
-
     </div>
 
-
-
     <!-- ===================================================== -->
+    <!-- строка с записью путевого листа НАЧАЛО -->
+    <div class="card hidden-card" style="margin-bottom: 20px">
 
+        <!-- тут хранится номер строки -->
+        <div class="recnumber" style="display: none">__rownum__</div>
 
-    <!-- ===================================================== -->
-    <!-- строка с записью путевого листа -->
-    <div class="card" style="margin-bottom: 20px">
-
-      <!-- тут хранится номер строки -->
-      <div class="recnumber" style="display: none">1</div>
-
-      <div class="card-header">
-        <div class="row">
-          <div class="col-sm-10 h5">Строка путевого листа</div>
-          <div class="col-sm-2 float-right">
-            <button type="button" class="btn btn-primary" onclick="pledit.module.deleteRowShowModal(this)">Удалить</button>  
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="card-body">
-
-        <div class="form-group row">
-            <label for="beginDate1" class="col-sm-2 col-form-label">Время выезда:</label>
-
-        		<div class="col-sm-4 input-group date" id="datetimepickerBegin1" data-target-input="nearest">
-                <input type="text" class="form-control datetimepicker-input" id="beginDate1" data-target="#datetimepickerBegin1" data-toggle="datetimepicker" readonly="readonly" style="background-color: #FFFFFF;">
-                <div class="input-group-append" data-target="#datetimepickerBegin1" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-10 h5">Строка путевого листа</div>
+                <div class="col-sm-2 float-right">
+                    <button type="button" class="btn btn-primary" onclick="pledit.module.deleteRowShowModal(this)">Удалить</button>
                 </div>
+
             </div>
 
-            <label for="endDate1" class="col-sm-2 col-form-label">Время возврата:</label>
+        </div>
 
-            <div class="col-sm-4 input-group date" id="datetimepickerEnd1" data-target-input="nearest">
-                <input type="text" class="form-control datetimepicker-input" id="endDate1" data-target="#datetimepickerEnd1" data-toggle="datetimepicker" readonly="readonly" style="background-color: #FFFFFF;">
-                <div class="input-group-append" data-target="#datetimepickerEnd1" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+
+        <div class="card-body">
+
+            <div class="form-group row">
+                <label for="rowBeginDate_" class="col-sm-2 col-form-label">Время выезда:</label>
+
+                <div class="col-sm-4 input-group date" id="rowDatePickerBegin_" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" id="rowBeginDate_" data-target="#rowDatePickerBegin_" data-toggle="datetimepicker" readonly="readonly" style="background-color: #FFFFFF;">
+                    <div class="input-group-append" data-target="#rowDatePickerBegin_" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
                 </div>
+
+                <label for="rowEndDate_" class="col-sm-2 col-form-label">Время возврата:</label>
+
+                <div class="col-sm-4 input-group date" id="rowDatePickerEnd_" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" id="rowEndDate_" data-target="#rowDatePickerEnd_" data-toggle="datetimepicker" readonly="readonly" style="background-color: #FFFFFF;">
+                    <div class="input-group-append" data-target="#rowDatePickerEnd_" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="form-group row">
+
+                <div class="col-sm-6">
+                    <label for="rowRelaxTime_">Обед (время затраченное на отдых)</label>
+                    <input type="text" class="form-control" id="rowRelaxTime_" placeholder="" value="">
+                </div>
+
             </div>
 
         </div>
-
-
-        <div class="form-group row">
-
-            <div class="col-sm-6">
-                <label for="relaxTime1">Обед (время затраченное на отдых)</label>
-                <input type="text" class="form-control" id="relaxTime1" placeholder="" value="">
-            </div>
-
-        </div>
-
-      </div>
     </div>
+    <!-- строка с записью путевого листа КОНЕЦ -->
     <!-- ===================================================== -->
+
+
+    <!-- ===================================================== -->
+    <!-- здесь точка отсчета, отсюда будут добавляться строки путевого листа -->
+
+
 
 
 

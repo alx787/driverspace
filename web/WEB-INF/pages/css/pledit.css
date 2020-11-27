@@ -1,3 +1,11 @@
+#alertPopup {
+    display: none;
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+    cursor: pointer;
+}
 
 .group-marg {
     margin: 50px 0;
@@ -10,4 +18,8 @@
 
 #plclosed {
     color: #FF0000;
+}
+
+.hidden-card {
+    display: none;
 }

@@ -148,29 +148,17 @@ pledits.module = (function () {
                     // заполняем строки путевого листа
                     var plparts = data.content.parts;
                     if (plparts != null)
-                        // если в путевке только одна строка то заполняем то что есть в документе
-                        if (plparts.length >= 1) {
-                            $("#beginDate1").val(convertRestToDate(plparts[0].datebegin, ".", "dmy"));
-                            $("#endDate1").val(convertRestToDate(plparts[0].dateend, ".", "dmy"));
-                            $("#relaxTime1").val(plparts[0].breaklen);
+                        var ii = "";
+                        for (var i = 0; i < plparts.length; i++) {
+                            pledit.module.addRow();
+
+                            ii = (i + 1).toString();
+
+                            $("#rowBeginDate" + ii).val(convertRestToDate(plparts[i].datebegin, ".", "dmy"));
+                            $("#rowEndDate" + ii).val(convertRestToDate(plparts[i].dateend, ".", "dmy"));
+                            $("#rowRelaxTime" + ii).val(plparts[i].breaklen);
                         }
-                        // если строк больше то заполняем оставшееся в цикле
-                        if (plparts.length > 1) {
-                            var ii = "";
-                            for (var i = 1; i < plparts.length; i++) {
-                                pledit.module.addRow();
-
-                                ii = (i + 1).toString();
-
-                                $("#beginDate" + ii).val(convertRestToDate(plparts[i].datebegin, ".", "dmy"));
-                                $("#endDate" + ii).val(convertRestToDate(plparts[i].dateend, ".", "dmy"));
-                                $("#relaxTime" + ii).val(plparts[i].breaklen);
-                            }
-
-                        }
-
                 }
-
                 console.log(data);
 
             },
@@ -284,7 +272,8 @@ pledits.module = (function () {
         var plLineArr = $(".recnumber");
         var arrsize = plLineArr.length;
         
-        for (var i = 0; i < arrsize; i++) {
+        // начинаем с 1 потому что первым (нулевым) идет шаблон строки
+        for (var i = 1; i < arrsize; i++) {
             var recnum = $(".recnumber")[i].innerText;
 
             ///////////////////////////////////////
@@ -292,9 +281,9 @@ pledits.module = (function () {
             ///////////////////////////////////////
             var partone = {};
 
-            partone.datebegin = convertDateToRest($("#beginDate" + recnum).val(), ".", "ymd");
-            partone.dateend = convertDateToRest($("#endDate" + recnum).val(), ".", "ymd");
-            partone.breaklen = $("#relaxTime" + recnum).val();
+            partone.datebegin = convertDateToRest($("#rowBeginDate" + recnum).val(), ".", "ymd");
+            partone.dateend = convertDateToRest($("#rowEndDate" + recnum).val(), ".", "ymd");
+            partone.breaklen = $("#rowRelaxTime" + recnum).val();
 
             partsarr.push(partone);
         }
@@ -393,6 +382,15 @@ pledits.module = (function () {
         $("#tweet-modal").modal();
     }
 
+    // показать предупреждение
+    var showAlertPopup = function (message) {
+        $("#alertPopup").text(message);
+        $("#alertPopup").fadeIn("slow", function () {
+            // setTimeout(hideAlertPopup(), 8000);
+        });
+    }
+
+
     return {
         showMessage:showMessage,
         getPldata:getPldata,
@@ -400,6 +398,7 @@ pledits.module = (function () {
         exitWithoutSave:exitWithoutSave,
         exitWithSave:exitWithSave,
         exitWithSaveSend:exitWithSaveSend,
+        showAlertPopup:showAlertPopup,
 
     };
 

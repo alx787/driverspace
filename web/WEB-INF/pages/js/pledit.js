@@ -2,7 +2,7 @@ var pledit = {};
 
 pledit.module = (function () {
 
-	var recCnt = 1; // счетчик записей путевого листа - всегда увеличивается
+	var recCnt = 0; // счетчик записей путевого листа - всегда увеличивается
 
     // получить новый номер записи путевого листа
     var getNewRecNumber = function() {
@@ -67,74 +67,60 @@ pledit.module = (function () {
 
     	$("#tweet-modal").modal("hide");
 
+    	// получим блок с шаблоном возьмем его текст
+    	var cardHtml = $(".card.hidden-card").html();
 
-    	// добавить блок card с записью пл
-
-    	// нужно получить общее количество записей и добавить новую после последней 
-    	var cardsObj = $(".card");
-
-    	if (cardsObj.lehgth == 0) {
-    		return false;
-    	};
-
-
-    	var lastCardObj = $(cardsObj[cardsObj.length - 1]); // последний блок
-    	var lastCardObjNumber = lastCardObj.find(".recnumber").text(); // номер последнего блока
-
+        // получим номер блока
     	var newCardObjNumber = getNewRecNumber();
 
-    	// получим текст блока
-    	var cardHtml = lastCardObj.html();
-    	// заменим переменные
+    	// проведем замены текста в блоке
+        cardHtml = cardHtml.replace("__rownum__", newCardObjNumber);
 
-    	console.log(lastCardObjNumber);
-    	//console.log(lastCardObj);
-    	//console.log(cardHtml);
+        cardHtml = cardHtml.replace("rowBeginDate_", "rowBeginDate" + newCardObjNumber);
+        cardHtml = cardHtml.replace("rowBeginDate_", "rowBeginDate" + newCardObjNumber);
 
+        cardHtml = cardHtml.replace("rowEndDate_", "rowEndDate" + newCardObjNumber);
+        cardHtml = cardHtml.replace("rowEndDate_", "rowEndDate" + newCardObjNumber);
 
-    	cardHtml = cardHtml.replace("beginDate" + lastCardObjNumber, "beginDate" + newCardObjNumber);
-    	cardHtml = cardHtml.replace("beginDate" + lastCardObjNumber, "beginDate" + newCardObjNumber);
+        cardHtml = cardHtml.replace("rowDatePickerBegin_", "rowDatePickerBegin" + newCardObjNumber);
+        cardHtml = cardHtml.replace("rowDatePickerBegin_", "rowDatePickerBegin" + newCardObjNumber);
+        cardHtml = cardHtml.replace("rowDatePickerBegin_", "rowDatePickerBegin" + newCardObjNumber);
 
-    	cardHtml = cardHtml.replace("endDate" + lastCardObjNumber, "endDate" + newCardObjNumber);
-    	cardHtml = cardHtml.replace("endDate" + lastCardObjNumber, "endDate" + newCardObjNumber);
+        cardHtml = cardHtml.replace("rowDatePickerEnd_", "rowDatePickerEnd" + newCardObjNumber);
+        cardHtml = cardHtml.replace("rowDatePickerEnd_", "rowDatePickerEnd" + newCardObjNumber);
+        cardHtml = cardHtml.replace("rowDatePickerEnd_", "rowDatePickerEnd" + newCardObjNumber);
 
-    	cardHtml = cardHtml.replace("datetimepickerBegin" + lastCardObjNumber, "datetimepickerBegin" + newCardObjNumber);
-    	cardHtml = cardHtml.replace("datetimepickerBegin" + lastCardObjNumber, "datetimepickerBegin" + newCardObjNumber);
-    	cardHtml = cardHtml.replace("datetimepickerBegin" + lastCardObjNumber, "datetimepickerBegin" + newCardObjNumber);
+        cardHtml = cardHtml.replace("rowRelaxTime_", "rowRelaxTime" + newCardObjNumber);
+        cardHtml = cardHtml.replace("rowRelaxTime_", "rowRelaxTime" + newCardObjNumber);
 
-    	cardHtml = cardHtml.replace("datetimepickerEnd" + lastCardObjNumber, "datetimepickerEnd" + newCardObjNumber);
-    	cardHtml = cardHtml.replace("datetimepickerEnd" + lastCardObjNumber, "datetimepickerEnd" + newCardObjNumber);
-    	cardHtml = cardHtml.replace("datetimepickerEnd" + lastCardObjNumber, "datetimepickerEnd" + newCardObjNumber);
+        cardHtml = '<div class="card" style="margin-bottom: 20px">' + cardHtml + '</div>';
 
-    	cardHtml = cardHtml.replace("relaxTime" + lastCardObjNumber, "relaxTime" + newCardObjNumber);
-		cardHtml = cardHtml.replace("relaxTime" + lastCardObjNumber, "relaxTime" + newCardObjNumber);
+        // получим общее количество записей вместе с шаблоном
+        var cardsObj = $(".card");
 
-    	cardHtml = '<div class="card" style="margin-bottom: 20px">' + cardHtml + '</div>';
+        if (cardsObj.lehgth == 0) {
+        	return false;
+        };
+
+    	var lastCardObj = $(cardsObj[cardsObj.length - 1]); // последний блок
+
 
     	var newCardObj = $(cardHtml);
-    	newCardObj.find(".recnumber").text(newCardObjNumber);
-    	// включим кнопку удалить
-		newCardObj.find("div.col-sm-2.float-right").css("display", "block");
-
-
     	newCardObj.insertAfter(lastCardObj);
 
-
 		// привяжем события
-		$('#datetimepickerBegin' + newCardObjNumber).datetimepicker({
+		$('#rowDatePickerBegin' + newCardObjNumber).datetimepicker({
             locale: "ru",
 			ignoreReadonly: true
 		});
 
-		$('#datetimepickerEnd' + newCardObjNumber).datetimepicker({
+		$('#rowDatePickerEnd' + newCardObjNumber).datetimepicker({
             locale: "ru",
             ignoreReadonly: true
         });
 
-
-
-        console.log("=========== добавление строки ===========");
-        return false;
+        // console.log("=========== добавление строки ===========");
+        return true;
     };
 
 
@@ -142,9 +128,7 @@ pledit.module = (function () {
     	$("#tweet-modal").modal("hide");
 
         objDel.remove();
-    	
     };
-
 
 
 	return {
