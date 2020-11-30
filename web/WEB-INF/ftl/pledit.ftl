@@ -61,9 +61,6 @@
 
 <#include "/common/navbar.ftl" parse=false>
 
-<div id="alertPopup" class="alert alert-danger" role="alert">
-    Текст предупреждения или ошибки
-</div>
 
 
 <main role="main">
@@ -223,7 +220,7 @@
 
     <!-- кнопка добавления новой записи -->
     <div class="form-group row justify-content-center">
-        <button type="button" class="btn btn-primary" onclick="pledit.module.addRowShowModal()">Добавить строку путевого листа</button>
+        <button id="addRowToPl" type="button" class="btn btn-primary" onclick="pledit.module.addRowShowModal()">Добавить строку путевого листа</button>
     </div>
 
     <!--
@@ -238,7 +235,7 @@
     <div class="form-group row justify-content-center group-marg">
 
         <div class="col-sm-6 col-md-3 button-marg">
-            <button type="button" class="btn btn-secondary" onclick="pledits.module.exitWithoutSave()">Выйти без сохранения</button>
+            <button type="button" class="btn btn-secondary" onclick="pledits.module.exitWithoutSave()">Выход</button>
         </div>
 
         <div class="col-sm-6 col-md-3 button-marg">
@@ -257,16 +254,12 @@
 </form>
 
 
-
-
-
-
-
-
 </div><!-- container -->
 
 
-
+    <div id="alertPopup" class="alert alert-danger" role="alert">
+        Текст предупреждения или ошибки
+    </div>
 
     <!-- modals -->
     <div class="modal fade" id="tweet-modal" tabindex="-1" role="dialog">
@@ -292,6 +285,17 @@
       </div>
     </div>
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="loader-spin" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

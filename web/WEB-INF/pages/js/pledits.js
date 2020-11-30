@@ -140,9 +140,10 @@ pledits.module = (function () {
 
                     // отключим кнопки отправки у закрытых пл
                     if (data.content.closed == "true") {
-                        $("#plclosed").text("закрыт");
-                        $("#exitwithsave").attr("disabled", true);
-                        $("#exitwithsavesend").attr("disabled", true);
+                        disableButtons();
+                        // $("#plclosed").text("закрыт");
+                        // $("#exitwithsave").attr("disabled", true);
+                        // $("#exitwithsavesend").attr("disabled", true);
                     }
 
                     // заполняем строки путевого листа
@@ -169,6 +170,27 @@ pledits.module = (function () {
 
     }
 
+
+    // отключить кнопки отправки и редактирования у закрытого пл
+    var disableButtons = function () {
+
+        // надпись в заголовке пл
+        $("#plclosed").text("закрыт");
+
+        // кнопки сохранения
+        $("#exitwithsave").attr("disabled", true);
+        $("#exitwithsavesend").attr("disabled", true);
+
+        // кнопка добавить строку пл
+        $("#addRowToPl").attr("disabled", true);
+
+
+        // кнопки "удалить" в строках пл
+        $(".card:not(\".hidden-card\") .card-header .row button").each(function() {
+            $(this).attr("disabled", true);
+        })
+
+    }
 
     var getSearchParameters = function() {
         var searchUrl = window.location.search;
@@ -221,6 +243,10 @@ pledits.module = (function () {
     // сохранить пл
     // sendToDispacher - передать пл диспетчеру true|false
     var savePl = function(sendToDispacher) {
+
+        // включим спиннер загрузки
+        showModalAjaxSpin();
+
         // userid
         var cookies = checkauth.module.getCookies();
 
@@ -233,6 +259,9 @@ pledits.module = (function () {
 
         if (sendToDispacher) {
             jsonData.withClose = "1";
+
+            // заблокировать кнопки
+            disableButtons();
         } else {
             jsonData.withClose = "0";
         }
@@ -311,12 +340,17 @@ pledits.module = (function () {
                     // все норм
                     gotoPllistPage();
 
+                } else {
+                    hideModalAjaxSpin();
+                    showAlertPopup(data.message);
                 }
 
                 console.log(data);
 
             },
             error: function(data) {
+                hideModalAjaxSpin();
+                showAlertPopup("ошибка при отправке данных");
 
             },
         });
@@ -359,6 +393,7 @@ pledits.module = (function () {
 
         modalButtonObj.off("click");
         modalButtonObj.on("click", function() {
+            $("#tweet-modal").modal("hide");
             savePl(false);
         });
 
@@ -376,6 +411,7 @@ pledits.module = (function () {
 
         modalButtonObj.off("click");
         modalButtonObj.on("click", function() {
+            $("#tweet-modal").modal("hide");
             savePl(true);
         });
 
@@ -391,6 +427,24 @@ pledits.module = (function () {
     }
 
 
+    // отобразить модальное окно во время ожидания
+    var showModalAjaxSpin = function () {
+        $("#loader-spin").modal({
+            backdrop: "static", //remove ability to close modal with click
+            keyboard: false, //remove option to close with keyboard
+            show: true //Display loader!
+        });
+        // setTimeout(function() {
+        //     $("#loadMe").modal("hide");
+        // }, 3500);
+    }
+
+    // отобразить модальное окно во время ожидания
+    var hideModalAjaxSpin = function () {
+        $("#loader-spin").modal("hide");
+    }
+
+
     return {
         showMessage:showMessage,
         getPldata:getPldata,
@@ -399,6 +453,8 @@ pledits.module = (function () {
         exitWithSave:exitWithSave,
         exitWithSaveSend:exitWithSaveSend,
         showAlertPopup:showAlertPopup,
+        showModalAjaxSpin:showModalAjaxSpin,
+        hideModalAjaxSpin:hideModalAjaxSpin,
 
     };
 
