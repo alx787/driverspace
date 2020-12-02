@@ -146,9 +146,104 @@
 
     <div class="form-group row">
         <div class="col-sm-6">
-            <label for="refuelCnt">Заправка (литры)</label>
-            <input type="text" class="form-control" id="refuelCnt" placeholder="" value="">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Топливо (основное)</h5>
+
+                    <div class="form-group row">
+                        <label class="col-md-3" for="fuelType">Топливо:</label>
+                        <div class="col-md-9">
+                            <select class="form-control" id="fuelType">
+                                <option>-</option>
+                                <option>А76</option>
+                                <option>А80</option>
+                                <option>АИ92</option>
+                                <option>АИ95</option>
+                                <option>АИ98</option>
+                                <option>ДТ</option>
+                                <option>ГАЗ</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="fuelCard" class="col-md-3 col-form-label">Т/К:</label>
+                        <div class="col-md-9 input-group" data-target-input="nearest">
+                            <input type="text" class="form-control" id="fuelCard">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="refuelCnt" class="col-md-3 col-form-label">Заправка (л):</label>
+                        <div class="col-md-3 input-group" data-target-input="nearest">
+                            <input type="text" class="form-control" id="refuelCnt">
+                        </div>
+
+                        <label for="refuelOutside" class="col-md-3 col-form-label">Сторон (л):</label>
+                        <div class="col-md-3 input-group" data-target-input="nearest">
+                            <input type="text" class="form-control" id="refuelOutside">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="refuelIssued" class="col-md-3 col-form-label">Выдано (л):</label>
+                        <div class="col-md-3 input-group" data-target-input="nearest">
+                            <input type="text" class="form-control" id="refuelIssued">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Топливо (дополнительно)</h5>
+
+                    <div class="form-group row">
+                        <label class="col-md-3" for="fuelType2">Топливо:</label>
+                        <div class="col-md-9">
+                            <select class="form-control" id="fuelType2">
+                                <option>-</option>
+                                <option>А76</option>
+                                <option>А80</option>
+                                <option>АИ92</option>
+                                <option>АИ95</option>
+                                <option>АИ98</option>
+                                <option>ДТ</option>
+                                <option>ГАЗ</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="fuelCard2" class="col-md-3 col-form-label">Т/К:</label>
+                        <div class="col-md-9 input-group" data-target-input="nearest">
+                            <input type="text" class="form-control" id="fuelCard2">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="refuelIssued2" class="col-md-3 col-form-label">Выдано (л):</label>
+                        <div class="col-md-3 input-group" data-target-input="nearest">
+                            <input type="text" class="form-control" id="refuelIssued2">
+                        </div>
+
+                        <label for="refuelOutside2" class="col-md-3 col-form-label">Сторон (л):</label>
+                        <div class="col-md-3 input-group" data-target-input="nearest">
+                            <input type="text" class="form-control" id="refuelOutside2">
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- ===================================================== -->
