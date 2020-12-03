@@ -291,7 +291,18 @@ public class WayBillController {
         wayBillSafe.setBreaklen(wayBill.getBreaklen());
         wayBillSafe.setSpeedometerbegin(wayBill.getSpeedometerbegin());
         wayBillSafe.setSpeedometerend(wayBill.getSpeedometerend());
-//        wayBillSafe.setRefuel(wayBill.getRefuel());
+
+        wayBillSafe.setFueltype(wayBill.getFueltype());
+        wayBillSafe.setFuelcard(wayBill.getFuelcard());
+        wayBillSafe.setRefuelcnt(wayBill.getRefuelcnt());
+        wayBillSafe.setRefueloutside(wayBill.getRefueloutside());
+        wayBillSafe.setRefuelissued(wayBill.getRefuelissued());
+
+        wayBillSafe.setFueltype2(wayBill.getFueltype2());
+        wayBillSafe.setFuelcard2(wayBill.getFuelcard2());
+        wayBillSafe.setRefuelcnt2(wayBill.getRefuelcnt2());
+        wayBillSafe.setRefuelissued2(wayBill.getRefuelissued2());
+
         wayBillSafe.setClosed(wayBill.getClosed());
         wayBillSafe.setParts(wayBill.getParts());
 
@@ -320,6 +331,8 @@ public class WayBillController {
 
         }
 
+
+        log.warn(pl);
 
         // сдесь тоже небезопасно, авторизованному пользователю можно сохранить любой пл
         // нужно продумать схему для отправки таб.номера пользователя

@@ -21,7 +21,7 @@ public class WayBill {
     private String fuelcard; // номер топливной карты
 
     private String refuelcnt; // заправка получено по чекам
-    private String refueloutside; // сторон (налили в другой а/к)
+    private String refueloutside; // сторон - сторонняя заправка (налили в другой а/к)
     private String refuelissued; // выдано по спец условию из резерва
 
     private String fueltype2; // топливо

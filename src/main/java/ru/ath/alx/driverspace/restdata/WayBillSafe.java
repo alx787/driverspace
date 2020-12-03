@@ -21,7 +21,20 @@ public class WayBillSafe {
     private String breaklen;
     private String speedometerbegin;
     private String speedometerend;
-    private String refuel;
+
+    private String fueltype; // топливо
+    private String fuelcard; // номер топливной карты
+
+    private String refuelcnt; // заправка получено по чекам
+    private String refueloutside; // сторон (налили в другой а/к)
+    private String refuelissued; // выдано по спец условию из резерва
+
+    private String fueltype2; // топливо
+    private String fuelcard2; // номер топливной карты
+
+    private String refuelcnt2; // заправка
+    private String refuelissued2; // выдано по спец условию из резерва
+
     private String closed;
 
     private List<WayBillPart> parts;
@@ -29,7 +42,7 @@ public class WayBillSafe {
     public WayBillSafe() {
     }
 
-    public WayBillSafe(String tabnomer, String rownum, String uid, String number, String date, String route, String klient, String vehicle, String datebegin, String dateend, String breaklen, String speedometerbegin, String speedometerend, String refuel, String closed, List<WayBillPart> parts) {
+    public WayBillSafe(String tabnomer, String rownum, String uid, String number, String date, String route, String klient, String vehicle, String datebegin, String dateend, String breaklen, String speedometerbegin, String speedometerend, String fueltype, String fuelcard, String refuelcnt, String refueloutside, String refuelissued, String fueltype2, String fuelcard2, String refuelcnt2, String refuelissued2, String closed, List<WayBillPart> parts) {
         this.tabnomer = tabnomer;
         this.rownum = rownum;
         this.uid = uid;
@@ -43,7 +56,15 @@ public class WayBillSafe {
         this.breaklen = breaklen;
         this.speedometerbegin = speedometerbegin;
         this.speedometerend = speedometerend;
-        this.refuel = refuel;
+        this.fueltype = fueltype;
+        this.fuelcard = fuelcard;
+        this.refuelcnt = refuelcnt;
+        this.refueloutside = refueloutside;
+        this.refuelissued = refuelissued;
+        this.fueltype2 = fueltype2;
+        this.fuelcard2 = fuelcard2;
+        this.refuelcnt2 = refuelcnt2;
+        this.refuelissued2 = refuelissued2;
         this.closed = closed;
         this.parts = parts;
     }
@@ -152,12 +173,76 @@ public class WayBillSafe {
         this.speedometerend = speedometerend;
     }
 
-    public String getRefuel() {
-        return refuel;
+    public String getFueltype() {
+        return fueltype;
     }
 
-    public void setRefuel(String refuel) {
-        this.refuel = refuel;
+    public void setFueltype(String fueltype) {
+        this.fueltype = fueltype;
+    }
+
+    public String getFuelcard() {
+        return fuelcard;
+    }
+
+    public void setFuelcard(String fuelcard) {
+        this.fuelcard = fuelcard;
+    }
+
+    public String getRefuelcnt() {
+        return refuelcnt;
+    }
+
+    public void setRefuelcnt(String refuelcnt) {
+        this.refuelcnt = refuelcnt;
+    }
+
+    public String getRefueloutside() {
+        return refueloutside;
+    }
+
+    public void setRefueloutside(String refueloutside) {
+        this.refueloutside = refueloutside;
+    }
+
+    public String getRefuelissued() {
+        return refuelissued;
+    }
+
+    public void setRefuelissued(String refuelissued) {
+        this.refuelissued = refuelissued;
+    }
+
+    public String getFueltype2() {
+        return fueltype2;
+    }
+
+    public void setFueltype2(String fueltype2) {
+        this.fueltype2 = fueltype2;
+    }
+
+    public String getFuelcard2() {
+        return fuelcard2;
+    }
+
+    public void setFuelcard2(String fuelcard2) {
+        this.fuelcard2 = fuelcard2;
+    }
+
+    public String getRefuelcnt2() {
+        return refuelcnt2;
+    }
+
+    public void setRefuelcnt2(String refuelcnt2) {
+        this.refuelcnt2 = refuelcnt2;
+    }
+
+    public String getRefuelissued2() {
+        return refuelissued2;
+    }
+
+    public void setRefuelissued2(String refuelissued2) {
+        this.refuelissued2 = refuelissued2;
     }
 
     public String getClosed() {
@@ -192,7 +277,15 @@ public class WayBillSafe {
                 ", breaklen='" + breaklen + '\'' +
                 ", speedometerbegin='" + speedometerbegin + '\'' +
                 ", speedometerend='" + speedometerend + '\'' +
-                ", refuel='" + refuel + '\'' +
+                ", fueltype='" + fueltype + '\'' +
+                ", fuelcard='" + fuelcard + '\'' +
+                ", refuelcnt='" + refuelcnt + '\'' +
+                ", refueloutside='" + refueloutside + '\'' +
+                ", refuelissued='" + refuelissued + '\'' +
+                ", fueltype2='" + fueltype2 + '\'' +
+                ", fuelcard2='" + fuelcard2 + '\'' +
+                ", refuelcnt2='" + refuelcnt2 + '\'' +
+                ", refuelissued2='" + refuelissued2 + '\'' +
                 ", closed='" + closed + '\'' +
                 ", parts=" + parts +
                 '}';

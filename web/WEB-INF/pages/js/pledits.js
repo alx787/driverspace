@@ -311,7 +311,17 @@ pledits.module = (function () {
         waybill.breaklen = $("#relaxTime").val();
         waybill.speedometerbegin = $("#speedometerBegin").val();
         waybill.speedometerend = $("#speedometerEnd").val();
-        waybill.refuel = $("#refuelCnt").val();
+
+        waybill.fueltype = $("#fuelType").val();
+        waybill.fuelcard = $("#fuelCard").val();
+        waybill.refuelcnt = $("#refuelCnt").val();
+        waybill.refueloutside = $("#refuelOutside").val();
+        waybill.refuelissued = $("#refuelIssued").val();
+
+        waybill.fueltype2 = $("#fuelType2").val();
+        waybill.fuelcard2 = $("#fuelCard2").val();
+        waybill.refuelcnt2 = $("#refuelCnt2").val();
+        waybill.refuelissued2 = $("#refuelIssued2").val();
 
         waybill.closed = 1;
 
