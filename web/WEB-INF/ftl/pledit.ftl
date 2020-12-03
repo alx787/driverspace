@@ -155,7 +155,7 @@
                         <label class="col-md-3" for="fuelType">Топливо:</label>
                         <div class="col-md-9">
                             <select class="form-control" id="fuelType">
-                                <option>-</option>
+                                <option></option>
                                 <option>А76</option>
                                 <option>А80</option>
                                 <option>АИ92</option>
@@ -175,7 +175,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="refuelCnt" class="col-md-3 col-form-label">Заправка (л):</label>
+                        <label for="refuelCnt" class="col-md-3 col-form-label">По чекам (л):</label>
                         <div class="col-md-3 input-group" data-target-input="nearest">
                             <input type="text" class="form-control" id="refuelCnt">
                         </div>
@@ -208,7 +208,7 @@
                         <label class="col-md-3" for="fuelType2">Топливо:</label>
                         <div class="col-md-9">
                             <select class="form-control" id="fuelType2">
-                                <option>-</option>
+                                <option></option>
                                 <option>А76</option>
                                 <option>А80</option>
                                 <option>АИ92</option>
@@ -228,16 +228,15 @@
                     </div>
 
                     <div class="form-group row">
+                        <label for="refuelCnt2" class="col-md-3 col-form-label">По чекам (л):</label>
+                        <div class="col-md-3 input-group" data-target-input="nearest">
+                            <input type="text" class="form-control" id="refuelCnt2">
+                        </div>
+
                         <label for="refuelIssued2" class="col-md-3 col-form-label">Выдано (л):</label>
                         <div class="col-md-3 input-group" data-target-input="nearest">
                             <input type="text" class="form-control" id="refuelIssued2">
                         </div>
-
-                        <label for="refuelOutside2" class="col-md-3 col-form-label">Сторон (л):</label>
-                        <div class="col-md-3 input-group" data-target-input="nearest">
-                            <input type="text" class="form-control" id="refuelOutside2">
-                        </div>
-
                     </div>
 
                 </div>

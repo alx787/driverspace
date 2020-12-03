@@ -291,7 +291,7 @@ public class WayBillController {
         wayBillSafe.setBreaklen(wayBill.getBreaklen());
         wayBillSafe.setSpeedometerbegin(wayBill.getSpeedometerbegin());
         wayBillSafe.setSpeedometerend(wayBill.getSpeedometerend());
-        wayBillSafe.setRefuel(wayBill.getRefuel());
+//        wayBillSafe.setRefuel(wayBill.getRefuel());
         wayBillSafe.setClosed(wayBill.getClosed());
         wayBillSafe.setParts(wayBill.getParts());
 

@@ -104,7 +104,19 @@ pledits.module = (function () {
                 //         "breaklen": "48",
                 //         "speedometerbegin": "890",
                 //         "speedometerend": "890",
-                //         "refuel": "",
+
+                //         "fueltype": "",
+                //         "fuelcard": "",
+                //         "refuelcnt": "",
+                //         "refueloutside": "",
+                //         "refuelissued": "",
+
+                //         "fueltype2": "",
+                //         "fuelcard2": "",
+                //         "refuelcnt2": "",
+                //         "refuelissued2": "",
+
+
                 //         "closed": "true",
                 //         "parts": [
                 //         {
@@ -136,7 +148,23 @@ pledits.module = (function () {
 
                     $("#speedometerBegin").val(data.content.speedometerbegin);
                     $("#speedometerEnd").val(data.content.speedometerend);
-                    $("#refuelCnt").val(data.content.refuel);
+
+                    // основное топливо
+                    $("#fuelType").val(data.content.fueltype);
+
+                    $("#fuelCard").val(data.content.fuelcard);
+                    $("#refuelCnt").val(data.content.refuelcnt);
+                    $("#refuelOutside").val(data.content.refueloutside);
+                    $("#refuelIssued").val(data.content.refuelissued);
+
+                    // дополнительное топливо
+                    $("#fuelType2").val(data.content.fueltype2);
+
+                    $("#fuelCard2").val(data.content.fuelcard2);
+                    $("#refuelCnt2").val(data.content.refuelcnt2);
+                    $("#refuelIssued2").val(data.content.refuelissued2);
+
+
 
                     // отключим кнопки отправки у закрытых пл
                     if (data.content.closed == "true") {
