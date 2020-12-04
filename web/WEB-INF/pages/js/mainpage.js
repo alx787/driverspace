@@ -84,7 +84,15 @@ mainpage.module = (function () {
 
                     ////////////////////////////////////////////////
                     // путевые листы - установим количество
-                    $("#plcnt").text(data.plcnt);
+                    rows = "";
+                    rowTemplate = '<h5 class="card-title pricing-card-title">__plinfo__</h5>';
+
+                    for (var i = 0; i < data.plcnt.length; i++) {
+                        rows = rows + rowTemplate.replace("__plinfo__", data.plcnt[i].regnomer + " - " + data.plcnt[i].plinfo);
+                    }
+
+                    $("#plcnt").append(rows);
+
                     // скроем спиннер
                     $("#plcntspinner").css("display", "none");
                     // отобразим количество и кнопку перехода

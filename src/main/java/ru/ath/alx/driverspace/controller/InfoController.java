@@ -35,20 +35,20 @@ public class InfoController {
         String token = "";
 
         if (infoDriverRequest.getUserid() == null || infoDriverRequest.getUserid().equals("") || infoDriverRequest.getToken() == null || infoDriverRequest.getToken().equals("")) {
-            return new InfoDriverAnswer("error", "не заполнены обязательные поля", "", "", "", "", "",null);
+            return new InfoDriverAnswer("error", "не заполнены обязательные поля", "", "", "", "", null, null);
         }
 
         try {
             id = Integer.valueOf(infoDriverRequest.getUserid());
         } catch (NumberFormatException e) {
 //            e.printStackTrace();
-            return new InfoDriverAnswer("error", "неправильный id", "",  "", "", "", "",null);
+            return new InfoDriverAnswer("error", "неправильный id", "",  "", "", "", null, null);
         }
 
         User user = userService.findByIdAndToken(id, infoDriverRequest.getToken());
 
         if (user == null) {
-            return new InfoDriverAnswer("error", "пользователь не найден", "", "", "", "", "", null);
+            return new InfoDriverAnswer("error", "пользователь не найден", "", "", "", "", null, null);
         }
 
         String urlParams = "/getdriver/" + user.getTabnomer() + "/" + infoDriverRequest.getDatebeg() + "/" + infoDriverRequest.getDateend();
@@ -66,7 +66,7 @@ public class InfoController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
 
-            return new InfoDriverAnswer("error", "ошибка ответа сервера", "", "", "", "", "", null);
+            return new InfoDriverAnswer("error", "ошибка ответа сервера", "", "", "", "", null, null);
         }
 
         return infoDriverAnswer;

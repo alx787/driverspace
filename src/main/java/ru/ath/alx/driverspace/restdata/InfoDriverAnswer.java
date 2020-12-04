@@ -6,24 +6,24 @@ public class InfoDriverAnswer {
     String status;
     String message;
     String fio; // фио водителя
-    String plcnt; // количество путевок путевках
     String probeg; // пробег
     String rashod; // расход топлива
     String fastspeed; // количество превышений скорости
     List<InfoVehicle> vehicles; // машины закрепленные за водителем
+    List<InfoPl> plcnt; // количество путевок путевках
 
     public InfoDriverAnswer() {
     }
 
-    public InfoDriverAnswer(String status, String message, String fio, String plcnt, String probeg, String rashod, String fastspeed, List<InfoVehicle> vehicles) {
+    public InfoDriverAnswer(String status, String message, String fio, String probeg, String rashod, String fastspeed, List<InfoVehicle> vehicles, List<InfoPl> plcnt) {
         this.status = status;
         this.message = message;
         this.fio = fio;
-        this.plcnt = plcnt;
         this.probeg = probeg;
         this.rashod = rashod;
         this.fastspeed = fastspeed;
         this.vehicles = vehicles;
+        this.plcnt = plcnt;
     }
 
     public String getStatus() {
@@ -48,14 +48,6 @@ public class InfoDriverAnswer {
 
     public void setFio(String fio) {
         this.fio = fio;
-    }
-
-    public String getPlcnt() {
-        return plcnt;
-    }
-
-    public void setPlcnt(String plcnt) {
-        this.plcnt = plcnt;
     }
 
     public String getProbeg() {
@@ -90,17 +82,25 @@ public class InfoDriverAnswer {
         this.vehicles = vehicles;
     }
 
+    public List<InfoPl> getPlcnt() {
+        return plcnt;
+    }
+
+    public void setPlcnt(List<InfoPl> plcnt) {
+        this.plcnt = plcnt;
+    }
+
     @Override
     public String toString() {
         return "InfoDriverAnswer{" +
                 "status='" + status + '\'' +
                 ", message='" + message + '\'' +
                 ", fio='" + fio + '\'' +
-                ", plcnt='" + plcnt + '\'' +
                 ", probeg='" + probeg + '\'' +
                 ", rashod='" + rashod + '\'' +
                 ", fastspeed='" + fastspeed + '\'' +
                 ", vehicles=" + vehicles +
+                ", plcnt=" + plcnt +
                 '}';
     }
 }

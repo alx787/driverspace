@@ -115,7 +115,7 @@
             </div>
             <div class="card-body">
               <div id="plcntspinner" class="spinner-border m-5"></div>
-              <h1 id="plcnt" class="card-title pricing-card-title displaynone">2</h1>
+              <div id="plcnt" class="displaynone"></div>
               <button id="gotoPllistBtn" type="button" class="btn btn-lg btn-block btn-outline-primary displaynone">Просмотр</button>
             </div>
           </div>

@@ -123,7 +123,7 @@ pllist.module = (function () {
     // отрисовка строки таблицы
     var renderRow = function(number, uid, date, klient, route, closed) {
         var rowTemplate = '<tr __closed__>'
-                            + '<td><span class="plnumber">__number__</span><span class="pluid">__uid__</span> от<br/>__date__</td>'
+                            + '<td><span class="plnumber">__number__</span><span class="pluid">__uid__</span> от<br/>__date__<br/><span style="font-size: 10px;">__regnomer__</span></td>'
                             + '<td>__klient__</td>'
                             + '<td>__route__</td>'
                         + '</tr>';
