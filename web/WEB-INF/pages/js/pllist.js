@@ -121,7 +121,7 @@ pllist.module = (function () {
     }
 
     // отрисовка строки таблицы
-    var renderRow = function(number, uid, date, klient, route, closed) {
+    var renderRow = function(number, uid, date, regnomer, klient, route, closed) {
         var rowTemplate = '<tr __closed__>'
                             + '<td><span class="plnumber">__number__</span><span class="pluid">__uid__</span> от<br/>__date__<br/><span style="font-size: 10px;">__regnomer__</span></td>'
                             + '<td>__klient__</td>'
@@ -135,6 +135,7 @@ pllist.module = (function () {
         rowStr = rowStr.replace("__number__", number);
         rowStr = rowStr.replace("__uid__", uid);
         rowStr = rowStr.replace("__date__", convertRestToDate(date, ".", "dmy"));
+        rowStr = rowStr.replace("__regnomer__", regnomer);
         rowStr = rowStr.replace("__klient__", klient);
         rowStr = rowStr.replace("__route__", route);
 
@@ -213,7 +214,7 @@ pllist.module = (function () {
                     // отрисовываем строки
                     var oneRow = "";
                     for (var i = 0; i < plmas.length; i++) {
-                        oneRow = renderRow(plmas[i].number, plmas[i].uid, plmas[i].date, plmas[i].klient, plmas[i].route, plmas[i].closed);
+                        oneRow = renderRow(plmas[i].number, plmas[i].uid, plmas[i].date, plmas[i].regnomer, plmas[i].klient, plmas[i].route, plmas[i].closed);
                         tableObj.append(oneRow);
                     }
 

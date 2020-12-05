@@ -11,6 +11,7 @@ public class WayBill {
     private String route;
     private String klient;
     private String vehicle;
+    private String regnomer;
     private String datebegin;
     private String dateend;
     private String breaklen;
@@ -38,7 +39,7 @@ public class WayBill {
     public WayBill() {
     }
 
-    public WayBill(String rownum, String uid, String number, String date, String route, String klient, String vehicle, String datebegin, String dateend, String breaklen, String speedometerbegin, String speedometerend, String fueltype, String fuelcard, String refuelcnt, String refueloutside, String refuelissued, String fueltype2, String fuelcard2, String refuelcnt2, String refuelissued2, String closed, List<WayBillPart> parts) {
+    public WayBill(String rownum, String uid, String number, String date, String route, String klient, String vehicle, String regnomer, String datebegin, String dateend, String breaklen, String speedometerbegin, String speedometerend, String fueltype, String fuelcard, String refuelcnt, String refueloutside, String refuelissued, String fueltype2, String fuelcard2, String refuelcnt2, String refuelissued2, String closed, List<WayBillPart> parts) {
         this.rownum = rownum;
         this.uid = uid;
         this.number = number;
@@ -46,6 +47,7 @@ public class WayBill {
         this.route = route;
         this.klient = klient;
         this.vehicle = vehicle;
+        this.regnomer = regnomer;
         this.datebegin = datebegin;
         this.dateend = dateend;
         this.breaklen = breaklen;
@@ -118,6 +120,14 @@ public class WayBill {
 
     public void setVehicle(String vehicle) {
         this.vehicle = vehicle;
+    }
+
+    public String getRegnomer() {
+        return regnomer;
+    }
+
+    public void setRegnomer(String regnomer) {
+        this.regnomer = regnomer;
     }
 
     public String getDatebegin() {
@@ -258,6 +268,7 @@ public class WayBill {
                 ", route='" + route + '\'' +
                 ", klient='" + klient + '\'' +
                 ", vehicle='" + vehicle + '\'' +
+                ", regnomer='" + regnomer + '\'' +
                 ", datebegin='" + datebegin + '\'' +
                 ", dateend='" + dateend + '\'' +
                 ", breaklen='" + breaklen + '\'' +
