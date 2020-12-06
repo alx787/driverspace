@@ -19,6 +19,7 @@ public class WayBillListRequest {
     private String dateend;
     private String onlyopen;
     private int page;
+    private String invnomer;
 
     public WayBillListRequest() {
     }
@@ -71,6 +72,14 @@ public class WayBillListRequest {
         this.page = page;
     }
 
+    public String getInvnomer() {
+        return invnomer;
+    }
+
+    public void setInvnomer(String invnomer) {
+        this.invnomer = invnomer;
+    }
+
     @Override
     public String toString() {
         return "WayBillListRequest{" +
@@ -80,6 +89,7 @@ public class WayBillListRequest {
                 ", dateend='" + dateend + '\'' +
                 ", onlyopen='" + onlyopen + '\'' +
                 ", page=" + page +
+                ", invnomer=" + invnomer +
                 '}';
     }
 }

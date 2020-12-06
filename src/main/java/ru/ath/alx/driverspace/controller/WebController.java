@@ -53,6 +53,7 @@ public class WebController {
                          @RequestParam(value = "dateend", required = false) String dateend,
                          @RequestParam(value = "page", required = false) String page,
                          @RequestParam(value = "onlyopen", required = false) String onlyopen,
+                         @RequestParam(value = "vehicle", required = false) String vehicle,
                          Model model,
                          HttpServletRequest request) {
 //        @ModelAttribute("model") ModelMap model,
@@ -81,6 +82,11 @@ public class WebController {
             model.addAttribute("onlyopen", onlyopen);
         }
 
+        if (vehicle == null) {
+            model.addAttribute("vehicle", "-");
+        } else {
+            model.addAttribute("vehicle", vehicle);
+        }
         return "pllist";
     }
 
@@ -90,12 +96,14 @@ public class WebController {
                          @RequestParam("datebeg") String datebeg,
                          @RequestParam("dateend") String dateend,
                          @RequestParam("onlyopen") String onlyopen,
+                         @RequestParam("vehicle") String vehicle,
                          @RequestParam("page") String page,
                          Model model, HttpServletRequest request) {
         model.addAttribute("numpl", numpl);
         model.addAttribute("datebeg", datebeg);
         model.addAttribute("dateend", dateend);
         model.addAttribute("onlyopen", onlyopen);
+        model.addAttribute("vehicle", vehicle);
         model.addAttribute("page", page);
         return "pledit";
     }

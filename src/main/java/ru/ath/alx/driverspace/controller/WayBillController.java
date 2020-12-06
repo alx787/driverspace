@@ -97,7 +97,9 @@ public class WayBillController {
                             + "/" + wayBillListRequest.getDatebeg()
                             + "/" + wayBillListRequest.getDateend()
                             + "/" + wayBillListRequest.getOnlyopen()
-                            + "/" + String.valueOf(wayBillListRequest.getPage());
+                            + "/" + wayBillListRequest.getInvnomer()
+                            + "/" + String.valueOf(wayBillListRequest.getPage())
+                            ;
 
         // ответ от автотранспорта
         String atAnswer = WebRequestUtil.sendRequest(params.getAtUrl() + urlParams, params.getAtHttpUser(), params.getAtHttpPass(), "get",  null);

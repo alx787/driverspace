@@ -83,6 +83,7 @@
   <#include "/common/navbar.ftl" parse=false>
 
   <div style="display: none" id="pagenumber">${page}</div>
+  <div style="display: none" id="vehicleid">${vehicle}</div>
 
 
 <main role="main">
@@ -96,40 +97,48 @@
 
 <form>
     <div class="form-group row">
-        <label for="beginDate" class="col-sm-2 col-form-label">Начало периода:</label>
+        <label for="beginDate" class="col-md-1 col-form-label">Период:</label>
 
-		<div class="col-sm-3 input-group date" id="datetimepickerBegin" data-target-input="nearest">
+		<div class="col-md-2 input-group date" id="datetimepickerBegin" data-target-input="nearest">
             <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker" value="${datebeg}" readonly="readonly" style="background-color: #FFFFFF;">
             <div class="input-group-append" data-target="#datetimepickerBegin" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
         </div>
 
-        <label for="endDate" class="col-sm-2 col-form-label">Окончание периода:</label>
+        <label for="endDate" class="col-md-1 col-form-label">по:</label>
 
-        <div class="col-sm-3 input-group date" id="datetimepickerEnd" data-target-input="nearest">
+        <div class="col-md-2 input-group date" id="datetimepickerEnd" data-target-input="nearest">
             <input type="text" class="form-control datetimepicker-input" id="endDate" data-target="#datetimepickerEnd" data-toggle="datetimepicker" value="${dateend}" readonly="readonly" style="background-color: #FFFFFF;">
             <div class="input-group-append" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
         </div>
 
+        <label for="vehicle" class="col-md-1 col-form-label">T/C:</label>
 
-		<div class="checkbox col-sm-2">
-    		<label>
-                <#assign oopen=onlyopen>
-                <#if oopen == "1">
-      			<input id="onlyopen" type="checkbox" value="opened" checked> только открытые</input>
-                <#else>
-                <input id="onlyopen" type="checkbox" value="opened"> только открытые</input>
-                </#if>
-    		</label>
-		</div>           
+        <div class="col-md-3 input-group date">
+            <select class="form-control" id="vehicle">
+                <option value="-"></option>
+            </select>
+         </div>
+
+
+        <div class="col-md-2">
+            <#assign oopen=onlyopen>
+            <#if oopen == "1">
+                <input type="checkbox" id="onlyopen" value="opened" checked>
+            <#else>
+                <input type="checkbox" id="onlyopen" value="opened" >
+            </#if>
+            <label for="onlyopen">открытые</label>
+        </div>
+
 
     </div>
 
     <div class="form-group row justify-content-center">
-        <button id="pllistrefresh" type="button" class="btn btn-primary" sty>Обновить за период</button>
+        <button id="pllistrefresh" type="button" class="btn btn-primary">Обновить</button>
     </div>
 
 </form>

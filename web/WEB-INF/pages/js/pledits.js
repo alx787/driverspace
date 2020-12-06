@@ -9,6 +9,7 @@ pledits.module = (function () {
     var onlyopen = "";
     var page = "";
     var numpl = "";
+    var vehicle = "";
 
     var showMessage = function() {
         console.log("=========== проверка ===========");
@@ -259,12 +260,21 @@ pledits.module = (function () {
             if (name == "numpl") {
                 numpl = value;
             }
+            if (name == "vehicle") {
+                vehicle = value;
+            }
         }
 
     };
 
     var gotoPllistPage = function() {
-        window.location.assign("/" + getContextUrl() + "/pllist?datebeg=" + datebeg + "&dateend=" + dateend + "&onlyopen=" + onlyopen + "&page=" + page + "&numpl=" + numpl);
+        window.location.assign("/" + getContextUrl()
+            + "/pllist?datebeg=" + datebeg
+            + "&dateend=" + dateend
+            + "&onlyopen=" + onlyopen
+            + "&vehicle=" + vehicle
+            + "&page=" + page
+            + "&numpl=" + numpl);
     }
 
 

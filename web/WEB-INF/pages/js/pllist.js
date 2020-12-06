@@ -111,6 +111,11 @@ pllist.module = (function () {
             }
         }
 
+        // var vehicle = $("#vehicleid").text();
+        // if (vehicle.trim() != "") {
+        //     $("#vehicle").val(vehicle);
+        // }
+
     }
 
     // обработчик нажатия кнопки обновить
@@ -169,6 +174,23 @@ pllist.module = (function () {
         jsonData.page = currentPage;
 
 
+
+        // тут надо получить значение ид для тс
+        // оно хранится в двух местах
+        // 1 - в начале тела документа - там оно передается со страницы редактирования через контроллер прописывается в шаблон
+        // 2 - в теге select
+        // если в теге select значение null или "-", то берем из начала документа
+        // var vehicle = $("#vehicleid").text();
+        // if (vehicle.trim() != "") {
+        //     $("#vehicle").val(vehicle);
+        // }
+
+        jsonData.invnomer = $("#vehicle").val();
+        if (jsonData.invnomer == null) {
+            jsonData.invnomer = $("#vehicleid").text();
+        }
+
+
         $.ajax({
             url: "pl/getlist",
             type: 'post',
@@ -178,7 +200,6 @@ pllist.module = (function () {
             success: function(data) {
 
                 if (data.status == "ok") {
-
                     // переменные модуля
                     // текущая страница
                     currentPage = 1;
@@ -223,17 +244,6 @@ pllist.module = (function () {
                     var tableSize = tableRowsObj.length;
 
 
-                    var onlyopen = 0;
-                    if ($('#onlyopen').is(':checked')) {
-                        onlyopen = 1;
-                    }
-
-                    var url = "/" + getContextUrl() + "/pledit?datebeg=" + $("#beginDate").val()
-                                                    + "&dateend=" + $("#endDate").val()
-                                                    + "&onlyopen=" + onlyopen
-                                                    + "&page=" + currentPage
-
-
                     for (var i = 0; i < tableSize; i++) {
                         tableRowsObj.eq(i).on("click", function () {
                             // console.log(this);
@@ -243,12 +253,44 @@ pllist.module = (function () {
                             // чтобы восстановить состояние списка после возврата из путевки
                             // передаем в параметрах дату начала и дату окончания периода, только открытые и номер текущей страницы
                             // pledit?numpl=ххх&datebeg=xx.xx.xxxx&dateend=xx.xx.xxxx&onlyopen=1&page=x
+                            var onlyopen = 0;
+                            if ($('#onlyopen').is(':checked')) {
+                                onlyopen = 1;
+                            }
+
+                            var url = "/" + getContextUrl() + "/pledit?datebeg=" + $("#beginDate").val()
+                                + "&dateend=" + $("#endDate").val()
+                                + "&onlyopen=" + onlyopen
+                                + "&page=" + currentPage
+                                + "&vehicle=" + $("#vehicle").val();
 
                             window.location.assign(url + "&numpl=" + $(this).find("span.plnumber").text());
 
                         })
                     }
 
+                    /////////////////////////////////////////////////
+                    // заполним селектор с вариантами фильтрации по ТС
+
+
+                    // $("#vehicle option").each(function() {
+                    //     $(this).remove();
+                    // });
+
+                    if ($("#vehicle option").length == 1) {
+                        var tsArr = data.content.infovehiclelist;
+                        for (var i = 0; i < tsArr.length; i++) {
+                            $('#vehicle').append($('<option>').val(tsArr[i].invnomer).text(tsArr[i].regnomer));
+                        }
+                    }
+
+                    // устанавливаем текущее значение
+                    var vehicle = $("#vehicleid").text();
+                    if (vehicle.trim() != "") {
+                        $("#vehicle").val(vehicle);
+                    }
+                    // и затираем его
+                    $("#vehicleid").text("");
 
                 }
 
