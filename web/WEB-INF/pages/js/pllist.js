@@ -185,10 +185,13 @@ pllist.module = (function () {
         //     $("#vehicle").val(vehicle);
         // }
 
-        jsonData.invnomer = $("#vehicle").val();
-        if (jsonData.invnomer == null) {
+        // если в начале документа непустое значение то берем его
+        // иначе берем из селекта
+        if ($("#vehicleid").text().trim() != "") {
             jsonData.invnomer = $("#vehicleid").text();
-        }
+        } else {
+            jsonData.invnomer = $("#vehicle").val();
+        };
 
 
         $.ajax({
@@ -285,10 +288,12 @@ pllist.module = (function () {
                     }
 
                     // устанавливаем текущее значение
-                    var vehicle = $("#vehicleid").text();
-                    if (vehicle.trim() != "") {
-                        $("#vehicle").val(vehicle);
-                    }
+                    // если в начале документа непустое значение то берем его
+                    // иначе берем из селекта
+                    if ($("#vehicleid").text().trim() != "") {
+                        $("#vehicle").val($("#vehicleid").text());
+                    };
+
                     // и затираем его
                     $("#vehicleid").text("");
 

@@ -107,4 +107,9 @@ public class WebController {
         model.addAttribute("page", page);
         return "pledit";
     }
+
+    @RequestMapping(value = "/tsselect", method = RequestMethod.GET)
+    public String tsselect(Model model, HttpServletRequest request) {
+        return "tsselect";
+    }
 }

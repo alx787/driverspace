@@ -1,0 +1,14 @@
+
+.row-decor {
+    background-color: #f8f9fa;
+    cursor: pointer;
+    border: 1px solid #ced4da
+}
+
+.row-decor:hover {
+    background-color: #ced4da;
+}
+
+.div-height{
+    height: 50px;
+}
