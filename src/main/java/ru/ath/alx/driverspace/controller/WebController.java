@@ -112,4 +112,10 @@ public class WebController {
     public String tsselect(Model model, HttpServletRequest request) {
         return "tsselect";
     }
+
+    @RequestMapping(value = "/trackviewer", method = RequestMethod.GET)
+    public String trackviewer(Model model, HttpServletRequest request) {
+        return "trackviewer";
+    }
+
 }
