@@ -1,7 +1,6 @@
 package ru.ath.alx.driverspace.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,9 @@ import ru.ath.alx.driverspace.util.WebRequestUtil;
 
 @Controller
 @RequestMapping("/pl")
-public class WayBillController {
+public class RestWayBillController {
 
-    private static final Logger log = Logger.getLogger(WayBillController.class);
+    private static final Logger log = Logger.getLogger(RestWayBillController.class);
 
     @Autowired
     private UserService userService;

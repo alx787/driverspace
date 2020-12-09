@@ -21,9 +21,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/users")
-public class UserController {
+public class RestUserController {
 
-    private static final Logger log = Logger.getLogger(UserController.class);
+    private static final Logger log = Logger.getLogger(RestUserController.class);
 
     @Autowired
     private UserService userService;

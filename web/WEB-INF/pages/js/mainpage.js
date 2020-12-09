@@ -113,11 +113,26 @@ mainpage.module = (function () {
         });
     }
 
+
+    // получить данные о пробегах
+    var getProbeg = function () {
+        var cookies = checkauth.module.getCookies();
+
+        var jsonData = {};
+        jsonData.userid = cookies.userid;
+        jsonData.token = cookies.token;
+        jsonData.datebeg = formatDate(datebeg, "-", "ymd");
+        jsonData.dateend = formatDate(dateend, "-", "ymd");
+
+
+
+    }
+
     // устанавливаем даты по умолчанию
     var getDateInfo = function() {
 
         // глубина периода
-        var period = 10;
+        var period = 400;
 
         var localDatebeg = new Date();
         var localDateend = new Date();

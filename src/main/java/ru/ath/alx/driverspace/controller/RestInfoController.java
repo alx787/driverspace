@@ -18,8 +18,8 @@ import ru.ath.alx.driverspace.util.WebRequestUtil;
 
 @Controller
 @RequestMapping("/info")
-public class InfoController {
-    private static final Logger log = Logger.getLogger(InfoController.class);
+public class RestInfoController {
+    private static final Logger log = Logger.getLogger(RestInfoController.class);
 
     @Autowired
     private UserService userService;
