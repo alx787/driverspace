@@ -28,14 +28,12 @@ public class RestWlnController {
     @Autowired
     private Params params;
 
-
     // получение пробегов - поездок
     // дата должна быть в формате yyyy-MM-dd
     // или dd.MM.yyyy-HH:mm:ss"
     @RequestMapping(value = "/gettrack", method = RequestMethod.POST)
     public @ResponseBody
     WlnTrackAnswer getTrack(@RequestBody WlnTrackRequest wlnTrackRequest) {
-
 
         WlnTrackAnswer answer = new WlnTrackAnswer();
 
@@ -45,7 +43,6 @@ public class RestWlnController {
         if (!AuthUtil.checkUserIdToken(userService, wlnTrackRequest.getUserid(), wlnTrackRequest.getToken())) {
             errmsg = errmsg + "ошибка авторизации при запросе списка путевых листов, неверный идентификатор пользователья или токен авторизации\n";
         }
-
 
         // 2 - проверяем заполнено ли все
         if (wlnTrackRequest.getDatebeg() == null || wlnTrackRequest.getDatebeg().equals("")) {
@@ -69,7 +66,6 @@ public class RestWlnController {
             return answer;
         }
 
-
         String urlParams = "/track/gettrack/" + wlnTrackRequest.getInvnomer() + "/" + wlnTrackRequest.getDatebeg() + "/" + wlnTrackRequest.getDateend();
 
 //        log.warn(urlParams);
@@ -78,7 +74,6 @@ public class RestWlnController {
         String wlnAnswer = WebRequestUtil.sendRequest(params.getWlnUrl() + urlParams, params.getAtHttpUser(), params.getAtHttpPass(), "post",  null);
 
 //        log.warn(wlnAnswer);
-
 
         ObjectMapper objectMapper = new ObjectMapper();
         WlnTrackAnswer wlnTrackAnswer = null;
@@ -90,7 +85,6 @@ public class RestWlnController {
 
             return new WlnTrackAnswer("error", "ошибка ответа сервера", "", null);
         }
-
 
         return wlnTrackAnswer;
     }

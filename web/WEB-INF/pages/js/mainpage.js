@@ -99,12 +99,14 @@ mainpage.module = (function () {
                     $("#plcnt").removeClass("displaynone");
                     $("#gotoPllistBtn").removeClass("displaynone");
 
+                    ////////////////////////////////////////////////
+                    // получим инвентарные номера машин закрепленных за водителем
 
+                    fillTrackAndFuelRate(data.vehicles);
 
                 }
 
                 console.log(data);
-
 
             },
             error: function(data) {
@@ -114,16 +116,77 @@ mainpage.module = (function () {
     }
 
 
+    // отрисовка пробегов и расхода топлива в цикле по всем машинам закрепленных за водителем
+    var fillTrackAndFuelRate = function (invnomerArr) {
+        if (invnomerArr == null) {
+            return false;
+        }
+
+        if (invnomerArr.length == 0) {
+            return false;
+        }
+
+        for (var i = 0; i < invnomerArr.length; i++) {
+            // пробеги
+            getProbeg(invnomerArr[i].invnomer);
+        }
+    }
+
+
+
     // получить данные о пробегах
-    var getProbeg = function () {
+    var getProbeg = function (invnomer) {
         var cookies = checkauth.module.getCookies();
 
         var jsonData = {};
         jsonData.userid = cookies.userid;
         jsonData.token = cookies.token;
+        jsonData.invnomer = invnomer;
         jsonData.datebeg = formatDate(datebeg, "-", "ymd");
         jsonData.dateend = formatDate(dateend, "-", "ymd");
 
+        $.ajax({
+            url: "wln/gettrack",
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify(jsonData),
+            contentType: "application/json; charset=utf-8",
+            success: function(data) {
+
+                if (data.status.toUpperCase() == "OK") {
+                    ////////////////////////////////////////////////
+                    // установим значение в пробегах
+                    //
+                    var rowTemplate = '<h5 class="card-title pricing-card-title">' + data.content.regnom + ' - ' + data.content.probeg + ' км</h5>';
+                    $("#plprobeg").append(rowTemplate);
+
+                    // скроем спиннер
+                    $("#plprobegspinner").css("display", "none");
+                    // отобразим количество и кнопку перехода
+                    $("#plprobeg").removeClass("displaynone");
+                    $("#gotoPlprobegBtn").removeClass("displaynone");
+
+                    ////////////////////////////////////////////////
+                    // установим значение в расходах топлива
+                    //
+                    rowTemplate = '<h5 class="card-title pricing-card-title">' + data.content.regnom + ' - ' + data.content.fuelrate + ' л</h5>';
+                    $("#plfuelrate").append(rowTemplate);
+
+                    // скроем спиннер
+                    $("#plfuelratespinner").css("display", "none");
+                    // отобразим количество и кнопку перехода
+                    $("#plfuelrate").removeClass("displaynone");
+                    $("#gotoPlfuelrateBtn").removeClass("displaynone");
+
+                }
+
+                console.log(data);
+
+            },
+            error: function(data) {
+
+            },
+        });
 
 
     }
@@ -132,18 +195,24 @@ mainpage.module = (function () {
     var getDateInfo = function() {
 
         // глубина периода
-        var period = 400;
+        var period = 10;
 
         var localDatebeg = new Date();
         var localDateend = new Date();
 
         localDatebeg.setDate(localDatebeg.getDate() - period);
 
+        // для отладки, потом убрать
+        localDatebeg = new Date(2020, 5 - 1, 1);
+        localDateend = new Date(2020, 5 - 1, 10);
+
         datebeg = localDatebeg;
         dateend = localDateend;
 
+
         $("#datebeg").text(formatDate(localDatebeg, ".", "dmy"));
         $("#dateend").text(formatDate(localDateend, ".", "dmy"));
+
     }
 
 

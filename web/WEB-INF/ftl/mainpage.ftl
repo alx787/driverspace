@@ -65,6 +65,8 @@
     <#-- разметка навбара -->
     <#include "/common/navbar.ftl" parse=false>
 
+    <#--<div id="invnoms" style="display: none"></div>-->
+
     <main role="main">
 
       <div class="container">
@@ -125,9 +127,12 @@
               <h4 class="my-0 font-weight-normal">Пробег</h4>
             </div>
             <div class="card-body">
-              <div class="spinner-border m-5"></div>
-              <h1 class="card-title pricing-card-title displaynone">150 км</h1>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary displaynone">Просмотр</button>
+              <div id="plprobegspinner" class="spinner-border m-5"></div>
+                <div id="plprobeg" class="displaynone">
+                    <#--<h5 class="card-title pricing-card-title displaynone">150 км</h5>-->
+                    <#--<h5 class="card-title pricing-card-title displaynone">150 км</h5>-->
+                </div>
+              <button id="gotoPlprobegBtn" type="button" class="btn btn-lg btn-block btn-outline-primary displaynone">Просмотр</button>
             </div>
           </div>
 
@@ -140,9 +145,13 @@
               <h4 class="my-0 font-weight-normal">Расход топлива по нормам</h4>
             </div>
             <div class="card-body">
-              <div class="spinner-border m-5"></div>
-              <h1 class="card-title pricing-card-title displaynone">850 л</h1>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary displaynone">Просмотр</button>
+              <div id="plfuelratespinner" class="spinner-border m-5"></div>
+              <div id="plfuelrate" class="displaynone">
+                <#--<h5 class="card-title pricing-card-title displaynone">850 л</h5>-->
+                <#--<h5 class="card-title pricing-card-title displaynone">850 л</h5>-->
+              </div>
+
+              <button id="gotoPlfuelrateBtn" type="button" class="btn btn-lg btn-block btn-outline-primary displaynone">Просмотр</button>
             </div>
           </div>
 
