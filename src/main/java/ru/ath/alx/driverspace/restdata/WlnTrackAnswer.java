@@ -2,14 +2,16 @@ package ru.ath.alx.driverspace.restdata;
 
 public class WlnTrackAnswer {
     private String status;
+    private String sid;
     private String message;
     private WlnTrackContent content;
 
     public WlnTrackAnswer() {
     }
 
-    public WlnTrackAnswer(String status, String message, WlnTrackContent content) {
+    public WlnTrackAnswer(String status, String sid, String message, WlnTrackContent content) {
         this.status = status;
+        this.sid = sid;
         this.message = message;
         this.content = content;
     }
@@ -20,6 +22,14 @@ public class WlnTrackAnswer {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
     }
 
     public String getMessage() {
@@ -42,6 +52,7 @@ public class WlnTrackAnswer {
     public String toString() {
         return "WlnTrackAnswer{" +
                 "status='" + status + '\'' +
+                ", sid='" + sid + '\'' +
                 ", message='" + message + '\'' +
                 ", content=" + content +
                 '}';

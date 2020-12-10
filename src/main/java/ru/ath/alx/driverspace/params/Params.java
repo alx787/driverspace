@@ -19,6 +19,7 @@ public class Params {
     private String atUrl;
     private String atHttpUser;
     private String atHttpPass;
+    private String wlnUrl;
 
     public String getAtUrl() {
         return atUrl;
@@ -44,6 +45,14 @@ public class Params {
         this.atHttpPass = atHttpPass;
     }
 
+    public String getWlnUrl() {
+        return wlnUrl;
+    }
+
+    public void setWlnUrl(String wlnUrl) {
+        this.wlnUrl = wlnUrl;
+    }
+
     @PostConstruct
     private void init() {
 
@@ -61,6 +70,7 @@ public class Params {
                 this.atUrl = prop.getProperty("aturl");
                 this.atHttpUser = prop.getProperty("atuser");
                 this.atHttpPass = prop.getProperty("atpassword");
+                this.wlnUrl = prop.getProperty("wlnurl");
 
             } else {
                 log.warn("файл настроек config.properties не найден");
