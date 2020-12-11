@@ -7,6 +7,8 @@
 
       <link rel="stylesheet" type="text/css" href="pages/css/tsselect.css"/>
 
+      <script type="text/javascript" src="pages/js/tsselect.js"></script>
+
 
   <#-- проверка авторизации + события для кнопок навбара -->
     <#include "/common/navbar_js.ftl" parse=false>
@@ -15,7 +17,7 @@
       <script type="text/javascript" >
           $(document).ready(function() {
 
-
+              tsselect.module.fillVehicles();
 
           });
 
@@ -29,6 +31,18 @@
 
 <main role="main">
 
+    <#--<div id="invnoms" style="display: none">${invnoms}</div>-->
+
+    <div id="invnom-template" style="display: none">
+        <div class="form-group row align-items-center h-100 text-center row-decor">
+            <div class="col-1 themed-grid-col div-height"><span style="display: none">__invnom__</div>
+            <div class="col-5 themed-grid-col">__model__</div>
+            <div class="col-5 themed-grid-col">__regnomer__</div>
+            <div class="col-1 themed-grid-col div-height"></div>
+        </div>
+    </div>
+
+
 
     <div class="container">
 
@@ -37,40 +51,20 @@
         </div>
 
 
-        <div class="form-group row align-items-center h-100 text-center row-decor">
-            <div class="col-3 themed-grid-col">ГАЗ-33081</div>
-            <div class="col-3 themed-grid-col">С513СР 43 RUS</div>
-            <div class="col-3 themed-grid-col div-height"></div>
-            <div class="col-3 themed-grid-col">150 км</div>
-        </div>
+        <#--<div class="form-group row align-items-center h-100 text-center row-decor">-->
+            <#--<div class="col-1 themed-grid-col div-height"></div>-->
+            <#--<div class="col-5 themed-grid-col">ГАЗ-33081</div>-->
+            <#--<div class="col-5 themed-grid-col">С513СР 43 RUS</div>-->
+            <#--<div class="col-1 themed-grid-col div-height"></div>-->
+        <#--</div>-->
 
-        <div class="form-group row align-items-center h-100 text-center row-decor">
-            <div class="col-3 themed-grid-col">ГАЗ-33081</div>
-            <div class="col-3 themed-grid-col">С513СР 43 RUS</div>
-            <div class="col-3 themed-grid-col div-height"></div>
-            <div class="col-3 themed-grid-col">150 км</div>
-        </div>
+        <#--<div class="form-group row align-items-center h-100 text-center row-decor">-->
+            <#--<div class="col-1 themed-grid-col div-height"></div>-->
+            <#--<div class="col-5 themed-grid-col">ГАЗ-33081</div>-->
+            <#--<div class="col-5 themed-grid-col">С513СР 43 RUS</div>-->
+            <#--<div class="col-1 themed-grid-col div-height"></div>-->
+        <#--</div>-->
 
-        <div class="form-group row align-items-center h-100 text-center">
-            <div class="col-3 themed-grid-col">ГАЗ-33081</div>
-            <div class="col-3 themed-grid-col">С513СР 43 RUS</div>
-            <div class="col-3 themed-grid-col" style="height: 50px"></div>
-            <div class="col-3 themed-grid-col">150 км</div>
-        </div>
-
-        <div class="form-group row align-items-center h-100 text-center">
-            <div class="col-3 themed-grid-col">ГАЗ-33081</div>
-            <div class="col-3 themed-grid-col">С513СР 43 RUS</div>
-            <div class="col-3 themed-grid-col" style="height: 50px"></div>
-            <div class="col-3 themed-grid-col">150 км</div>
-        </div>
-
-        <div class="form-group row align-items-center h-100 text-center">
-            <div class="col-3 themed-grid-col">ГАЗ-33081</div>
-            <div class="col-3 themed-grid-col">С513СР 43 RUS</div>
-            <div class="col-3 themed-grid-col" style="height: 50px"></div>
-            <div class="col-3 themed-grid-col">150 км</div>
-        </div>
 
     </div><!-- container -->
 

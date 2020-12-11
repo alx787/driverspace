@@ -91,6 +91,11 @@ mainpage.module = (function () {
                         rows = rows + rowTemplate.replace("__plinfo__", data.plcnt[i].regnomer + " - " + data.plcnt[i].plinfo);
                     }
 
+                    if (rows.trim() == "") {
+                        rows = rows + rowTemplate.replace("__plinfo__", "0 / 0");
+                    }
+
+
                     $("#plcnt").append(rows);
 
                     // скроем спиннер
@@ -160,11 +165,11 @@ mainpage.module = (function () {
                     var rowTemplate = '<h5 class="card-title pricing-card-title">' + data.content.regnom + ' - ' + data.content.probeg + ' км</h5>';
                     $("#plprobeg").append(rowTemplate);
 
-                    // скроем спиннер
-                    $("#plprobegspinner").css("display", "none");
-                    // отобразим количество и кнопку перехода
-                    $("#plprobeg").removeClass("displaynone");
-                    $("#gotoPlprobegBtn").removeClass("displaynone");
+                    // // скроем спиннер
+                    // $("#plprobegspinner").css("display", "none");
+                    // // отобразим количество и кнопку перехода
+                    // $("#plprobeg").removeClass("displaynone");
+                    // $("#gotoPlprobegBtn").removeClass("displaynone");
 
                     ////////////////////////////////////////////////
                     // установим значение в расходах топлива
@@ -172,13 +177,35 @@ mainpage.module = (function () {
                     rowTemplate = '<h5 class="card-title pricing-card-title">' + data.content.regnom + ' - ' + data.content.fuelrate + ' л</h5>';
                     $("#plfuelrate").append(rowTemplate);
 
-                    // скроем спиннер
-                    $("#plfuelratespinner").css("display", "none");
-                    // отобразим количество и кнопку перехода
-                    $("#plfuelrate").removeClass("displaynone");
-                    $("#gotoPlfuelrateBtn").removeClass("displaynone");
+                    // // скроем спиннер
+                    // $("#plfuelratespinner").css("display", "none");
+                    // // отобразим количество и кнопку перехода
+                    // $("#plfuelrate").removeClass("displaynone");
+                    // $("#gotoPlfuelrateBtn").removeClass("displaynone");
+
+                } else {
+                    var rowTemplate = '<h5 class="card-title pricing-card-title">-</h5>';
+                    $("#plprobeg").append(rowTemplate);
+
+                    rowTemplate = '<h5 class="card-title pricing-card-title">-</h5>';
+                    $("#plfuelrate").append(rowTemplate);
 
                 }
+
+                // скроем спиннер
+                $("#plprobegspinner").css("display", "none");
+                // отобразим количество и кнопку перехода
+                $("#plprobeg").removeClass("displaynone");
+                $("#gotoPlprobegBtn").removeClass("displaynone");
+
+
+                // скроем спиннер
+                $("#plfuelratespinner").css("display", "none");
+                // отобразим количество и кнопку перехода
+                $("#plfuelrate").removeClass("displaynone");
+                $("#gotoPlfuelrateBtn").removeClass("displaynone");
+
+
 
                 console.log(data);
 
@@ -221,6 +248,24 @@ mainpage.module = (function () {
         window.location.assign("/" + getContextUrl() + "/pllist");
     }
 
+    // перенаправляем на страницу с пробегами
+    var gotoPlprobeg = function() {
+
+        // нужно проверить количество закрепленных машин, чтобы была возможность выбрать если нужно
+        var vehiclescnt = $("#vehicles .card-body").length;
+
+        if (vehiclescnt == 1) {
+            window.location.assign("/" + getContextUrl() + "/trackviewer");
+        }
+
+        if (vehiclescnt > 1) {
+            window.location.assign("/" + getContextUrl() + "/tsselect");
+        }
+
+
+    }
+
+
     var getDatebeg = function() {
         return datebeg;
     }
@@ -233,6 +278,7 @@ mainpage.module = (function () {
         getDriverInfo:getDriverInfo,
         getDateInfo:getDateInfo,
         gotoPllist:gotoPllist,
+        gotoPlprobeg:gotoPlprobeg,
         getDatebeg:getDatebeg,
         getDateend:getDateend
     }

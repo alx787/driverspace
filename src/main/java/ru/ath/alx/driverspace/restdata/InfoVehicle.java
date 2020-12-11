@@ -1,10 +1,10 @@
 package ru.ath.alx.driverspace.restdata;
 
 public class InfoVehicle {
-    String model;
-    String marka;
-    String regnomer;
-    String invnomer;
+    private String model;
+    private String marka;
+    private String regnomer;
+    private String invnomer;
 
     public InfoVehicle() {
     }

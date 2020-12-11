@@ -1,10 +1,10 @@
 package ru.ath.alx.driverspace.restdata;
 
 public class InfoDriverRequest {
-    String userid;
-    String token;
-    String datebeg;
-    String dateend;
+    private String userid;
+    private String token;
+    private String datebeg;
+    private String dateend;
 
     public InfoDriverRequest() {
     }

@@ -3,14 +3,14 @@ package ru.ath.alx.driverspace.restdata;
 import java.util.List;
 
 public class InfoDriverAnswer {
-    String status;
-    String message;
-    String fio; // фио водителя
-    String probeg; // пробег
-    String rashod; // расход топлива
-    String fastspeed; // количество превышений скорости
-    List<InfoVehicle> vehicles; // машины закрепленные за водителем
-    List<InfoPl> plcnt; // количество путевок путевках
+    private String status;
+    private String message;
+    private String fio; // фио водителя
+    private String probeg; // пробег
+    private String rashod; // расход топлива
+    private String fastspeed; // количество превышений скорости
+    private List<InfoVehicle> vehicles; // машины закрепленные за водителем
+    private List<InfoPl> plcnt; // количество путевок путевках
 
     public InfoDriverAnswer() {
     }

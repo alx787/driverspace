@@ -42,9 +42,17 @@
         mainpage.module.getDriverInfo();
 
         // события кнопок
+        // просмотр пл
         $("#gotoPllistBtn").on("click", function () {
           mainpage.module.gotoPllist();
         })
+
+        // просмотр пробегов
+        $("#gotoPlprobegBtn").on("click", function () {
+          mainpage.module.gotoPlprobeg();
+        })
+
+
 
         // выход
         $("#navexit").on("click", function () {

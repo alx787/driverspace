@@ -1,8 +1,8 @@
 package ru.ath.alx.driverspace.restdata;
 
 public class InfoPl {
-    String regnomer;
-    String plinfo;
+    private String regnomer;
+    private String plinfo;
 
     public InfoPl() {
     }

@@ -13,6 +13,8 @@ import ru.ath.alx.driverspace.model.User;
 import ru.ath.alx.driverspace.params.Params;
 import ru.ath.alx.driverspace.restdata.InfoDriverAnswer;
 import ru.ath.alx.driverspace.restdata.InfoDriverRequest;
+import ru.ath.alx.driverspace.restdata.InfoVehicleAnswer;
+import ru.ath.alx.driverspace.restdata.InfoVehicleRequest;
 import ru.ath.alx.driverspace.service.UserService;
 import ru.ath.alx.driverspace.util.WebRequestUtil;
 
@@ -71,6 +73,50 @@ public class RestInfoController {
 
         return infoDriverAnswer;
 
+    }
+
+
+    @RequestMapping(value = "/getvehicles", method = RequestMethod.POST)
+    public @ResponseBody
+    InfoVehicleAnswer infoDriver(@RequestBody InfoVehicleRequest infoVehicleRequest) {
+
+        int id = 0;
+        String token = "";
+
+        try {
+            id = Integer.valueOf(infoVehicleRequest.getUserid());
+        } catch (NumberFormatException e) {
+//            e.printStackTrace();
+            return new InfoVehicleAnswer("error", "неправильный id", null);
+        }
+
+
+        User user = userService.findByIdAndToken(id, infoVehicleRequest.getToken());
+
+        if (user == null) {
+            return new InfoVehicleAnswer("error", "пользователь не найден", null);
+        }
+
+        String urlParams = "/getvehicles/" + user.getTabnomer();
+
+        // ответ от автотранспорта
+        String atAnswer = WebRequestUtil.sendRequest(params.getAtUrl() + urlParams, params.getAtHttpUser(), params.getAtHttpPass(), "get",  null);
+
+
+        log.warn(atAnswer);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        InfoVehicleAnswer infoVehicleAnswer = null;
+        try {
+            infoVehicleAnswer = objectMapper.readValue(atAnswer, InfoVehicleAnswer.class);
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+
+            return new InfoVehicleAnswer("error", "ошибка ответа сервера", null);
+        }
+
+        return infoVehicleAnswer;
 
     }
 
