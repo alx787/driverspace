@@ -10,7 +10,12 @@
     <script type="text/javascript" src="pages/datetimepicker/tempusdominus-bootstrap-4.min.js"></script>
     <script type="text/javascript" src="pages/datetimepicker/ru.js"></script>
 
-    <script type="text/javascript" src="pages/js/pllist.js"></script>
+
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+
+
+    <script type="text/javascript" src="pages/js/trackviewer.js"></script>
+    <script type="text/javascript" src="pages/js/trackviewerosm.js"></script>
 
 
     <link rel="stylesheet" type="text/css" href="pages/datetimepicker/tempusdominus-bootstrap-4.min.css"/>
@@ -25,13 +30,23 @@
 
             $('#datetimepickerBegin').datetimepicker({
                 locale: "ru",
-                format: "L"
+                format: 'DD.MM.YYYY-HH:mm',
+                ignoreReadonly: true
             });
 
             $('#datetimepickerEnd').datetimepicker({
                 locale: "ru",
-                format: "L"
+                format: 'DD.MM.YYYY-HH:mm',
+                ignoreReadonly: true
             });
+
+            $("#refreshmars").on("click", function (e) {
+                e.preventDefault();
+                trackviewer.module.drawroute();
+            });
+
+            // инициализация
+            trackviewer.module.initializ();
 
 
         });
@@ -40,7 +55,7 @@
 
 </head>
 
-<body>
+<body onload="trackviewerosm.module.initMap()">
 
 
   <#include "/common/navbar.ftl" parse=false>
@@ -60,7 +75,7 @@
                 <label for="beginDate" class="col-md-1 col-form-label">Период:</label>
 
                 <div class="col-md-3 input-group date" id="datetimepickerBegin" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker">
+                    <input type="text" class="form-control datetimepicker-input" id="beginDate" data-target="#datetimepickerBegin" data-toggle="datetimepicker" readonly="readonly" style="background-color: #FFFFFF;">
                     <div class="input-group-append" data-target="#datetimepickerBegin" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -69,7 +84,7 @@
                 <label for="endDate" class="col-md-1 col-form-label">по:</label>
 
                 <div class="col-md-3 input-group date" id="datetimepickerEnd" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" id="endDate" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
+                    <input type="text" class="form-control datetimepicker-input" id="endDate" data-target="#datetimepickerEnd" data-toggle="datetimepicker" readonly="readonly" style="background-color: #FFFFFF;">
                     <div class="input-group-append" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -80,7 +95,7 @@
 
                 <div class="col-md-3 input-group date">
                     <select class="form-control" id="vehicle">
-                        <option value="-"></option>
+
                     </select>
                 </div>
 
@@ -88,8 +103,10 @@
 
             </div>
 
-            <div class="form-group row justify-content-center">
-                <button type="submit" class="btn btn-primary">Обновить</button>
+            <div class="form-group row justify-content-end">
+                <div style="padding-left: 15px; padding-right: 15px">
+                    <button id="refreshmars" type="submit" class="btn btn-primary">Обновить</button>
+                </div>
             </div>
 
         </form>
@@ -98,8 +115,8 @@
     </div><!-- container -->
 
 
-    <div class="container-fluid">
-        Тут будет карта с треком, в левом верхнем углу разместить див с пробегом и расходом топлива за период, и период тоже можно и госномер машины тоже можно
+    <div id="OSMap" class="container-fluid" style="height: 500px">
+        <#--Тут будет карта с треком, в левом верхнем углу разместить див с пробегом и расходом топлива за период, и период тоже можно и госномер машины тоже можно-->
     </div>
 
 

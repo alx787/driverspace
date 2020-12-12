@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.ath.alx.driverspace.params.Params;
+import ru.ath.alx.driverspace.restdata.WlnMarsAnswer;
+import ru.ath.alx.driverspace.restdata.WlnMarsRequest;
 import ru.ath.alx.driverspace.restdata.WlnTrackAnswer;
 import ru.ath.alx.driverspace.restdata.WlnTrackRequest;
 import ru.ath.alx.driverspace.service.UserService;
@@ -88,5 +90,69 @@ public class RestWlnController {
 
         return wlnTrackAnswer;
     }
+
+
+    // получение точек с координатами для построения маршрута
+    // дата должна быть в формате yyyy-MM-dd
+    // или dd.MM.yyyy-HH:mm:ss"
+    @RequestMapping(value = "/getmars", method = RequestMethod.POST)
+    public @ResponseBody
+    WlnMarsAnswer getTrack(@RequestBody WlnMarsRequest wlnMarsRequest) {
+
+        WlnMarsAnswer answer = new WlnMarsAnswer();
+
+        // 1 - получаем запрос, проводим авторизацию
+        String errmsg = "";
+
+        if (!AuthUtil.checkUserIdToken(userService, wlnMarsRequest.getUserid(), wlnMarsRequest.getToken())) {
+            errmsg = errmsg + "ошибка авторизации при запросе маршрута, неверный идентификатор пользователья или токен авторизации\n";
+        }
+
+        // 2 - проверяем заполнено ли все
+        if (wlnMarsRequest.getDatebeg() == null || wlnMarsRequest.getDatebeg().equals("")) {
+            errmsg = errmsg + "не заполнена дата начала\n";
+        }
+
+        if (wlnMarsRequest.getDateend() == null || wlnMarsRequest.getDateend().equals("")) {
+            errmsg = errmsg + "не заполнена дата начала\n";
+        }
+
+        // если ошибка на входе
+        if (!errmsg.equals("")) {
+            log.warn("======================");
+            log.warn(errmsg);
+            log.warn(wlnMarsRequest.toString());
+            log.warn("======================");
+
+            answer.setStatus("error");
+            answer.setMessage(errmsg);
+
+            return answer;
+        }
+
+        String urlParams = "/track/mars/" + wlnMarsRequest.getInvnomer() + "/" + wlnMarsRequest.getDatebeg() + "/" + wlnMarsRequest.getDateend();
+
+//        log.warn(urlParams);
+
+        // ответ от автотранспорта
+        String wlnAnswer = WebRequestUtil.sendRequest(params.getWlnUrl() + urlParams, params.getAtHttpUser(), params.getAtHttpPass(), "post",  null);
+
+//        log.warn(wlnAnswer);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        WlnMarsAnswer wlnMarsAnswer = null;
+        try {
+            wlnMarsAnswer = objectMapper.readValue(wlnAnswer, WlnMarsAnswer.class);
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+
+            return new WlnMarsAnswer("error", "ошибка ответа сервера", "", null);
+        }
+
+        return wlnMarsAnswer;
+
+    }
+
 
 }

@@ -114,7 +114,8 @@ public class WebController {
     }
 
     @RequestMapping(value = "/trackviewer", method = RequestMethod.GET)
-    public String trackviewer(Model model, HttpServletRequest request) {
+    public String trackviewer(@RequestParam("invnom") String invnom, Model model, HttpServletRequest request) {
+        model.addAttribute("invnom", invnom);
         return "trackviewer";
     }
 

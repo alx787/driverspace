@@ -1,17 +1,16 @@
 package ru.ath.alx.driverspace.restdata;
 
-public class WlnTrackRequest {
-
+public class WlnMarsRequest {
     private String userid;
     private String token;
     private String invnomer;
     private String datebeg;
     private String dateend;
 
-    public WlnTrackRequest() {
+    public WlnMarsRequest() {
     }
 
-    public WlnTrackRequest(String userid, String token, String invnomer, String datebeg, String dateend) {
+    public WlnMarsRequest(String userid, String token, String invnomer, String datebeg, String dateend) {
         this.userid = userid;
         this.token = token;
         this.invnomer = invnomer;

@@ -67,7 +67,7 @@ mainpage.module = (function () {
 
                     var rows = "";
 
-                    var rowTemplate = '<div class="card-body"><h1 class="card-title pricing-card-title">__vehicle__</h1></div>';
+                    var rowTemplate = '<div class="card-body"><span style="display: none">__invnom__</span><h1 class="card-title pricing-card-title">__vehicle__</h1></div>';
                     rowTemplate = rowTemplate + '<ul class="list-unstyled mb-4">';
                     rowTemplate = rowTemplate + '<li>__regnom__</li>';
                     rowTemplate = rowTemplate + '</ul>';
@@ -75,7 +75,7 @@ mainpage.module = (function () {
                     var dataLength = data.vehicles.length;
 
                     for (var i = 0; i < dataLength; i++) {
-                        rows = rows + rowTemplate.replace("__vehicle__", data.vehicles[i].model).replace("__regnom__", data.vehicles[i].regnomer);
+                        rows = rows + rowTemplate.replace("__invnom__", data.vehicles[i].invnomer).replace("__vehicle__", data.vehicles[i].model).replace("__regnom__", data.vehicles[i].regnomer);
                     }
 
                     if (rows != "") {
@@ -255,7 +255,7 @@ mainpage.module = (function () {
         var vehiclescnt = $("#vehicles .card-body").length;
 
         if (vehiclescnt == 1) {
-            window.location.assign("/" + getContextUrl() + "/trackviewer");
+            window.location.assign("/" + getContextUrl() + "/trackviewer?invnom=" + $($("#vehicles .card-body")[0]).find("span").text());
         }
 
         if (vehiclescnt > 1) {

@@ -46,9 +46,9 @@ tsselect.module = (function () {
                             var rowsObj = $(".row.row-decor");
                             for (var i = 0; i < rowsObj.length; i++ ) {
                                 $(rowsObj[i]).on("click", function () {
-                                    console.log(this);
-                                    console.log($(this).find("span").text());
-                                    // window.location.assign("/" + getContextUrl() + "/trackviewer");
+                                    // console.log(this);
+                                    // console.log($(this).find("span").text());
+                                    window.location.assign("/" + getContextUrl() + "/trackviewer?invnom=" + $(this).find("span").text());
 
                                 })
                             }
