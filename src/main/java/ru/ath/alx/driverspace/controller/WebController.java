@@ -108,8 +108,11 @@ public class WebController {
         return "pledit";
     }
 
+    // mode = track - показать пробег
+    // mode = fuelrate - показать расход топлива
     @RequestMapping(value = "/tsselect", method = RequestMethod.GET)
-    public String tsselect(Model model, HttpServletRequest request) {
+    public String tsselect(@RequestParam("mode") String mode, Model model, HttpServletRequest request) {
+        model.addAttribute("mode", mode);
         return "tsselect";
     }
 
@@ -118,5 +121,12 @@ public class WebController {
         model.addAttribute("invnom", invnom);
         return "trackviewer";
     }
+
+    @RequestMapping(value = "/fuelrateviewer", method = RequestMethod.GET)
+    public String fuelrateviewer(@RequestParam("invnom") String invnom, Model model, HttpServletRequest request) {
+        model.addAttribute("invnom", invnom);
+        return "fuelrateviewer";
+    }
+
 
 }

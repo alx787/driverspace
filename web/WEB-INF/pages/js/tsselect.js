@@ -48,7 +48,11 @@ tsselect.module = (function () {
                                 $(rowsObj[i]).on("click", function () {
                                     // console.log(this);
                                     // console.log($(this).find("span").text());
-                                    window.location.assign("/" + getContextUrl() + "/trackviewer?invnom=" + $(this).find("span").text());
+                                    if ($("#mode").text() == "track") {
+                                        window.location.assign("/" + getContextUrl() + "/trackviewer?invnom=" + $(this).find("span").text());
+                                    } else {
+                                        window.location.assign("/" + getContextUrl() + "/fuelrateviewer?invnom=" + $(this).find("span").text());
+                                    }
 
                                 })
                             }

@@ -52,6 +52,10 @@
           mainpage.module.gotoPlprobeg();
         })
 
+        // просмотр поездок с расходом топлива
+        $("#gotoPlfuelrateBtn").on("click", function () {
+            mainpage.module.gotoPlfuelrate();
+        })
 
 
         // выход

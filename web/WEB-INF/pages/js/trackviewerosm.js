@@ -197,7 +197,7 @@ trackviewerosm.module = (function () {
         //map.addControl(new OpenLayers.Control.MouseToolbar());
 
         // переключатель видимости слоев
-        map.addControl(new OpenLayers.Control.LayerSwitcher({'ascending':false}));
+        // map.addControl(new OpenLayers.Control.LayerSwitcher({'ascending':false}));
 
         // ссылка внизу карты на текущее положение/масштаб
         // map.addControl(new OpenLayers.Control.Permalink());
@@ -212,7 +212,7 @@ trackviewerosm.module = (function () {
         );
 
         // обзорная карта
-        map.addControl(new OpenLayers.Control.OverviewMap());
+        // map.addControl(new OpenLayers.Control.OverviewMap());
 
         // горячие клавиши
         map.addControl(new OpenLayers.Control.KeyboardDefaults());

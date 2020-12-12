@@ -250,7 +250,6 @@ mainpage.module = (function () {
 
     // перенаправляем на страницу с пробегами
     var gotoPlprobeg = function() {
-
         // нужно проверить количество закрепленных машин, чтобы была возможность выбрать если нужно
         var vehiclescnt = $("#vehicles .card-body").length;
 
@@ -259,12 +258,23 @@ mainpage.module = (function () {
         }
 
         if (vehiclescnt > 1) {
-            window.location.assign("/" + getContextUrl() + "/tsselect");
+            window.location.assign("/" + getContextUrl() + "/tsselect?mode=track");
         }
-
-
     }
 
+    // перенаправляем на страницу с расходами топлива
+    var gotoPlfuelrate = function() {
+        // нужно проверить количество закрепленных машин, чтобы была возможность выбрать если нужно
+        var vehiclescnt = $("#vehicles .card-body").length;
+
+        if (vehiclescnt == 1) {
+            window.location.assign("/" + getContextUrl() + "/fuelrateviewer?invnom=" + $($("#vehicles .card-body")[0]).find("span").text());
+        }
+
+        if (vehiclescnt > 1) {
+            window.location.assign("/" + getContextUrl() + "/tsselect?mode=fuelrate");
+        }
+    }
 
     var getDatebeg = function() {
         return datebeg;
@@ -279,6 +289,7 @@ mainpage.module = (function () {
         getDateInfo:getDateInfo,
         gotoPllist:gotoPllist,
         gotoPlprobeg:gotoPlprobeg,
+        gotoPlfuelrate:gotoPlfuelrate,
         getDatebeg:getDatebeg,
         getDateend:getDateend
     }

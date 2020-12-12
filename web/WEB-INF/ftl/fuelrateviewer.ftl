@@ -11,15 +11,10 @@
     <script type="text/javascript" src="pages/datetimepicker/ru.js"></script>
 
 
-    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-
-
-    <script type="text/javascript" src="pages/js/trackviewer.js"></script>
-    <script type="text/javascript" src="pages/js/trackviewerosm.js"></script>
-
+    <#--<script type="text/javascript" src="pages/js/trackviewer.js"></script>-->
 
     <link rel="stylesheet" type="text/css" href="pages/datetimepicker/tempusdominus-bootstrap-4.min.css"/>
-    <link rel="stylesheet" type="text/css" href="pages/css/trackviewer.css"/>
+    <#--<link rel="stylesheet" type="text/css" href="pages/css/trackviewer.css"/>-->
 
     <#-- проверка авторизации + события для кнопок навбара -->
     <#include "/common/navbar_js.ftl" parse=false>
@@ -47,7 +42,7 @@
             });
 
             // инициализация
-            trackviewer.module.initializ();
+            // trackviewer.module.initializ();
 
 
         });
@@ -56,7 +51,7 @@
 
 </head>
 
-<body onload="trackviewerosm.module.initMap()">
+<body">
 
 
   <#include "/common/navbar.ftl" parse=false>
@@ -68,7 +63,7 @@
     <div class="container">
 
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-            <h3>Показать пробег</h3>
+            <h3>Показать расход</h3>
         </div>
 
         <form>
@@ -116,8 +111,28 @@
     </div><!-- container -->
 
 
-    <div id="OSMap" class="container-fluid">
-        <#--Тут будет карта с треком, в левом верхнем углу разместить див с пробегом и расходом топлива за период, и период тоже можно и госномер машины тоже можно-->
+    <div>
+
+        <table id="pltable" class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Период</th>
+                <th scope="col">Место</th>
+                <th scope="col">Расход</th>
+            </tr>
+            </thead>
+            <tbody>
+                <#--<tr>-->
+                    <#--<td>10.12.2020-09:44:36<br/>10.12.2020-11:00:03</td>-->
+                    <#--<td>Первомайский, Кировская обл.<br/>Первомайский, Кировская обл.</td>-->
+                    <#--<td>2.07 l</td>-->
+                <#--</tr>-->
+
+                <#--нужно будет продумать переход по нажатию на поездку, -->
+                <#--чтобы отобразить поездку на карте на странице trackviewer-->
+
+            </tbody>
+        </table>
     </div>
 
 

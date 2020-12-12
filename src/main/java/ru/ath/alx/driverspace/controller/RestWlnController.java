@@ -97,7 +97,7 @@ public class RestWlnController {
     // или dd.MM.yyyy-HH:mm:ss"
     @RequestMapping(value = "/getmars", method = RequestMethod.POST)
     public @ResponseBody
-    WlnMarsAnswer getTrack(@RequestBody WlnMarsRequest wlnMarsRequest) {
+    WlnMarsAnswer getMars(@RequestBody WlnMarsRequest wlnMarsRequest) {
 
         WlnMarsAnswer answer = new WlnMarsAnswer();
 
