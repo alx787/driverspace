@@ -11,7 +11,7 @@
     <script type="text/javascript" src="pages/datetimepicker/ru.js"></script>
 
 
-    <#--<script type="text/javascript" src="pages/js/trackviewer.js"></script>-->
+    <script type="text/javascript" src="pages/js/fuelrateviewer.js"></script>
 
     <link rel="stylesheet" type="text/css" href="pages/datetimepicker/tempusdominus-bootstrap-4.min.css"/>
     <#--<link rel="stylesheet" type="text/css" href="pages/css/trackviewer.css"/>-->
@@ -42,7 +42,7 @@
             });
 
             // инициализация
-            // trackviewer.module.initializ();
+            fuelrateviewer.module.initializ();
 
 
         });

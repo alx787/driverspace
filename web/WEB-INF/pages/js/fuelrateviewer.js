@@ -1,0 +1,157 @@
+var fuelrateviewer = {};
+
+fuelrateviewer.module = (function () {
+
+    var datebeg; // string
+    var dateend; // string
+    var invnomer; // string
+
+    // получить из даты строку в формате dd.mm.yyyy hh:mm
+    var convertDateToPicker = function(dateval) {
+
+        var tday = dateval.getDay().toString();
+        if (tday.length == 1) {
+            tday = "0" + tday;
+        }
+
+        var tmonth = (dateval.getMonth() + 1).toString();
+        if (tmonth.length == 1) {
+            tmonth = "0" + tmonth;
+        }
+
+        var tyear = dateval.getFullYear().toString();
+
+        var thour = dateval.getHours().toString();
+        if (thour.length == 1) {
+            thour = "0" + thour;
+        }
+
+        var tmin = dateval.getMinutes().toString();
+        if (tmin.length == 1) {
+            tmin = "0" + tmin;
+        }
+
+        return tday + "." + tmonth + "." + tyear + "-" + thour + ":" + tmin;
+    }
+
+    // получить имя параметра из строки url
+    var getUrlParameterByName = function(name) {
+        url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // первичная инициализация при открытии
+    var initializ = function () {
+        // 1. установить даты - период текущий день
+
+        datebeg = getUrlParameterByName("datebeg");
+        dateend = getUrlParameterByName("dateend");
+        invnomer = getUrlParameterByName("invnom");
+
+        if (datebeg == null || datebeg == "") {
+            var today_datebeg = new Date();
+            today_datebeg.setHours(0, 0, 0, 0);
+            datebeg = convertDateToPicker(today_datebeg)
+        }
+
+        if (dateend == null || dateend == "") {
+            var today_dateend = new Date();
+            today_dateend.setHours(23, 59, 59, 999);
+            dateend = convertDateToPicker(today_dateend)
+        }
+
+
+
+        $("#beginDate").val(datebeg);
+        $("#endDate").val(dateend);
+
+        // 2. заполнить селектор тс, установить выбранную тс
+        // выполним ajax запрос
+        var cookies = checkauth.module.getCookies();
+
+        var jsonData = {};
+        jsonData.userid = cookies.userid;
+        jsonData.token = cookies.token;
+
+        $.ajax({
+            url: "info/getvehicles",
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify(jsonData),
+            contentType: "application/json; charset=utf-8",
+            success: function(data) {
+
+                if (data.status == "ok") {
+                    ////////////////////////////////////////////////
+                    // установим значение в пробегах
+                    //
+                    if (data.vehicles != null) {
+                        if (data.vehicles.length > 0) {
+                            for (var i = 0; i < data.vehicles.length; i++) {
+                                $('#vehicle').append($('<option>').val(data.vehicles[i].invnomer).text(data.vehicles[i].regnomer));
+                            }
+
+                            $('#vehicle').val(invnomer);
+
+                        }
+                    }
+                }
+                console.log(data);
+            },
+            error: function(data) {
+
+            },
+        });
+
+    }
+
+
+        // // получим данные о пробеге
+        // restUrl = "rest/track/gettrack/" + v_invnom + "/" + v_datebeg + "/" + v_dateend;
+        //
+        // $.ajax({
+        //
+        //     url: restUrl,
+        //     type: 'post',
+        //     enctype: 'multipart/form-data',
+        //     //processData: false,  // Important!
+        //     dataType: 'json',
+        //     //data: formDataTicket,
+        //     cache: false,
+        //     async: true,
+        //     // async: asyncFlag,
+        //     contentType: "application/json; charset=utf-8",
+        //     //contentType: false,
+        //     success: function (data) {
+        //         if (data.status == "error") {
+        //             // showErrorMsg("Пробег не вычислен. " + data.description);
+        //             console.log("Пробег не вычислен. " + data.description);
+        //         } else {
+        //             $("#probeg").val(data.content.probeg + " / " + data.content.fuelrate);
+        //         }
+        //
+        //         //fillTracksList(data.content.detail);
+        //
+        //         console.log(data);
+        //     },
+        //     error: function (data) {
+        //         // showErrorMsg("ошибка при получении данных по пробегу");
+        //         console.log("ошибка при получении данных по пробегу");
+        //     },
+        //     complete: function () {
+        //
+        //     },
+        //
+        // });
+
+
+
+    return {
+        initializ:initializ
+    }
+}());
