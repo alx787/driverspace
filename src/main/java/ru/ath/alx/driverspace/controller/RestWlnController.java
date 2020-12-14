@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.ath.alx.driverspace.params.Params;
-import ru.ath.alx.driverspace.restdata.WlnMarsAnswer;
-import ru.ath.alx.driverspace.restdata.WlnMarsRequest;
-import ru.ath.alx.driverspace.restdata.WlnTrackAnswer;
-import ru.ath.alx.driverspace.restdata.WlnTrackRequest;
+import ru.ath.alx.driverspace.restdata.*;
 import ru.ath.alx.driverspace.service.UserService;
 import ru.ath.alx.driverspace.util.AuthUtil;
 import ru.ath.alx.driverspace.util.WebRequestUtil;
@@ -151,8 +148,70 @@ public class RestWlnController {
         }
 
         return wlnMarsAnswer;
+    }
+
+
+    // получение превышений скорости
+    // дата должна быть в формате yyyy-MM-dd
+    // или dd.MM.yyyy-HH:mm:ss"
+    @RequestMapping(value = "/getspeeding", method = RequestMethod.POST)
+    public @ResponseBody
+    WlnSpeedingAnswer getSpeeding(@RequestBody WlnSpeedingRequest wlnSpeedingRequest) {
+        WlnSpeedingAnswer answer = new WlnSpeedingAnswer();
+
+        // 1 - получаем запрос, проводим авторизацию
+        String errmsg = "";
+
+        if (!AuthUtil.checkUserIdToken(userService, wlnSpeedingRequest.getUserid(), wlnSpeedingRequest.getToken())) {
+            errmsg = errmsg + "ошибка авторизации при запросе маршрута, неверный идентификатор пользователья или токен авторизации\n";
+        }
+
+        // 2 - проверяем заполнено ли все
+        if (wlnSpeedingRequest.getDatebeg() == null || wlnSpeedingRequest.getDatebeg().equals("")) {
+            errmsg = errmsg + "не заполнена дата начала\n";
+        }
+
+        if (wlnSpeedingRequest.getDateend() == null || wlnSpeedingRequest.getDateend().equals("")) {
+            errmsg = errmsg + "не заполнена дата начала\n";
+        }
+
+        // если ошибка на входе
+        if (!errmsg.equals("")) {
+            log.warn("======================");
+            log.warn(errmsg);
+            log.warn(wlnSpeedingRequest.toString());
+            log.warn("======================");
+
+            answer.setStatus("error");
+            answer.setDescription(errmsg);
+
+            return answer;
+        }
+
+        String urlParams = "/track/speeding/" + wlnSpeedingRequest.getInvnomer() + "/" + wlnSpeedingRequest.getDatebeg() + "/" + wlnSpeedingRequest.getDateend();
+
+//        log.warn(urlParams);
+
+        // ответ от автотранспорта
+        String wlnAnswer = WebRequestUtil.sendRequest(params.getWlnUrl() + urlParams, params.getAtHttpUser(), params.getAtHttpPass(), "post",  null);
+
+//        log.warn(wlnAnswer);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        WlnSpeedingAnswer wlnSpeedingAnswer = null;
+        try {
+            wlnSpeedingAnswer = objectMapper.readValue(wlnAnswer, WlnSpeedingAnswer.class);
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+
+            return new WlnSpeedingAnswer("error", "ошибка ответа сервера", "", "", null);
+        }
+
+        return wlnSpeedingAnswer;
 
     }
+
 
 
 }

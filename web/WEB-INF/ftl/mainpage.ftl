@@ -172,9 +172,13 @@
               <h4 class="my-0 font-weight-normal">Нарушения скоростного режима</h4>
             </div>
             <div class="card-body">
-              <div class="spinner-border m-5"></div>
-              <h1 class="card-title pricing-card-title displaynone">15</h1>
-              <button type="button" class="btn btn-lg btn-block btn-outline-primary displaynone">Просмотр</button>
+              <div id="plspeedingspinner" class="spinner-border m-5"></div>
+              <div id="plspeeding" class="displaynone">
+                <#--<h5 class="card-title pricing-card-title displaynone">850 л</h5>-->
+                <#--<h5 class="card-title pricing-card-title displaynone">850 л</h5>-->
+              </div>
+
+              <button id="gotoPlspeedingBtn" type="button" class="btn btn-lg btn-block btn-outline-primary displaynone">Просмотр</button>
             </div>
           </div>
 

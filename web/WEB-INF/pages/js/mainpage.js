@@ -105,9 +105,8 @@ mainpage.module = (function () {
                     $("#gotoPllistBtn").removeClass("displaynone");
 
                     ////////////////////////////////////////////////
-                    // получим инвентарные номера машин закрепленных за водителем
-
-                    fillTrackAndFuelRate(data.vehicles);
+                    // заполнение разделов с расходом топлива и пробегами и превышениями скорости
+                    fillTrackAndFuelRateAndSpeeding(data.vehicles);
 
                 }
 
@@ -122,7 +121,7 @@ mainpage.module = (function () {
 
 
     // отрисовка пробегов и расхода топлива в цикле по всем машинам закрепленных за водителем
-    var fillTrackAndFuelRate = function (invnomerArr) {
+    var fillTrackAndFuelRateAndSpeeding = function (invnomerArr) {
         if (invnomerArr == null) {
             return false;
         }
@@ -132,11 +131,12 @@ mainpage.module = (function () {
         }
 
         for (var i = 0; i < invnomerArr.length; i++) {
-            // пробеги
+            // пробеги расходы топлива
             getProbeg(invnomerArr[i].invnomer);
+            // превышения
+            getSpeeding(invnomerArr[i].invnomer);
         }
     }
-
 
 
     // получить данные о пробегах
@@ -192,20 +192,18 @@ mainpage.module = (function () {
 
                 }
 
-                // скроем спиннер
+                // скроем спиннер пробегов
                 $("#plprobegspinner").css("display", "none");
                 // отобразим количество и кнопку перехода
                 $("#plprobeg").removeClass("displaynone");
                 $("#gotoPlprobegBtn").removeClass("displaynone");
 
 
-                // скроем спиннер
+                // скроем спиннер расхода топлива
                 $("#plfuelratespinner").css("display", "none");
                 // отобразим количество и кнопку перехода
                 $("#plfuelrate").removeClass("displaynone");
                 $("#gotoPlfuelrateBtn").removeClass("displaynone");
-
-
 
                 console.log(data);
 
@@ -215,10 +213,64 @@ mainpage.module = (function () {
             },
         });
 
+    }
+
+    // получить данные о превышениях скорости
+    var getSpeeding = function (invnomer) {
+        var cookies = checkauth.module.getCookies();
+
+        var jsonData = {};
+        jsonData.userid = cookies.userid;
+        jsonData.token = cookies.token;
+        jsonData.invnomer = invnomer;
+        jsonData.datebeg = formatDate(datebeg, "-", "ymd");
+        jsonData.dateend = formatDate(dateend, "-", "ymd");
+
+        $.ajax({
+            url: "wln/getspeeding",
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify(jsonData),
+            contentType: "application/json; charset=utf-8",
+            success: function(data) {
+
+                if (data.status.toUpperCase() == "OK") {
+                    ////////////////////////////////////////////////
+                    // установим значение в пробегах
+                    //
+                    var rowTemplate = "";
+                    if (data.content == null || data.content.length == 0) {
+                        rowTemplate = '<h5 class="card-title pricing-card-title">-</h5>';
+                    } else {
+                        rowTemplate = '<h5 class="card-title pricing-card-title">' + data.regnom + ' - ' + data.content.length + '</h5>';
+                    }
+                } else {
+                    rowTemplate = '<h5 class="card-title pricing-card-title">-</h5>';
+                }
+
+                $("#plspeeding").append(rowTemplate);
+
+
+                // скроем спиннер пробегов
+                $("#plspeedingspinner").css("display", "none");
+                // отобразим количество и кнопку перехода
+                $("#plspeeding").removeClass("displaynone");
+                $("#gotoPlspeedingBtn").removeClass("displaynone");
+
+
+                 console.log(data);
+
+            },
+            error: function(data) {
+
+            },
+        });
 
     }
 
-    // устанавливаем даты по умолчанию
+
+
+        // устанавливаем даты по умолчанию
     var getDateInfo = function() {
 
         // глубина периода
@@ -230,8 +282,8 @@ mainpage.module = (function () {
         localDatebeg.setDate(localDatebeg.getDate() - period);
 
         // для отладки, потом убрать
-        localDatebeg = new Date(2020, 5 - 1, 1);
-        localDateend = new Date(2020, 5 - 1, 10);
+        // localDatebeg = new Date(2020, 5 - 1, 1);
+        // localDateend = new Date(2020, 5 - 1, 10);
 
         datebeg = localDatebeg;
         dateend = localDateend;
