@@ -52,16 +52,26 @@ trackviewer.module = (function () {
     // первичная инициализация при открытии
     var initializ = function () {
         // 1. установить даты - период текущий день
-        datebeg = new Date();
-        datebeg.setHours(0, 0, 0, 0);
 
-        dateend = new Date();
-        dateend.setHours(23, 59, 59, 999);
-
+        datebeg = getUrlParameterByName("datebeg");
+        dateend = getUrlParameterByName("dateend");
         invnomer = getUrlParameterByName("invnom");
 
-        $("#beginDate").val(convertDateToPicker(datebeg));
-        $("#endDate").val(convertDateToPicker(dateend));
+        if (datebeg == null || datebeg == "") {
+            var today_datebeg = new Date();
+            today_datebeg.setHours(0, 0, 0, 0);
+            datebeg = convertDateToPicker(today_datebeg)
+        }
+
+        if (dateend == null || dateend == "") {
+            var today_dateend = new Date();
+            today_dateend.setHours(23, 59, 59, 999);
+            dateend = convertDateToPicker(today_dateend)
+        }
+
+        $("#beginDate").val(datebeg);
+        $("#endDate").val(dateend);
+
 
         // 2. заполнить селектор тс, установить выбранную тс
         // выполним ajax запрос
@@ -90,6 +100,9 @@ trackviewer.module = (function () {
                             }
 
                             $('#vehicle').val(invnomer);
+
+                            // сразу же пробуем нарисовать трек
+                            drawroute();
 
                         }
                     }

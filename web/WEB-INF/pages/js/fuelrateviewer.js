@@ -9,7 +9,7 @@ fuelrateviewer.module = (function () {
     // получить из даты строку в формате dd.mm.yyyy hh:mm
     var convertDateToPicker = function(dateval) {
 
-        var tday = dateval.getDay().toString();
+        var tday = dateval.getDate().toString();
         if (tday.length == 1) {
             tday = "0" + tday;
         }
@@ -86,7 +86,7 @@ fuelrateviewer.module = (function () {
             contentType: "application/json; charset=utf-8",
             success: function(data) {
 
-                if (data.status == "ok") {
+                if (data.status.toUpperCase() == "OK") {
                     ////////////////////////////////////////////////
                     // установим значение в пробегах
                     //
@@ -97,6 +97,8 @@ fuelrateviewer.module = (function () {
                             }
 
                             $('#vehicle').val(invnomer);
+
+                            fillTracks();
 
                         }
                     }
@@ -109,6 +111,108 @@ fuelrateviewer.module = (function () {
         });
 
     }
+
+
+    // первичная инициализация при открытии
+    var fillTracks = function () {
+        var cookies = checkauth.module.getCookies();
+
+        var jsonData = {};
+        jsonData.userid = cookies.userid;
+        jsonData.token = cookies.token;
+
+        jsonData.invnomer = $("#vehicle").val();
+        jsonData.datebeg = $("#beginDate").val();
+        jsonData.dateend = $("#endDate").val();
+
+
+        $.ajax({
+            url: "wln/gettrack",
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify(jsonData),
+            contentType: "application/json; charset=utf-8",
+            success: function(data) {
+
+                if (data.status.toUpperCase() == "OK") {
+                    ////////////////////////////////////////////////
+                    // заполняем поездки
+                    if (data.content.detail != null) {
+                        if (data.content.detail.length > 0) {
+                            var rowTemplate = '<tr>'
+                                                   + '<td>с: <span>__datebeg__</span> по: <span>__dateend__</span></td>'
+                                                   + '<td>__placebeg__ - __placeend__</td>'
+                                                   + '<td>__fuelrate__</td>'
+                                                + '</tr>';
+                            // будем передавать не координаты а период
+                            // <span style="display: none">__trackbegx__:__trackbegy__:__trackendx__:__trackendy__</span>
+
+                            var tableBodyObj = $("#tracktable tbody");
+                            tableBodyObj.empty();
+
+                            for (var i = 0; i < data.content.detail.length; i++) {
+                                var row = rowTemplate.replace("__datebeg__", data.content.detail[i].datebeg);
+                                row = row.replace("__dateend__", data.content.detail[i].dateend);
+                                row = row.replace("__placebeg__", data.content.detail[i].placebeg);
+                                row = row.replace("__placeend__", data.content.detail[i].placeend);
+                                row = row.replace("__fuelrate__", data.content.detail[i].fuelrate);
+
+                                // координаты начала и окончания поездки
+                                row = row.replace("__trackbegx__", data.content.detail[i].trackbegx);
+                                row = row.replace("__trackbegy__", data.content.detail[i].trackbegy);
+                                row = row.replace("__trackendx__", data.content.detail[i].trackendx);
+                                row = row.replace("__trackendy__", data.content.detail[i].trackendy);
+
+
+
+                                tableBodyObj.append(row);
+
+                            }
+
+                            // события нажатия
+                            $("#tracktable tbody tr").each(function (indx) {
+
+                                $(this).on("click", function (e) {
+                                    var coords = $(this).find("span");
+                                    if (coords.length == 2) {
+                                        window.location.assign("/" + getContextUrl() + "/trackviewer?invnom=" + $("#vehicle").val() + "&datebeg=" + $(coords[0]).text() + "&dateend=" + $(coords[1]).text());
+                                    }
+
+                                })
+
+
+                            })
+
+                        }
+                    }
+
+
+
+
+                    ////////////////////////////////////////////////
+                    // установим значение в пробегах
+                    //
+                    // if (data.vehicles != null) {
+                    //     if (data.vehicles.length > 0) {
+                    //         for (var i = 0; i < data.vehicles.length; i++) {
+                    //             $('#vehicle').append($('<option>').val(data.vehicles[i].invnomer).text(data.vehicles[i].regnomer));
+                    //         }
+                    //
+                    //         $('#vehicle').val(invnomer);
+                    //
+                    //     }
+                    // }
+                }
+                console.log(data);
+            },
+            error: function(data) {
+
+            },
+        });
+
+    }
+
+
 
 
         // // получим данные о пробеге
@@ -152,6 +256,7 @@ fuelrateviewer.module = (function () {
 
 
     return {
-        initializ:initializ
+        initializ:initializ,
+        fillTracks:fillTracks
     }
 }());

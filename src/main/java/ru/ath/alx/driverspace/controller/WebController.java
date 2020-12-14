@@ -117,8 +117,13 @@ public class WebController {
     }
 
     @RequestMapping(value = "/trackviewer", method = RequestMethod.GET)
-    public String trackviewer(@RequestParam("invnom") String invnom, Model model, HttpServletRequest request) {
+    public String trackviewer(@RequestParam(value = "invnom") String invnom,
+                              @RequestParam(value = "datebeg", required = false) String datebeg,
+                              @RequestParam(value = "dateend", required = false) String dateend,
+                              Model model, HttpServletRequest request) {
         model.addAttribute("invnom", invnom);
+        model.addAttribute("datebeg", datebeg);
+        model.addAttribute("dateend", dateend);
         return "trackviewer";
     }
 

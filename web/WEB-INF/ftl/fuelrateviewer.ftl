@@ -14,7 +14,7 @@
     <script type="text/javascript" src="pages/js/fuelrateviewer.js"></script>
 
     <link rel="stylesheet" type="text/css" href="pages/datetimepicker/tempusdominus-bootstrap-4.min.css"/>
-    <#--<link rel="stylesheet" type="text/css" href="pages/css/trackviewer.css"/>-->
+    <link rel="stylesheet" type="text/css" href="pages/css/fuelrateviewer.css"/>
 
     <#-- проверка авторизации + события для кнопок навбара -->
     <#include "/common/navbar_js.ftl" parse=false>
@@ -38,11 +38,14 @@
 
             $("#refreshmars").on("click", function (e) {
                 e.preventDefault();
-                trackviewer.module.drawroute();
+                fuelrateviewer.module.fillTracks();
             });
 
             // инициализация
             fuelrateviewer.module.initializ();
+
+            // запуск fillTracks() будет внутри initializ();
+            // fuelrateviewer.module.fillTracks();
 
 
         });
@@ -113,7 +116,7 @@
 
     <div>
 
-        <table id="pltable" class="table table-hover">
+        <table id="tracktable" class="table table-hover">
             <thead>
             <tr>
                 <th scope="col">Период</th>

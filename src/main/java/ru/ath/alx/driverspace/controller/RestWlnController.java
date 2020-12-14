@@ -63,12 +63,12 @@ public class RestWlnController {
             log.warn("======================");
 
             answer.setStatus("error");
-            answer.setMessage(errmsg);
+            answer.setDescription(errmsg);
 
             return answer;
         }
 
-        String urlParams = "/track/gettrack/" + wlnTrackRequest.getInvnomer() + "/" + wlnTrackRequest.getDatebeg() + "/" + wlnTrackRequest.getDateend();
+        String urlParams = "/track/gettrack/" + wlnTrackRequest.getInvnomer() + "/" + wlnTrackRequest.getDatebeg() + ":00/" + wlnTrackRequest.getDateend() + ":00";
 
 //        log.warn(urlParams);
 
