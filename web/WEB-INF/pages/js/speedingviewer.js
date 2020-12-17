@@ -48,12 +48,21 @@ speedingviewer.module = (function () {
         return dateArr[2] + "." + dateArr[1] + "." + dateArr[0] + "-" + timeArr[0] + ":" + timeArr[1];
     }
 
+    //  yyyy.mm.dd - hh:mm:ss --> dd.mm.yyyy-hh:mm
+    var convertWlnRestToPicker = function(dateRest) {
+        var dateTimeArr = dateRest.split(" ");
+        var dateArr = dateTimeArr[0].split(".");
+        var timeArr = dateTimeArr[2].split(":");
+
+        return dateArr[2] + "." + dateArr[1] + "." + dateArr[0] + "-" + timeArr[0] + ":" + timeArr[1];
+    }
+
 
     // получить из строки в формате dd.mm.yyyy-hh:mm дату
     var convertPickerToDate = function(datestr) {
         var dateTimeArr = datestr.split("-");
-        var dateArr = dateTimeArr[0].split(".");
-        var timeArr = dateTimeArr[1].split(":");
+        var dateArr = dateTimeArr[0].trim().split(".");
+        var timeArr = dateTimeArr[1].trim().split(":");
 
         return new Date(parseInt(dateArr[2],10), parseInt(dateArr[1],10) - 1, parseInt(dateArr[0],10), parseInt(timeArr[0],10), parseInt(timeArr[1],10), 0, 0);
 
@@ -74,22 +83,32 @@ speedingviewer.module = (function () {
     // первичная инициализация при открытии
     var initializ = function () {
         // 1. установить даты - период текущий день
+        // глубина периода
+        var period = 10;
 
         datebeg = getUrlParameterByName("datebeg");
         dateend = getUrlParameterByName("dateend");
         invnomer = getUrlParameterByName("invnom");
 
-        if (datebeg == null || datebeg == "") {
-            var today_datebeg = new Date();
-            today_datebeg.setHours(0, 0, 0, 0);
-            datebeg = convertDateToPicker(today_datebeg)
-        }
+        var today_datebeg = new Date();
+        var today_dateend = new Date();
 
+
+        // сначала дата окончания, только потом дату начала выыисляем если надо конечно
         if (dateend == null || dateend == "") {
-            var today_dateend = new Date();
             today_dateend.setHours(23, 59, 59, 999);
             dateend = convertDateToPicker(today_dateend)
         }
+
+        if (datebeg == null || datebeg == "") {
+
+            today_datebeg.setDate(today_dateend.getDate() - period);
+            today_datebeg.setHours(0, 0, 0, 0);
+
+            datebeg = convertDateToPicker(today_datebeg)
+        }
+
+
 
         $("#beginDate").val(datebeg);
         $("#endDate").val(dateend);
@@ -180,9 +199,10 @@ speedingviewer.module = (function () {
                             tableBodyObj.empty();
 
                             for (var i = 0; i < data.content.length; i++) {
-                                var row = rowTemplate.replace("__begintime__", convertRestToPicker(data.content[i].begintime));
-                                row = row.replace("__speedmax__", data.content[i].speedmax);
-                                row = row.replace("__speedlimit__", data.content[i].speedlimit);
+                                // var row = rowTemplate.replace("__begintime__", convertRestToPicker(data.content[i].begintime));
+                                var row = rowTemplate.replace("__begintime__", data.content[i].begintime);
+                                row = row.replace("__speedmax__", data.content[i].speedmax.replace(" km/h", ""));
+                                row = row.replace("__speedlimit__", data.content[i].speedlimit.replace(" km/h", ""));
 
                                 // координаты превышения
                                 row = row.replace("__beginx__", data.content[i].beginx);
@@ -203,16 +223,20 @@ speedingviewer.module = (function () {
                                     }
                                     var coordsArr = coords.text().split(":");
 
+                                    // показания скоростей
+                                    var speedVals = $(this).find("td");
+
+
                                     // нужно вычислить период за час до и час после превышения
                                     var hours = 1; // период интервала
-                                    var speedingdate = $(this).find("div").text();
+                                    var speedingdate = $(this).find("div").text() + " cкорость " + speedVals[1].innerText.replace(" km/h", "") + ", ограничение " + speedVals[2].innerText.replace(" km/h", "");
                                     var datebeg_s;
                                     var dateend_s;
 
-                                    var varDate = convertPickerToDate(speedingdate);
+                                    var varDate = convertPickerToDate(convertWlnRestToPicker(speedingdate));
 
-                                    datebeg_s = convertDateToPicker(addHoursToDate(varDate, -1));
-                                    dateend_s = convertDateToPicker(addHoursToDate(varDate, 1));
+                                    datebeg_s = convertDateToPicker(addHoursToDate(varDate, (-1) * hours));
+                                    dateend_s = convertDateToPicker(addHoursToDate(varDate, hours));
 
 
                                     if (coordsArr.length == 2) {

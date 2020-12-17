@@ -49,8 +49,10 @@
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
             <#if mode == "track">
             <h3>Показать пробег. Выберите машину</h3>
-            <#else >
+            <#elseif mode == "fuelrate">
             <h3>Показать расход топлива. Выберите машину</h3>
+            <#else >
+            <h3>Показать превышения скорости. Выберите машину</h3>
             </#if>
         </div>
 
