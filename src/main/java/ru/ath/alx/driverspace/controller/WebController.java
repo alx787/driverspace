@@ -116,14 +116,26 @@ public class WebController {
         return "tsselect";
     }
 
+    // показать маршрут на карте
+    // invnom - инв номер
+    // datebeg - дата начала
+    // dateend - дата окончания
+    // speedingx - координата x точки начала превышения
+    // speedingy - координата y точки начала превышения
     @RequestMapping(value = "/trackviewer", method = RequestMethod.GET)
     public String trackviewer(@RequestParam(value = "invnom") String invnom,
                               @RequestParam(value = "datebeg", required = false) String datebeg,
                               @RequestParam(value = "dateend", required = false) String dateend,
+                              @RequestParam(value = "speedingx", required = false) String speedingx,
+                              @RequestParam(value = "speedingy", required = false) String speedingy,
+                              @RequestParam(value = "speedinginfo", required = false) String speedinginfo,
                               Model model, HttpServletRequest request) {
         model.addAttribute("invnom", invnom);
         model.addAttribute("datebeg", datebeg);
         model.addAttribute("dateend", dateend);
+        model.addAttribute("speedingx", speedingx);
+        model.addAttribute("speedingy", speedingy);
+        model.addAttribute("speedinginfo", speedinginfo);
         return "trackviewer";
     }
 
@@ -133,5 +145,10 @@ public class WebController {
         return "fuelrateviewer";
     }
 
+    @RequestMapping(value = "/speedingviewer", method = RequestMethod.GET)
+    public String speedingviewer(@RequestParam("invnom") String invnom, Model model, HttpServletRequest request) {
+        model.addAttribute("invnom", invnom);
+        return "speedingviewer";
+    }
 
 }

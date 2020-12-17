@@ -57,6 +57,13 @@
             mainpage.module.gotoPlfuelrate();
         })
 
+        // просмотр превышений скорости
+        $("#gotoPlspeedingBtn").on("click", function () {
+          mainpage.module.gotoPlspeeding();
+        })
+
+
+
 
         // выход
         $("#navexit").on("click", function () {

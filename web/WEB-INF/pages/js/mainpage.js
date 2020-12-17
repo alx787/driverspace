@@ -328,6 +328,22 @@ mainpage.module = (function () {
         }
     }
 
+
+    // перенаправляем на страницу с превышениями скорости
+    var gotoPlspeeding = function () {
+        // нужно проверить количество закрепленных машин, чтобы была возможность выбрать если нужно
+        var vehiclescnt = $("#vehicles .card-body").length;
+
+        if (vehiclescnt == 1) {
+            window.location.assign("/" + getContextUrl() + "/speedingviewer?invnom=" + $($("#vehicles .card-body")[0]).find("span").text());
+        }
+
+        if (vehiclescnt > 1) {
+            window.location.assign("/" + getContextUrl() + "/tsselect?mode=speeding");
+        }
+
+    }
+
     var getDatebeg = function() {
         return datebeg;
     }
@@ -342,6 +358,7 @@ mainpage.module = (function () {
         gotoPllist:gotoPllist,
         gotoPlprobeg:gotoPlprobeg,
         gotoPlfuelrate:gotoPlfuelrate,
+        gotoPlspeeding:gotoPlspeeding,
         getDatebeg:getDatebeg,
         getDateend:getDateend
     }

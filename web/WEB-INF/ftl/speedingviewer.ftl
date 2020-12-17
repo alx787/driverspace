@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 
-<#-- теги head, общие стили и скрипты js -->
+    <#-- теги head, общие стили и скрипты js -->
     <#include "/common/head.ftl" parse=false>
 
 
@@ -11,10 +11,10 @@
     <script type="text/javascript" src="pages/datetimepicker/ru.js"></script>
 
 
-    <script type="text/javascript" src="pages/js/fuelrateviewer.js"></script>
+    <script type="text/javascript" src="pages/js/speedingviewer.js"></script>
 
     <link rel="stylesheet" type="text/css" href="pages/datetimepicker/tempusdominus-bootstrap-4.min.css"/>
-    <link rel="stylesheet" type="text/css" href="pages/css/fuelrateviewer.css"/>
+    <#--<link rel="stylesheet" type="text/css" href="pages/css/...viewer.css"/>-->
 
     <#-- проверка авторизации + события для кнопок навбара -->
     <#include "/common/navbar_js.ftl" parse=false>
@@ -38,14 +38,14 @@
 
             $("#refreshmars").on("click", function (e) {
                 e.preventDefault();
-                fuelrateviewer.module.fillTracks();
+                speedingviewer.module.fillSpeeding();
             });
 
             // инициализация
-            fuelrateviewer.module.initializ();
+            speedingviewer.module.initializ();
 
             // запуск fillTracks() будет внутри initializ();
-            // fuelrateviewer.module.fillTracks();
+            // speedingviewer.module.fillSpeeding();
 
 
         });
@@ -57,7 +57,7 @@
 <body">
 
 
-  <#include "/common/navbar.ftl" parse=false>
+<#include "/common/navbar.ftl" parse=false>
 
 
 <main role="main">
@@ -66,7 +66,7 @@
     <div class="container">
 
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-            <h3>Расходы топлива</h3>
+            <h3>Превышения скорости</h3>
         </div>
 
         <form>
@@ -116,23 +116,23 @@
 
     <div>
 
-        <table id="tracktable" class="table table-hover">
+        <table id="speedingtable" class="table table-hover">
             <thead>
             <tr>
                 <th scope="col">Период</th>
-                <th scope="col">Место</th>
-                <th scope="col">Расход</th>
+                <th scope="col">Скорость</th>
+                <th scope="col">Ограничение</th>
             </tr>
             </thead>
             <tbody>
-                <#--<tr>-->
-                    <#--<td>10.12.2020-09:44:36<br/>10.12.2020-11:00:03</td>-->
-                    <#--<td>Первомайский, Кировская обл.<br/>Первомайский, Кировская обл.</td>-->
-                    <#--<td>2.07 l</td>-->
-                <#--</tr>-->
+            <#--<tr>-->
+            <#--<td>10.12.2020-09:44:36</td>-->
+            <#--<td>110</td>-->
+            <#--<td>100</td>-->
+            <#--</tr>-->
 
-                <#--нужно будет продумать переход по нажатию на поездку, -->
-                <#--чтобы отобразить поездку на карте на странице trackviewer-->
+            <#--нужно будет продумать переход по нажатию на поездку, -->
+            <#--чтобы отобразить поездку на карте на странице trackviewer-->
 
             </tbody>
         </table>
@@ -143,7 +143,7 @@
 
 </main>
 
-  <#include "/common/footer.ftl" parse=false>
+<#include "/common/footer.ftl" parse=false>
 </body>
 
 

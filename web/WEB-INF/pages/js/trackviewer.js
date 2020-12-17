@@ -6,6 +6,11 @@ trackviewer.module = (function () {
     var dateend; // string
     var invnomer; // string
 
+    var speedingx; // string
+    var speedingy; // string
+    var speedinginfo;
+
+
     // var echo = function() {
     //     console.log("привет trackviewer");
     // };
@@ -57,6 +62,12 @@ trackviewer.module = (function () {
         dateend = getUrlParameterByName("dateend");
         invnomer = getUrlParameterByName("invnom");
 
+        // если показываем превышение то будут переданы координаты точки превышения
+        speedingx = getUrlParameterByName("speedingx");
+        speedingy = getUrlParameterByName("speedingy");
+        speedinginfo = getUrlParameterByName("speedinginfo");
+
+
         if (datebeg == null || datebeg == "") {
             var today_datebeg = new Date();
             today_datebeg.setHours(0, 0, 0, 0);
@@ -68,6 +79,7 @@ trackviewer.module = (function () {
             today_dateend.setHours(23, 59, 59, 999);
             dateend = convertDateToPicker(today_dateend)
         }
+
 
         $("#beginDate").val(datebeg);
         $("#endDate").val(dateend);
@@ -196,6 +208,11 @@ trackviewer.module = (function () {
                     // 4 - получаем данные
                     // 5 - обрабатываем данные, рисуем маршрут
                     trackviewerosm.module.drawLines(data.content);
+
+                    if (speedinginfo != null && speedinginfo != "all") {
+                        trackviewerosm.module.addSpeedingObjectsToMap(speedingx, speedingy, "p_sp0", "p_sp0", speedinginfo);
+                    }
+
                 }
                 console.log(data);
             },

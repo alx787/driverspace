@@ -10,12 +10,30 @@ trackviewerosm.module = (function () {
         map.layers[1].addFeatures(new OpenLayers.Feature.Vector(point0, { label: "", name: objName, PointId: objId }));
 
 
-        // точка на карте с надписью
+        // надпись
         var point0 = new OpenLayers.Geometry.Point(lon, lat);
         point0.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
         map.layers[2].addFeatures(new OpenLayers.Feature.Vector(point0, { label: objLabel, name: objName, ImgId: objId }));
 
     }
+
+
+    // добавление метки о превышении
+    var addSpeedingObjectsToMap = function(lon, lat, objId, objName, objLabel) {
+
+        // маркер
+        var point0 = new OpenLayers.Geometry.Point(parseFloat(lon), parseFloat(lat));
+        point0.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+        map.layers[4].addFeatures(new OpenLayers.Feature.Vector(point0, { label: "", name: objName, PointId: objId }));
+
+
+        // надпись
+        var point0 = new OpenLayers.Geometry.Point(lon, lat);
+        point0.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+        map.layers[2].addFeatures(new OpenLayers.Feature.Vector(point0, { label: objLabel, name: objName, ImgId: objId }));
+
+    }
+
 
 
     //Предполагаемый форма данных: координаты разделены точкой с запятой, долгота с широтой разделены пробелом
@@ -119,6 +137,7 @@ trackviewerosm.module = (function () {
         //var layerMarkers = new OpenLayers.Layer.Markers("Equipments");
         //map.addLayer(layerMarkers);//добавляем этот слой к карте
 
+        // слой для размещения изображений - отметок маршрута
         var styleImage = new OpenLayers.Style(
             {
                 graphicWidth: 32,
@@ -141,7 +160,7 @@ trackviewerosm.module = (function () {
 
         map.addLayer(layerImage);//добавляем этот слой к карте
 
-
+        // слой для отображения текстовых меток
         //labelYOffset - сдвиг текста по вертикале относительно точки
         var stylePoint = new OpenLayers.Style(
             {
@@ -165,7 +184,7 @@ trackviewerosm.module = (function () {
         map.addLayer(layerLables);
 
 
-        // слой для отображения поездок
+        // слой для отображения поездок - линий отображающих маршрут
 
         //labelYOffset - сдвиг текста по вертикале относительно точки
         var stylePointTrack = new OpenLayers.Style(
@@ -189,6 +208,28 @@ trackviewerosm.module = (function () {
         map.addLayer(layerTracks);
 
 
+        // слой для изображений превышения скорости
+        var styleImageSpeeding = new OpenLayers.Style(
+            {
+                graphicWidth: 32,
+                graphicHeight: 32,
+                graphicYOffset: -38,
+                label: "${label}",
+                externalGraphic: "pages/img/attention_48.png",
+                fontSize: 12
+            });
+
+
+        var layerImageSpeeding = new OpenLayers.Layer.Vector("ImagesSpeeding",
+            {
+                styleMap: new OpenLayers.StyleMap(
+                    { "default": styleImageSpeeding,
+                        "select": { rotation: 45}
+                    })
+            });
+
+
+        map.addLayer(layerImageSpeeding);
 
         // шкала для выбора заранее настроенного масштаба
         //map.addControl(new OpenLayers.Control.PanZoomBar());
@@ -238,6 +279,7 @@ trackviewerosm.module = (function () {
 
     return {
         initMap:initMap,
-        drawLines:drawLines
+        drawLines:drawLines,
+        addSpeedingObjectsToMap:addSpeedingObjectsToMap
     }
 }());
