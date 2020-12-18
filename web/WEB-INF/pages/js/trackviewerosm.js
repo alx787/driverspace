@@ -32,6 +32,13 @@ trackviewerosm.module = (function () {
         point0.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
         map.layers[2].addFeatures(new OpenLayers.Feature.Vector(point0, { label: objLabel, name: objName, ImgId: objId }));
 
+
+        var lonlat = new OpenLayers.LonLat(lon, lat);
+        map.setCenter(lonlat.transform(
+            new OpenLayers.Projection("EPSG:4326"), // переобразование в WGS 1984
+            new OpenLayers.Projection("EPSG:900913") // переобразование проекции
+            ), 16 // масштаб 17 крут
+        );
     }
 
 

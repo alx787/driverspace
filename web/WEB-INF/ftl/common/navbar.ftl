@@ -15,10 +15,13 @@
                     <a href="pllist" class="nav-link">Путевые листы</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Нарушения скоростного режима</a>
+                    <a href="tsselect?mode=track" class="nav-link">Пробег</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Штрафы</a>
+                    <a href="tsselect?mode=fuelrate" class="nav-link">Расход топлива</a>
+                </li>
+                <li class="nav-item">
+                    <a href="tsselect?mode=speeding" class="nav-link">Нарушения скоростного режима</a>
                 </li>
                 <li class="nav-item">
                     <a href="exit" class="nav-link">Выход</a>

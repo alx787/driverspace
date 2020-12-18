@@ -68,7 +68,7 @@
     <div class="container">
 
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-            <h3>Показать пробег</h3>
+            <h3>Маршрут</h3>
         </div>
 
         <form>
