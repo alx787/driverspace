@@ -151,4 +151,8 @@ public class WebController {
         return "speedingviewer";
     }
 
+    @RequestMapping(value = "/payslip", method = RequestMethod.GET)
+    public String payslip(Model model, HttpServletRequest request) {
+        return "payslip";
+    }
 }
