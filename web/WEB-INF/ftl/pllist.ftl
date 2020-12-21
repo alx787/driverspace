@@ -39,8 +39,21 @@
                 ignoreReadonly: true
             });
 
-            // дата окончания периода
+            // кнопка обновления
             $("#pllistrefresh").on("click", function () {
+
+                //схема такая
+                // проверяем флаг блокировки кнопок
+                // если установлен то выходми
+                if (pllist.module.getBlockButtons()) {
+                    return false;
+                }
+
+                // если не установлен то устанавливаем
+                pllist.module.setBlockButtons(true);
+                // добавляем спиннер
+                pllist.module.addSpinnerToButton(this);
+                // выполняем действие
                 pllist.module.refreshBtnHandler();
             });
 
@@ -52,6 +65,12 @@
             $("#pager-top a.page-link").on("click", function (e) {
                 e.preventDefault();
 
+                if (pllist.module.getBlockButtons()) {
+                    return false;
+                }
+
+                pllist.module.setBlockButtons(true);
+
                 var currentLinkText = $(this).text();
                 var pagerLinkObj = $("#pager-top a.page-link");
 
@@ -62,6 +81,12 @@
             $("#pager-bottom a.page-link").on("click", function (e) {
                 e.preventDefault();
 
+                if (pllist.module.getBlockButtons()) {
+                    return false;
+                }
+
+                pllist.module.setBlockButtons(true);
+
                 var currentLinkText = $(this).text();
                 var pagerLinkObj = $("#pager-bottom a.page-link");
 
@@ -70,6 +95,8 @@
 
 
             // обновить таблицу
+            notifications.module.showNotification("Путевые листы", "Получение данных ...", 5);
+            pllist.module.setBlockButtons(true);
             pllist.module.getPllist();
 
 	    });

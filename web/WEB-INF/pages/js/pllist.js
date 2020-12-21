@@ -4,6 +4,7 @@ pllist.module = (function () {
 
     var currentPage = 1;
     var totalPages = 0;
+    var blockButtons = false; // флаг блокировки нажатий на кнопки
 
     var setCurrentPage = function(newCurrentPage) {
         currentPage = newCurrentPage;
@@ -242,6 +243,9 @@ pllist.module = (function () {
                     var plmas = data.content.lists;
 
                     if (plmas == null) {
+                        removeSpinnerFromButton($("#pllistrefresh"));
+                        setBlockButtons(false);
+                        notifications.module.showNotification("Путевые листы", "Ничего не найдено", 5);
                         return false;
                     }
 
@@ -255,6 +259,9 @@ pllist.module = (function () {
                     setupPaginators();
 
                     if (plmas.length == 0) {
+                        removeSpinnerFromButton($("#pllistrefresh"));
+                        setBlockButtons(false);
+                        notifications.module.showNotification("Путевые листы", "Ничего не найдено", 5);
                         return false;
                     }
 
@@ -272,6 +279,12 @@ pllist.module = (function () {
 
                     for (var i = 0; i < tableSize; i++) {
                         tableRowsObj.eq(i).on("click", function () {
+
+                            if (getBlockButtons()) {
+                                return false;
+                            }
+
+
                             // console.log(this);
                             // console.log($(this));
                             // console.log($(this).text());
@@ -301,8 +314,15 @@ pllist.module = (function () {
                 console.log(data);
 
 
+                removeSpinnerFromButton($("#pllistrefresh"));
+                setBlockButtons(false);
+                notifications.module.showNotification("Путевые листы", "Найдено " + data.content.lists.length, 5);
+
             },
             error: function(data) {
+                removeSpinnerFromButton($("#pllistrefresh"));
+                setBlockButtons(false);
+                notifications.module.showNotification("Путевые листы (ошибка)", data.message, 0);
 
             },
         });
@@ -405,7 +425,7 @@ pllist.module = (function () {
 
     }
 
-    // процедура - обрабатывает нажатия на кнопки пагинотары
+    // процедура - обрабатывает нажатия на кнопки пагинатора
     // currentLinkText - текст нажатой кнопки
     // pagerLinkObj - объект пагинатора
     var pageClickHandler = function (currentLinkText, pagerLinkObj) {
@@ -451,12 +471,35 @@ pllist.module = (function () {
         goToPage(currentPage + 1);
     }
 
+    var setBlockButtons = function(newSet) {
+        blockButtons = newSet;
+    }
+
+    var getBlockButtons = function(newSet) {
+        return blockButtons;
+    }
+
+
+    var addSpinnerToButton = function(bthObj) {
+        var spinnerTemplate = "<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\" style=\"margin: 5px;\"></span>";
+        var btntext = $(bthObj).text();
+        $(bthObj).text("");
+        $(bthObj).append(spinnerTemplate + btntext);
+    }
+
+    var removeSpinnerFromButton = function(bthObj) {
+        $(bthObj).find("span").remove();
+    }
+
 
     return {
         getPllistPeriod:getPllistPeriod,
         getPllist:getPllist,
         refreshBtnHandler:refreshBtnHandler,
-        pageClickHandler:pageClickHandler
+        pageClickHandler:pageClickHandler,
+        setBlockButtons:setBlockButtons,
+        addSpinnerToButton:addSpinnerToButton,
+        getBlockButtons:getBlockButtons
         // setCurrentPage:setCurrentPage,
         // setTotalPages:setTotalPages,
         // getCurrentPage:getCurrentPage,

@@ -1,6 +1,6 @@
 
 <!-- push notification -->
-<div aria-live="polite" aria-atomic="true" style="position: absolute; top: 70px; right: 5px; min-height: 200px; width: 300px">
+<div aria-live="polite" aria-atomic="true" style="position: fixed; top: 70px; right: 5px; min-height: 100px; width: 300px; z-index: 100">
     <!-- Position it -->
     <div id="notification-container" style="position: absolute; top: 0; right: 0;">
 
