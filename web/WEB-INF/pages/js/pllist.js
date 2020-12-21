@@ -209,6 +209,29 @@ pllist.module = (function () {
                     // количество страниц
                     totalPages = 0;
 
+
+                    /////////////////////////////////////////////////
+                    // заполним селектор с вариантами фильтрации по ТС
+                    if ($("#vehicle option").length == 1) {
+                        var tsArr = data.content.infovehiclelist;
+                        for (var i = 0; i < tsArr.length; i++) {
+                            $('#vehicle').append($('<option>').val(tsArr[i].invnomer).text(tsArr[i].regnomer));
+                        }
+                    }
+
+                    // устанавливаем текущее значение
+                    // если в начале документа непустое значение то берем его
+                    // иначе берем из селекта
+                    if ($("#vehicleid").text().trim() != "") {
+                        $("#vehicle").val($("#vehicleid").text());
+                    };
+
+                    // и затираем его
+                    $("#vehicleid").text("");
+                    //
+                    /////////////////////////////////////////////////
+
+
                     // таблица объект
                     var tableObj = $("#pltable");
 
@@ -272,30 +295,6 @@ pllist.module = (function () {
                         })
                     }
 
-                    /////////////////////////////////////////////////
-                    // заполним селектор с вариантами фильтрации по ТС
-
-
-                    // $("#vehicle option").each(function() {
-                    //     $(this).remove();
-                    // });
-
-                    if ($("#vehicle option").length == 1) {
-                        var tsArr = data.content.infovehiclelist;
-                        for (var i = 0; i < tsArr.length; i++) {
-                            $('#vehicle').append($('<option>').val(tsArr[i].invnomer).text(tsArr[i].regnomer));
-                        }
-                    }
-
-                    // устанавливаем текущее значение
-                    // если в начале документа непустое значение то берем его
-                    // иначе берем из селекта
-                    if ($("#vehicleid").text().trim() != "") {
-                        $("#vehicle").val($("#vehicleid").text());
-                    };
-
-                    // и затираем его
-                    $("#vehicleid").text("");
 
                 }
 

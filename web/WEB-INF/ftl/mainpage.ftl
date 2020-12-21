@@ -44,21 +44,29 @@
         // события кнопок
         // просмотр пл
         $("#gotoPllistBtn").on("click", function () {
+          mainpage.module.disableButtons();
+          mainpage.module.addSpinnerToButton(this);
           mainpage.module.gotoPllist();
         })
 
         // просмотр пробегов
         $("#gotoPlprobegBtn").on("click", function () {
+          mainpage.module.addSpinnerToButton(this);
+          mainpage.module.gotoPllist();
           mainpage.module.gotoPlprobeg();
         })
 
         // просмотр поездок с расходом топлива
         $("#gotoPlfuelrateBtn").on("click", function () {
-            mainpage.module.gotoPlfuelrate();
+          mainpage.module.addSpinnerToButton(this);
+          mainpage.module.gotoPllist();
+          mainpage.module.gotoPlfuelrate();
         })
 
         // просмотр превышений скорости
         $("#gotoPlspeedingBtn").on("click", function () {
+          mainpage.module.addSpinnerToButton(this);
+          mainpage.module.gotoPllist();
           mainpage.module.gotoPlspeeding();
         })
 

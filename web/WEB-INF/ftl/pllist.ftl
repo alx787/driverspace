@@ -88,6 +88,8 @@
 
 <main role="main">
 
+  <#include "/common/notifications.ftl" parse=false>
+
 
 <div class="container">
 
@@ -137,7 +139,7 @@
 
     </div>
 
-    <div class="form-group row justify-content-center">
+    <div class="form-group row justify-content-end">
         <button id="pllistrefresh" type="button" class="btn btn-primary">Обновить</button>
     </div>
 

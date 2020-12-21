@@ -13,6 +13,8 @@
 <!-- Custom styles for this template -->
 <link rel="stylesheet" type="text/css" href="pages/css/jumbotron.css">
 
+<link rel="stylesheet" type="text/css" href="pages/css/notifications.css">
+
 <script type="text/javascript" src="pages/jq/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="pages/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript" src="pages/popper/umd/popper.min.js"></script>
@@ -20,5 +22,7 @@
 
 <script type="text/javascript" src="pages/js/utils.js"></script>
 <script type="text/javascript" src="pages/js/checkauth.js"></script>
+
+<script type="text/javascript" src="pages/js/notifications.js"></script>
 
 

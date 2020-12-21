@@ -352,6 +352,32 @@ mainpage.module = (function () {
         return dateend;
     }
 
+    var disableButtons = function() {
+        $("#gotoPllistBtn").prop("disabled", true);
+        $("#gotoPlprobegBtn").prop("disabled", true);
+        $("#gotoPlfuelrateBtn").prop("disabled", true);
+        $("#gotoPlspeedingBtn").prop("disabled", true);
+    }
+
+    var enableButtons = function() {
+        $("#gotoPllistBtn").prop("disabled", false);
+        $("#gotoPlprobegBtn").prop("disabled", false);
+        $("#gotoPlfuelrateBtn").prop("disabled", false);
+        $("#gotoPlspeedingBtn").prop("disabled", false);
+    }
+
+    var addSpinnerToButton = function(bthObj) {
+        var spinnerTemplate = "<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\" style=\"margin: 5px;\"></span>";
+        var btntext = $(bthObj).text();
+        $(bthObj).text("");
+        $(bthObj).append(spinnerTemplate + btntext);
+    }
+
+    var removeSpinnerFromButton = function(bthObj) {
+        $(bthObj).find("span").remove();
+    }
+
+
     return {
         getDriverInfo:getDriverInfo,
         getDateInfo:getDateInfo,
@@ -360,7 +386,12 @@ mainpage.module = (function () {
         gotoPlfuelrate:gotoPlfuelrate,
         gotoPlspeeding:gotoPlspeeding,
         getDatebeg:getDatebeg,
-        getDateend:getDateend
+        getDateend:getDateend,
+        disableButtons:disableButtons,
+        enableButtons:enableButtons,
+        addSpinnerToButton:addSpinnerToButton,
+        removeSpinnerFromButton:removeSpinnerFromButton
+
     }
 
 
