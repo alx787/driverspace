@@ -38,6 +38,14 @@
 
             $("#refreshmars").on("click", function (e) {
                 e.preventDefault();
+
+                if (speedingviewer.module.getBlockButtons()) {
+                    return false;
+                }
+
+                speedingviewer.module.setBlockButtons(true);
+                speedingviewer.module.addSpinnerToButton(this);
+
                 speedingviewer.module.fillSpeeding();
             });
 
@@ -62,11 +70,12 @@
 
 <main role="main">
 
+    <#include "/common/notifications.ftl" parse=false>
 
     <div class="container">
 
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-            <h3>Превышения скорости</h3>
+            <h3>Нарушения скоростного режима</h3>
         </div>
 
         <form>

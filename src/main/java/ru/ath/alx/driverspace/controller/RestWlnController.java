@@ -144,7 +144,7 @@ public class RestWlnController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
 
-            return new WlnMarsAnswer("error", "ошибка ответа сервера", "", null);
+            return new WlnMarsAnswer("error", "", "ошибка ответа сервера", null);
         }
 
         return wlnMarsAnswer;

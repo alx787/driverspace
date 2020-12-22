@@ -314,15 +314,16 @@ pllist.module = (function () {
                 console.log(data);
 
 
-                removeSpinnerFromButton($("#pllistrefresh"));
-                setBlockButtons(false);
                 notifications.module.showNotification("Путевые листы", "Найдено " + data.content.totalrecs, 3);
 
             },
             error: function(data) {
+                notifications.module.showNotification("Путевые листы (ошибка)", data.message, 0);
+
+            },
+            complete: function() {
                 removeSpinnerFromButton($("#pllistrefresh"));
                 setBlockButtons(false);
-                notifications.module.showNotification("Путевые листы (ошибка)", data.message, 0);
 
             },
         });

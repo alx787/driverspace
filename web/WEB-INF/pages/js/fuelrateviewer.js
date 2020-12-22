@@ -6,6 +6,9 @@ fuelrateviewer.module = (function () {
     var dateend; // string
     var invnomer; // string
 
+    var blockButtons = false; // флаг блокировки нажатий на кнопки
+
+
     // получить из даты строку в формате dd.mm.yyyy hh:mm
     var convertDateToPicker = function(dateval) {
 
@@ -163,31 +166,32 @@ fuelrateviewer.module = (function () {
                                 row = row.replace("__trackendx__", data.content.detail[i].trackendx);
                                 row = row.replace("__trackendy__", data.content.detail[i].trackendy);
 
-
-
                                 tableBodyObj.append(row);
-
                             }
 
                             // события нажатия
                             $("#tracktable tbody tr").each(function (indx) {
+
+                                // if (getBlockButtons()) {
+                                //     return false;
+                                // }
 
                                 $(this).on("click", function (e) {
                                     var coords = $(this).find("span");
                                     if (coords.length == 2) {
                                         window.location.assign("/" + getContextUrl() + "/trackviewer?invnom=" + $("#vehicle").val() + "&datebeg=" + $(coords[0]).text() + "&dateend=" + $(coords[1]).text());
                                     }
-
                                 })
-
-
                             })
 
+                            notifications.module.showNotification("Расход топлива", "Найдено " + data.content.detail.length, 3);
+
+                        } else {
+                            notifications.module.showNotification("Расход топлива", "Нет данных о движении", 3);
                         }
+                    } else {
+                        notifications.module.showNotification("Расход топлива (ошибка)", "Нет данных мониторинга", 0);
                     }
-
-
-
 
                     ////////////////////////////////////////////////
                     // установим значение в пробегах
@@ -202,12 +206,24 @@ fuelrateviewer.module = (function () {
                     //
                     //     }
                     // }
+                } else {
+                    notifications.module.showNotification("Расход топлива (ошибка)", data.description, 1);
+                    notifications.module.showNotification("Расход топлива (ошибка)", "Не найдены данные о расходе топлива", 3);
+
                 }
                 console.log(data);
             },
             error: function(data) {
+                console.log("ошибка при получении данных для построения маршута");
+                notifications.module.showNotification("Расход топлива (ошибка)", "Ошибка при получении данных о передвижении", 0);
 
             },
+            complete: function() {
+                setBlockButtons(false);
+                removeSpinnerFromButton($("#refreshmars"));
+
+            },
+
         });
 
     }
@@ -253,10 +269,32 @@ fuelrateviewer.module = (function () {
         //
         // });
 
+    var setBlockButtons = function(newSet) {
+        blockButtons = newSet;
+    }
+
+    var getBlockButtons = function() {
+        return blockButtons;
+    }
+
+    var addSpinnerToButton = function(bthObj) {
+        var spinnerTemplate = "<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\" style=\"margin: 5px;\"></span>";
+        var btntext = $(bthObj).text();
+        $(bthObj).text("");
+        $(bthObj).append(spinnerTemplate + btntext);
+    }
+
+    var removeSpinnerFromButton = function(bthObj) {
+        $(bthObj).find("span").remove();
+    }
 
 
     return {
         initializ:initializ,
-        fillTracks:fillTracks
+        fillTracks:fillTracks,
+        setBlockButtons:setBlockButtons,
+        getBlockButtons:getBlockButtons,
+        addSpinnerToButton:addSpinnerToButton,
+        removeSpinnerFromButton:removeSpinnerFromButton
     }
 }());

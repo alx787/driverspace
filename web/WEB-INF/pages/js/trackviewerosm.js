@@ -30,7 +30,7 @@ trackviewerosm.module = (function () {
         // надпись
         var point0 = new OpenLayers.Geometry.Point(lon, lat);
         point0.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
-        map.layers[2].addFeatures(new OpenLayers.Feature.Vector(point0, { label: objLabel, name: objName, ImgId: objId }));
+        map.layers[5].addFeatures(new OpenLayers.Feature.Vector(point0, { label: objLabel, name: objName, ImgId: objId }));
 
 
         var lonlat = new OpenLayers.LonLat(lon, lat);
@@ -237,6 +237,29 @@ trackviewerosm.module = (function () {
 
 
         map.addLayer(layerImageSpeeding);
+
+        // слой для текстовых меток о превышении скорости
+        var stylePointSpeeding = new OpenLayers.Style(
+            {
+                pointRadius: 5,
+                strokeColor: "red",
+                strokeWidth: 2,
+                fillColor: "lime",
+                labelYOffset: 60,
+                label: "${label}",
+                fontSize: 16
+            });
+
+        //создаем новый слой для текстовых меток
+        var layerLablesSpeeding = new OpenLayers.Layer.Vector("Lables", {
+            styleMap: new OpenLayers.StyleMap(
+                { "default": stylePointSpeeding,
+                    "select": { pointRadius: 20}
+                })
+        });
+
+        map.addLayer(layerLablesSpeeding);
+
 
         // шкала для выбора заранее настроенного масштаба
         //map.addControl(new OpenLayers.Control.PanZoomBar());

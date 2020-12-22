@@ -6,6 +6,8 @@ speedingviewer.module = (function () {
     var dateend; // string
     var invnomer; // string
 
+    var blockButtons = false; // флаг блокировки нажатий на кнопки
+
     // var echo = function() {
     //     console.log("привет speedingviewer");
     // };
@@ -229,10 +231,9 @@ speedingviewer.module = (function () {
 
                                     // нужно вычислить период за час до и час после превышения
                                     var hours = 1; // период интервала
-                                    var speedingdate = $(this).find("div").text() + " cкорость " + speedVals[1].innerText.replace(" km/h", "") + ", ограничение " + speedVals[2].innerText.replace(" km/h", "");
+                                    var speedingdate = $(this).find("div").text() + "%0D%0A cкорость: " + speedVals[1].innerText.replace(" km/h", "") + "%0D%0A ограничение: " + speedVals[2].innerText.replace(" km/h", "");
                                     var datebeg_s;
                                     var dateend_s;
-
                                     var varDate = convertPickerToDate(convertWlnRestToPicker(speedingdate));
 
                                     datebeg_s = convertDateToPicker(addHoursToDate(varDate, (-1) * hours));
@@ -253,12 +254,15 @@ speedingviewer.module = (function () {
 
 
                             })
+                            notifications.module.showNotification("Нарушения", "Найдено " + data.content.length, 3);
 
+                        } else {
+                            notifications.module.showNotification("Нарушения (ошибка)", "Нет данных о движении", 3);
                         }
+                    } else {
+                        notifications.module.showNotification("Нарушения (ошибка)", "Нет данных мониторинга", 0);
+
                     }
-
-
-
 
                     ////////////////////////////////////////////////
                     // установим значение в пробегах
@@ -273,10 +277,21 @@ speedingviewer.module = (function () {
                     //
                     //     }
                     // }
+                } else  {
+                    notifications.module.showNotification("Нарушения (ошибка)", data.description, 1);
+                    notifications.module.showNotification("Нарушения (ошибка)", "Не найдены данные о нарушениях", 3);
+
                 }
                 console.log(data);
             },
             error: function(data) {
+                console.log("ошибка при получении данных о нарушениях");
+                notifications.module.showNotification("Нарушения (ошибка)", "Ошибка при получении данных о нарушениях", 0);
+
+            },
+            complete: function(data) {
+                setBlockButtons(false);
+                removeSpinnerFromButton($("#refreshmars"));
 
             },
         });
@@ -284,9 +299,32 @@ speedingviewer.module = (function () {
         console.log("==============");
     };
 
+    var setBlockButtons = function(newSet) {
+        blockButtons = newSet;
+    }
+
+    var getBlockButtons = function() {
+        return blockButtons;
+    }
+
+    var addSpinnerToButton = function(bthObj) {
+        var spinnerTemplate = "<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\" style=\"margin: 5px;\"></span>";
+        var btntext = $(bthObj).text();
+        $(bthObj).text("");
+        $(bthObj).append(spinnerTemplate + btntext);
+    }
+
+    var removeSpinnerFromButton = function(bthObj) {
+        $(bthObj).find("span").remove();
+    }
+
     return {
         // echo:echo,
         initializ:initializ,
-        fillSpeeding:fillSpeeding
+        fillSpeeding:fillSpeeding,
+        setBlockButtons:setBlockButtons,
+        getBlockButtons:getBlockButtons,
+        addSpinnerToButton:addSpinnerToButton,
+        removeSpinnerFromButton:removeSpinnerFromButton
     }
 }());

@@ -38,6 +38,14 @@
 
             $("#refreshmars").on("click", function (e) {
                 e.preventDefault();
+
+                if (fuelrateviewer.module.getBlockButtons()) {
+                    return false;
+                }
+
+                fuelrateviewer.module.setBlockButtons(true);
+                fuelrateviewer.module.addSpinnerToButton(this);
+
                 fuelrateviewer.module.fillTracks();
             });
 
@@ -62,6 +70,7 @@
 
 <main role="main">
 
+    <#include "/common/notifications.ftl" parse=false>
 
     <div class="container">
 

@@ -205,7 +205,9 @@ trackviewer.module = (function () {
             success: function (data) {
                 if (data.status == "error") {
                     // showErrorMsg(data.description);
-                    console.log(data.description);
+                    console.log(data.message);
+                    notifications.module.showNotification("Маршрут (ошибка)", "Нет данных мониторинга", 0);
+
                 } else {
                     // 4 - получаем данные
                     // 5 - обрабатываем данные, рисуем маршрут
@@ -215,12 +217,18 @@ trackviewer.module = (function () {
                         trackviewerosm.module.addSpeedingObjectsToMap(speedingx, speedingy, "p_sp0", "p_sp0", speedinginfo);
                     }
 
+                    if (data.content.length == 0) {
+                        notifications.module.showNotification("Маршрут", "Нет данных о движении т/с", 3);
+
+                    }
                 }
                 console.log(data);
             },
             error: function (data) {
                 // showErrorMsg("ошибка при получении данных для построения маршута");
                 console.log("ошибка при получении данных для построения маршута");
+                notifications.module.showNotification("Маршрут (ошибка)", "Ошибка при получении данных для построения маршута", 0);
+
             },
             complete: function () {
                 setBlockButtons(false);
@@ -228,28 +236,7 @@ trackviewer.module = (function () {
 
             },
 
-        });
-
-
-        var setBlockButtons = function(newSet) {
-            blockButtons = newSet;
-        }
-
-        var getBlockButtons = function() {
-            return blockButtons;
-        }
-
-        var addSpinnerToButton = function(bthObj) {
-            var spinnerTemplate = "<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\" style=\"margin: 5px;\"></span>";
-            var btntext = $(bthObj).text();
-            $(bthObj).text("");
-            $(bthObj).append(spinnerTemplate + btntext);
-        }
-
-        var removeSpinnerFromButton = function(bthObj) {
-            $(bthObj).find("span").remove();
-        }
-
+        })
 
 
         // // получим данные о пробеге
@@ -290,6 +277,26 @@ trackviewer.module = (function () {
         //
         // });
 
+    }
+
+
+    var setBlockButtons = function(newSet) {
+        blockButtons = newSet;
+    }
+
+    var getBlockButtons = function() {
+        return blockButtons;
+    }
+
+    var addSpinnerToButton = function(bthObj) {
+        var spinnerTemplate = "<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\" style=\"margin: 5px;\"></span>";
+        var btntext = $(bthObj).text();
+        $(bthObj).text("");
+        $(bthObj).append(spinnerTemplate + btntext);
+    }
+
+    var removeSpinnerFromButton = function(bthObj) {
+        $(bthObj).find("span").remove();
     }
 
     return {
