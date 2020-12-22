@@ -43,6 +43,14 @@
 
             $("#refreshmars").on("click", function (e) {
                 e.preventDefault();
+
+                if (trackviewer.module.getBlockButtons()) {
+                    return false;
+                }
+
+                trackviewer.module.setBlockButtons(true);
+                trackviewer.module.addSpinnerToButton(this);
+
                 trackviewer.module.drawroute();
             });
 
@@ -64,6 +72,7 @@
 
 <main role="main">
 
+    <#include "/common/notifications.ftl" parse=false>
 
     <div class="container">
 

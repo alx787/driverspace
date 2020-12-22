@@ -95,7 +95,7 @@
 
 
             // обновить таблицу
-            notifications.module.showNotification("Путевые листы", "Получение данных ...", 5);
+            notifications.module.showNotification("Путевые листы", "Получение данных ...", 3);
             pllist.module.setBlockButtons(true);
             pllist.module.getPllist();
 

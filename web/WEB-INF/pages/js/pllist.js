@@ -245,7 +245,7 @@ pllist.module = (function () {
                     if (plmas == null) {
                         removeSpinnerFromButton($("#pllistrefresh"));
                         setBlockButtons(false);
-                        notifications.module.showNotification("Путевые листы", "Ничего не найдено", 5);
+                        notifications.module.showNotification("Путевые листы", "Ничего не найдено", 3);
                         return false;
                     }
 
@@ -316,7 +316,7 @@ pllist.module = (function () {
 
                 removeSpinnerFromButton($("#pllistrefresh"));
                 setBlockButtons(false);
-                notifications.module.showNotification("Путевые листы", "Найдено " + data.content.lists.length, 5);
+                notifications.module.showNotification("Путевые листы", "Найдено " + data.content.totalrecs, 3);
 
             },
             error: function(data) {

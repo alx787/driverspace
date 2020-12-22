@@ -10,6 +10,8 @@ trackviewer.module = (function () {
     var speedingy; // string
     var speedinginfo;
 
+    var blockButtons = false; // флаг блокировки нажатий на кнопки
+
 
     // var echo = function() {
     //     console.log("привет trackviewer");
@@ -221,10 +223,33 @@ trackviewer.module = (function () {
                 console.log("ошибка при получении данных для построения маршута");
             },
             complete: function () {
+                setBlockButtons(false);
+                removeSpinnerFromButton($("#refreshmars"));
 
             },
 
         });
+
+
+        var setBlockButtons = function(newSet) {
+            blockButtons = newSet;
+        }
+
+        var getBlockButtons = function() {
+            return blockButtons;
+        }
+
+        var addSpinnerToButton = function(bthObj) {
+            var spinnerTemplate = "<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\" style=\"margin: 5px;\"></span>";
+            var btntext = $(bthObj).text();
+            $(bthObj).text("");
+            $(bthObj).append(spinnerTemplate + btntext);
+        }
+
+        var removeSpinnerFromButton = function(bthObj) {
+            $(bthObj).find("span").remove();
+        }
+
 
 
         // // получим данные о пробеге
@@ -269,6 +294,10 @@ trackviewer.module = (function () {
 
     return {
         initializ:initializ,
-        drawroute:drawroute
+        drawroute:drawroute,
+        setBlockButtons:setBlockButtons,
+        getBlockButtons:getBlockButtons,
+        addSpinnerToButton:addSpinnerToButton,
+        removeSpinnerFromButton:removeSpinnerFromButton
     }
 }());

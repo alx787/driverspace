@@ -43,8 +43,13 @@
             // получим значения из строки url
             pledits.module.getSearchParameters();
 
+
+
             /////////////////////////////////////////////////////
+            notifications.module.showNotification("Путевой лист", "Получение данных ...", 5);
             pledits.module.getPldata();
+
+
 
             // приделаем событие нажатия на окно предупреждения
             $("#alertPopup").on("click", function () {
@@ -64,6 +69,8 @@
 
 
 <main role="main">
+
+    <#include "/common/notifications.ftl" parse=false>
 
 
     <div class="container">
@@ -329,7 +336,7 @@
     <div class="form-group row justify-content-center group-marg">
 
         <div class="col-sm-6 col-md-3 button-marg">
-            <button type="button" class="btn btn-secondary" onclick="pledits.module.exitWithoutSave()">Выход</button>
+            <button id="exitwithoutsave"type="button" class="btn btn-secondary" onclick="pledits.module.exitWithoutSave()">Выход</button>
         </div>
 
         <div class="col-sm-6 col-md-3 button-marg">

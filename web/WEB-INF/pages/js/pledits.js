@@ -11,6 +11,8 @@ pledits.module = (function () {
     var numpl = "";
     var vehicle = "";
 
+
+
     var showMessage = function() {
         console.log("=========== проверка ===========");
         return false;
@@ -189,10 +191,11 @@ pledits.module = (function () {
                             $("#rowRelaxTime" + ii).val(plparts[i].breaklen);
                         }
                 }
-                console.log(data);
 
+                console.log(data);
             },
             error: function(data) {
+                notifications.module.showNotification("Путевой лист (ошибка)", "Ошибка при получении", 0);
 
             },
         });
@@ -218,6 +221,10 @@ pledits.module = (function () {
         $(".card:not(\".hidden-card\") .card-header .row button").each(function() {
             $(this).attr("disabled", true);
         })
+
+        // закрыть все поля ввода
+        $("input").prop("readonly", true);
+        $("select").prop("disabled", true);
 
     }
 
@@ -283,7 +290,7 @@ pledits.module = (function () {
     var savePl = function(sendToDispacher) {
 
         // включим спиннер загрузки
-        showModalAjaxSpin();
+        // showModalAjaxSpin();
 
         // userid
         var cookies = checkauth.module.getCookies();
@@ -389,17 +396,18 @@ pledits.module = (function () {
                     gotoPllistPage();
 
                 } else {
-                    hideModalAjaxSpin();
-                    showAlertPopup(data.message);
+                    // hideModalAjaxSpin();
+                    // showAlertPopup(data.message);
+                    notifications.module.showNotification("Путевой лист (ошибка)", data.message, 0);
                 }
 
                 console.log(data);
 
             },
             error: function(data) {
-                hideModalAjaxSpin();
-                showAlertPopup("ошибка при отправке данных");
-
+                // hideModalAjaxSpin();
+                // showAlertPopup("ошибка при отправке данных");
+                notifications.module.showNotification("Путевой лист (ошибка)", "Ошибка при сохранении", 0);
             },
         });
 
@@ -493,7 +501,16 @@ pledits.module = (function () {
     }
 
 
-    return {
+    // var disableButtons = function() {
+    //     $("#addRowToPl").prop("disabled", true);
+    //     $("#exitwithoutsave").prop("disabled", true);
+    //     $("#exitwithsave").prop("disabled", true);
+    //     $("#exitwithsavesend").prop("disabled", true);
+    //
+    // }
+
+
+        return {
         showMessage:showMessage,
         getPldata:getPldata,
         getSearchParameters:getSearchParameters,
