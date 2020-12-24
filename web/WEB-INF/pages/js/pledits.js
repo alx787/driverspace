@@ -11,6 +11,7 @@ pledits.module = (function () {
     var numpl = "";
     var vehicle = "";
 
+    var closed = false; // признак того что пл закрыт
 
 
     var showMessage = function() {
@@ -171,6 +172,7 @@ pledits.module = (function () {
 
                     // отключим кнопки отправки у закрытых пл
                     if (data.content.closed == "true") {
+                        closed = true;
                         disableButtons();
                         // $("#plclosed").text("закрыт");
                         // $("#exitwithsave").attr("disabled", true);
@@ -421,6 +423,12 @@ pledits.module = (function () {
     // события нажатий на кнопки
     var exitWithoutSave = function() {
 
+        // если пл закрыт то просто выходим
+        if (getClosed()) {
+            gotoPllistPage();
+        }
+
+
         var modalModeObj = $("#modalMode");
         var modalButtonObj = $("#modalButton");
 
@@ -509,8 +517,13 @@ pledits.module = (function () {
     //
     // }
 
+    var getClosed = function() {
+        return closed;
+    }
 
-        return {
+
+
+    return {
         showMessage:showMessage,
         getPldata:getPldata,
         getSearchParameters:getSearchParameters,
@@ -520,6 +533,7 @@ pledits.module = (function () {
         showAlertPopup:showAlertPopup,
         showModalAjaxSpin:showModalAjaxSpin,
         hideModalAjaxSpin:hideModalAjaxSpin,
+        getClosed:getClosed
 
     };
 

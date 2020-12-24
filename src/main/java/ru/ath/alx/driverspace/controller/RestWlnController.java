@@ -65,7 +65,19 @@ public class RestWlnController {
             return answer;
         }
 
-        String urlParams = "/track/gettrack/" + wlnTrackRequest.getInvnomer() + "/" + wlnTrackRequest.getDatebeg() + ":00/" + wlnTrackRequest.getDateend() + ":00";
+
+        String datebeg = wlnTrackRequest.getDatebeg();
+        if (datebeg.length() > 10) {
+            datebeg = datebeg + ":00";
+        }
+
+        String dateend = wlnTrackRequest.getDateend();
+        if (dateend.length() > 10) {
+            dateend = dateend + ":00";
+        }
+
+
+        String urlParams = "/track/gettrack/" + wlnTrackRequest.getInvnomer() + "/" + datebeg + "/" + dateend;
 
 //        log.warn(urlParams);
 

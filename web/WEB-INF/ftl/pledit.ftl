@@ -46,7 +46,7 @@
 
 
             /////////////////////////////////////////////////////
-            notifications.module.showNotification("Путевой лист", "Получение данных ...", 5);
+            notifications.module.showNotification("Путевой лист", "Получение данных ...", 3);
             pledits.module.getPldata();
 
 
